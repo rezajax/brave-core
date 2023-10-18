@@ -131,46 +131,50 @@ const runTests = (passthroughArgs, suite, buildConfig, options) => {
       braveArgs.push(`--test-launcher-filter-file="${filterFilePaths.join(';')}"`)
   }
 
-  if (config.targetOS === 'ios') {
-    util.run(path.join(config.outputDir, "iossim"), [
-      "-d", "\"iPhone 14 Pro\"",
-      path.join(config.outputDir, `${suite}.app`),
-      path.join(config.outputDir, `${suite}.app/PlugIns/${suite}_module.xctest`)
-    ], config.defaultOptions)
-  } else {
-    // Run the tests
-    getTestsToRun(config, suite).every((testSuite) => {
-      if (options.output) {
-        braveArgs.splice(braveArgs.indexOf('--gtest_output=xml:' + options.output), 1)
-        braveArgs.push(`--gtest_output=xml:${testSuite}.xml`)
-      }
-      if (config.targetOS === 'android') {
-        assert(
-            config.targetArch === 'x86' || options.manual_android_test_device,
-            'Only x86 build can be run automatically. For other builds please run test device manually and specify manual_android_test_device flag.')
-      }
-      if (config.targetOS === 'android' && !options.manual_android_test_device) {
-        // Specify emulator to run tests on
-        braveArgs.push(
-            `--avd-config tools/android/avd/proto/generic_android${options.android_test_emulator_version}.textpb`)
-      }
-      let runOptions = config.defaultOptions
-      if (options.output)
-        // When test results are saved to a file, callers (such as CI) generate
-        // and analyze test reports as a next step. These callers are typically
-        // not interested in the exit code of running the tests, because they
-        // get the information about test success or failure from the output
-        // file. On the other hand, callers are interested in errors that
-        // produce an exit code, such as test compilation failures. By ignoring
-        // the test exit code here, we give callers a chance to distinguish test
-        // failures (by looking at the output file) from compilation errors.
-        runOptions.continueOnFail = true
+  getTestsToRun(config, suite).every((testSuite) => {
+    if (options.output) {
+      braveArgs.splice(braveArgs.indexOf('--gtest_output=xml:' + options.output), 1)
+      braveArgs.push(`--gtest_output=xml:${testSuite}.xml`)
+    }
+    if (config.targetOS === 'android') {
+      assert(
+          config.targetArch === 'x86' || options.manual_android_test_device,
+          'Only x86 build can be run automatically. For other builds please run test device manually and specify manual_android_test_device flag.')
+    }
+    if (config.targetOS === 'android' && !options.manual_android_test_device) {
+      // Specify emulator to run tests on
+      braveArgs.push(
+          `--avd-config tools/android/avd/proto/generic_android${options.android_test_emulator_version}.textpb`)
+    }
+    let runOptions = config.defaultOptions
+    if (options.output)
+      // When test results are saved to a file, callers (such as CI) generate
+      // and analyze test reports as a next step. These callers are typically
+      // not interested in the exit code of running the tests, because they
+      // get the information about test success or failure from the output
+      // file. On the other hand, callers are interested in errors that
+      // produce an exit code, such as test compilation failures. By ignoring
+      // the test exit code here, we give callers a chance to distinguish test
+      // failures (by looking at the output file) from compilation errors.
+      runOptions.continueOnFail = true
+    if (config.targetOS === 'ios') {
+      let iossimArgs = [
+        '-d "iPhone 14 Pro"',
+        `-c "${braveArgs.join(' ')}"`,
+        '-i',
+        `${path.join(config.outputDir, getTestBinary(testSuite))}.app`
+      ]
+      let prog = util.run(path.join(config.outputDir, "iossim"), iossimArgs, runOptions)
+      // Don't run other tests if one has failed already, especially because
+      // this would overwrite the --output file (if given).
+      return prog.status === 0
+    } else {
       let prog = util.run(path.join(config.outputDir, getTestBinary(testSuite)), braveArgs, runOptions)
       // Don't run other tests if one has failed already, especially because
       // this would overwrite the --output file (if given).
       return prog.status === 0
-    })
-  }
+    }
+  })
 }
 
 module.exports = test
