@@ -326,7 +326,6 @@ function AssetSelection({ isAndroid }: Props) {
         cardHeader={
           <PageTitleHeader
             title={pageTitle}
-            showBackButton
             onBack={() => setShowFiatSelection(false)}
           />
         }
@@ -681,7 +680,6 @@ function PurchaseOptionSelection({ isAndroid }: Props) {
       cardHeader={
         <PageTitleHeader
           title={pageTitle}
-          showBackButton
           onBack={history.goBack}
         />
       }

@@ -47,6 +47,7 @@ import { fiatCurrencyEndpoints } from './endpoints/fiat_currency.endpoints'
 import { sitePermissionEndpoints } from './endpoints/site_permissions.endpoints'
 import { transactionEndpoints } from './endpoints/transaction.endpoints'
 import { swapEndpoints } from './endpoints/swap.endpoints'
+import { dappRadarEndpoints } from './endpoints/dapp_radar.endpoints'
 
 export function createWalletApi() {
   // base to add endpoints to
@@ -149,6 +150,8 @@ export function createWalletApi() {
       .injectEndpoints({ endpoints: sitePermissionEndpoints })
       // Brave Swap endpoints
       .injectEndpoints({ endpoints: swapEndpoints })
+      // dApp Radar Endpoints
+      .injectEndpoints({ endpoints: dappRadarEndpoints })
   )
 }
 
@@ -230,6 +233,7 @@ export const {
   useGetTokenInfoQuery,
   useGetTokenSpotPricesQuery,
   useGetTokensRegistryQuery,
+  useGetTopDappsQuery,
   useGetTransactionsQuery,
   useGetUserTokensRegistryQuery,
   useGetWalletsToImportQuery,
