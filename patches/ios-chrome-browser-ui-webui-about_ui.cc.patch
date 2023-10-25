@@ -1,0 +1,13 @@
+diff --git a/ios/chrome/browser/ui/webui/about_ui.cc b/ios/chrome/browser/ui/webui/about_ui.cc
+index 40a3563375034..b3e69be1667d1 100644
+--- a/ios/chrome/browser/ui/webui/about_ui.cc
++++ b/ios/chrome/browser/ui/webui/about_ui.cc
+@@ -98,7 +98,7 @@ std::string ChromeURLs() {
+             *i + "</a></li>\n";
+   html += "</ul>\n";
+   AppendFooter(&html);
+-  return html;
++  return brave::AboutUIChromeURLs(html);
+ }
+ 
+ }  // namespace

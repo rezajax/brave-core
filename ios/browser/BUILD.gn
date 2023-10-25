@@ -15,37 +15,29 @@ source_set("browser") {
   ]
 
   deps = [
-    "api/bookmarks",
-    "api/bookmarks/exporter",
-    "api/bookmarks/importer",
-    "api/brave_shields",
-    "api/brave_wallet:wallet_mojom_wrappers",
-    "api/certificate",
-    "api/favicon",
-    "api/history",
-    "api/ipfs",
-    "api/net",
-    "api/ntp_background_images",
-    "api/opentabs",
-    "api/p3a",
-    "api/password",
-    "api/session_restore",
-    "api/sync",
-    "api/url",
-    "api/version_info",
-    "api/web",
-    "api/web_image",
-    "brave_wallet",
+    ":chrome_ios",
     "//base",
     "//brave/browser/sync",
     "//brave/chromium_src/ios/chrome/browser/shared/model/prefs",
+    "//brave/components/constants",
+    "//brave/ios/browser/api",
     "//brave/ios/browser/application_context",
+    "//brave/ios/browser/brave_wallet",
     "//brave/ios/browser/browser_state",
+    "//brave/ios/browser/ui/webui",
     "//components/flags_ui",
     "//components/metrics",
     "//components/metrics_services_manager",
     "//components/variations",
     "//components/variations/service",
+    "//ui/base",
+    "//url",
+  ]
+}
+
+component("chrome_ios") {
+  visibility = [ ":browser" ]
+  public_deps = [
     "//ios/chrome/browser/application_context/model",
     "//ios/chrome/browser/browser_state/model",
     "//ios/chrome/browser/flags",
@@ -55,9 +47,10 @@ source_set("browser") {
     "//ios/chrome/browser/shared/model/url:constants",
     "//ios/chrome/browser/web:web_internal",
     "//ios/components/webui:url_constants",
+    "//ios/public/provider/chrome/browser/url_rewriters:url_rewriters_api",
     "//ios/web/public",
     "//ios/web/public/init",
+    "//ios/web/public/navigation",
     "//ios/web/public/thread",
-    "//ui/base",
   ]
 }

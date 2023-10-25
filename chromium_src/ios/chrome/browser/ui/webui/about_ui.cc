@@ -4,8 +4,4 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 #include "brave/components/webui/about_ui.h"
-#include "src/chrome/browser/ui/webui/about_ui.cc"  // IWYU pragma: export
-
-std::string AboutUIHTMLSource::ChromeURLs() const {
-  return brave::AboutUIChromeURLs(::ChromeURLs());
-}
+#include "src/ios/chrome/browser/ui/webui/about_ui.cc"  // IWYU pragma: export
