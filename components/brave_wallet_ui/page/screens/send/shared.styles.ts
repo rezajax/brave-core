@@ -15,6 +15,7 @@ export interface TextProps {
     | '12px'
     | '11px'
     | '10px'
+  lineHeight?: string
   isBold?: boolean
   textColor?: 'text01' | 'text02' | 'text03' | 'success' | 'error'
   maintainHeight?: boolean
@@ -27,7 +28,11 @@ export const Text = styled.span<TextProps>`
   --text03: ${(p) => p.theme.color.text03};
   --success: ${(p) => p.theme.color.successIcon};
   --line-height: ${(p) =>
-    p.textSize === '12px' ? '18px' : p.textSize === '22px' ? '24px' : '20px'};
+    p.lineHeight ?? p.textSize === '12px'
+      ? '18px'
+      : p.textSize === '22px'
+      ? '24px'
+      : '20px'};
   font-family: 'Poppins';
   color: ${(p) =>
     p.textColor ? `var(--${p.textColor})` : p.theme.color.text01};

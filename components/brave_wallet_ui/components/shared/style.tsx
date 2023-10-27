@@ -93,6 +93,32 @@ export const walletButtonFocusMixin = css`
   }
 `
 
+export const forceVisibleScrollbarMixin = css`
+  ::-webkit-scrollbar {
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  ::-webkit-scrollbar:vertical {
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar:horizontal {
+    height: 7px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: none;
+    border-radius: 8px;
+  }
+`
+
 export const backgroundColorMixin = css<{
   color?: ThemeColor
 }>`
@@ -106,6 +132,7 @@ export const backgroundColorMixin = css<{
 export const Row = styled.div<
   FlexProps & {
     maxWidth?: CSSProperties['maxWidth']
+    minWidth?: CSSProperties['minWidth']
     margin?: number | string
     padding?: number | string
     width?: '100%' | 'unset'
@@ -122,6 +149,7 @@ export const Row = styled.div<
   justify-content: ${(p) => p.justifyContent ?? 'center'};
   gap: ${(p) => p.gap ?? 'unset'};
   width: ${(p) => p.width ?? '100%'};
+  min-width: ${(p) => p.minWidth ?? 'unset'};
   max-width: ${(p) => p.maxWidth ?? 'unset'};
   margin: ${(p) => p.margin ?? 'unset'};
   ${(p) =>
@@ -178,6 +206,10 @@ export const ScrollableColumn = styled(Column)<{
 
 export const Flex = styled.div`
   flex: 1;
+`
+
+export const FullWidth = styled.div`
+  min-width: 100%;
 `
 
 export const StatusBubble = styled.div<{
