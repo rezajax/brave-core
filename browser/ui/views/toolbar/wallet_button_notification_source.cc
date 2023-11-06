@@ -30,7 +30,9 @@ void WalletButtonNotificationSource::EnsureTxServiceConnected() {
   if (!tx_service_) {
     return;
   }
-  tx_service_->AddObserver(tx_observer_.BindNewPipeAndPassRemote());
+  if (!tx_observer_.is_bound()) {
+    tx_service_->AddObserver(tx_observer_.BindNewPipeAndPassRemote());
+  }
   CheckTxStatus();
 }
 
@@ -41,8 +43,10 @@ void WalletButtonNotificationSource::EnsureKeyringServiceConnected() {
     return;
   }
 
-  keyring_service_->AddObserver(
-      keyring_service_observer_.BindNewPipeAndPassRemote());
+  if (!keyring_service_observer_.is_bound()) {
+    keyring_service_->AddObserver(
+        keyring_service_observer_.BindNewPipeAndPassRemote());
+  }
 
   wallet_created_ = keyring_service_->IsWalletCreatedSync();
   if (wallet_created_.value()) {

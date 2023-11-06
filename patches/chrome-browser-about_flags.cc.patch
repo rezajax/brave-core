@@ -10,3 +10,12 @@ index 2a2fde6ab7d90ddc19ff56690197f0380bf6c91e..2cdaf823e4a565c9858e48bb4fa624a0
  // Include generated flags for flag unexpiry; see //docs/flag_expiry.md and
  // //tools/flags/generate_unexpire_flags.py.
  #include "build/chromeos_buildflags.h"
+@@ -5787,6 +5788,8 @@ const FeatureEntry kFeatureEntries[] = {
+      flag_descriptions::kImmersiveFullscreenName,
+      flag_descriptions::kImmersiveFullscreenDescription, kOsMac,
+      FEATURE_VALUE_TYPE(features::kImmersiveFullscreen)},
++#elif BUILDFLAG(IS_WIN)
++    {"enable-immersive-fullscreen-toolbar", flag_descriptions::kImmersiveFullscreenName, flag_descriptions::kImmersiveFullscreenDescription, kOsWin,  FEATURE_VALUE_TYPE(features::kImmersiveFullscreen)},
+ #endif  // BUILDFLAG(IS_MAC)
+     {"enable-web-payments-experimental-features",
+      flag_descriptions::kWebPaymentsExperimentalFeaturesName,
