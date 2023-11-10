@@ -40,7 +40,7 @@ extern const char kVPNPanelURL[];
 extern const char kVPNPanelHost[];
 extern const char kBraveUIWalletPageURL[];
 extern const char kWalletPageHost[];
-#if BUILDFLAG(IS_ANDROID)
+#if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_IOS)
 extern const char kWalletBuyPagePath[];
 extern const char kWalletSendPagePath[];
 extern const char kWalletSwapPagePath[];

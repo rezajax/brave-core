@@ -39,7 +39,7 @@ const char kVPNPanelURL[] = "chrome-untrusted://vpn-panel.top-chrome/";
 const char kVPNPanelHost[] = "vpn-panel.top-chrome";
 const char kBraveUIWalletPageURL[] = "chrome://wallet/";
 const char kWalletPageHost[] = "wallet";
-#if BUILDFLAG(IS_ANDROID)
+#if BUILDFLAG(IS_ANDROID) || BUILDFLAG(IS_IOS)
 const char kWalletBuyPagePath[] = "/crypto/fund-wallet";
 const char kWalletSendPagePath[] = "/send";
 const char kWalletSwapPagePath[] = "/swap";

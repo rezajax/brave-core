@@ -13,6 +13,8 @@ source_set("brave_wallet") {
     "brave_wallet_ipfs_service_factory.mm",
     "brave_wallet_service_factory.h",
     "brave_wallet_service_factory.mm",
+    "bitcoin_wallet_service_factory.h",
+    "bitcoin_wallet_service_factory.mm",
     "json_rpc_service_factory.h",
     "json_rpc_service_factory.mm",
     "keyring_service_factory.h",
