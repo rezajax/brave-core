@@ -1,0 +1,50 @@
+# Copyright (c) 2023 The Brave Authors. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+
+source_set("background_helper") {
+  sources = [
+    "background_helper.cc",
+    "background_helper.h",
+    "background_helper_holder.cc",
+    "background_helper_holder.h",
+  ]
+  deps = [
+    "//base",
+  ]
+  if (is_linux) {
+    sources += [
+      "background_helper_linux.cc",
+      "background_helper_linux.h",
+    ]
+    deps += [
+      "//ui/aura",
+      "//ui/gfx/x",
+      "//ui/base/x",
+    ]
+    public_deps = [ "//chrome/browser/ui" ]
+  } else if (is_android) {
+    sources += [
+      "background_helper_android.cc",
+      "background_helper_android.h",
+    ]
+  } else if (is_mac) {
+    sources += [
+      "background_helper_mac.h",
+      "background_helper_mac.mm",
+    ]
+
+    frameworks = [ "Cocoa.framework" ]
+  } else if (is_win) {
+    sources += [
+      "background_helper_win.cc",
+      "background_helper_win.h",
+    ]
+    deps += [
+      "//chrome/browser/ui",
+      "//ui/gfx",
+      "//ui/views",
+    ]
+  }
+}
