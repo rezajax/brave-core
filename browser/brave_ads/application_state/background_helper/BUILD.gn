@@ -20,10 +20,14 @@ source_set("background_helper") {
     ]
     deps += [
       "//ui/aura",
-      "//ui/gfx/x",
-      "//ui/base/x",
+      #"//ui/gfx/x",
+      #"//ui/base/x",
+      #"//ui/events/platform/x11",
     ]
-    public_deps = [ "//chrome/browser/ui" ]
+    public_deps = [
+      "//chrome/browser/ui",
+      "//ui/gfx/x",
+    ]
   } else if (is_android) {
     sources += [
       "background_helper_android.cc",
