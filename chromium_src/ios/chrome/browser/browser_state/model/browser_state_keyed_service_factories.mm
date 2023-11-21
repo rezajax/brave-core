@@ -63,6 +63,6 @@ void EnsureBrowserStateKeyedServiceFactoriesBuilt() {
 #if BUILDFLAG(IOS_CREDENTIAL_PROVIDER_ENABLED)
   CredentialProviderServiceFactory::GetInstance();
 #endif
-  
+
   brave::EnsureBrowserStateKeyedServiceFactoriesBuilt();
 }

@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol CredentialStore;
+@protocol CredentialStore
+, Credential;
+@class FaviconAttributes;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +18,9 @@ OBJC_EXPORT
 @interface CredentialProviderAPI : NSObject
 
 + (id<CredentialStore>)credentialStore;
+
++ (void)loadAttributesForCredential:(id<Credential>)credential
+                         completion:(void (^)(FaviconAttributes*))completion;
 
 @end
 

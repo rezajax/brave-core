@@ -30,4 +30,40 @@
       initWithStores:@[ defaultsStore, archivableStore ]];
 }
 
+// mostly matches credential_list_view_controller.mm
++ (void)loadAttributesForCredential:(id<Credential>)credential
+                         completion:(void (^)(FaviconAttributes* _Nullable))
+                                        completion {
+  dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    NSURL* attributesFolder = app_group::SharedFaviconAttributesFolder();
+    if (!attributesFolder) {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        completion(nil);
+      });
+      return;
+    }
+    NSURL* filePath =
+        [attributesFolder URLByAppendingPathComponent:credential.favicon
+                                          isDirectory:NO];
+    NSError* error = nil;
+    NSData* data = [NSData dataWithContentsOfURL:filePath
+                                         options:0
+                                           error:&error];
+    if (data && !error) {
+      NSKeyedUnarchiver* unarchiver =
+          [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:nil];
+      unarchiver.requiresSecureCoding = NO;
+      FaviconAttributes* attributes =
+          [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+      dispatch_async(dispatch_get_main_queue(), ^{
+        completion(attributes);
+      });
+    } else {
+      dispatch_async(dispatch_get_main_queue(), ^{
+        completion(nil);
+      });
+    }
+  });
+}
+
 @end

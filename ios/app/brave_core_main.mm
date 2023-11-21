@@ -318,6 +318,10 @@ const BraveCoreLogSeverity BraveCoreLogSeverityVerbose =
   // Make sure the system url request getter is called at least once during
   // startup in case cleanup is done early before first network request
   GetApplicationContext()->GetSystemURLRequestContext();
+
+#if BUILDFLAG(IOS_CREDENTIAL_PROVIDER_ENABLED)
+  [self performFaviconsCleanup];
+#endif
 }
 
 - (void)registerComponentsForUpdate:
@@ -496,5 +500,18 @@ static bool CustomLogHandler(int severity,
   base::apple::SetOverrideFrameworkBundle(bundle);
   return base::i18n::InitializeICU();
 }
+
+#if BUILDFLAG(IOS_CREDENTIAL_PROVIDER_ENABLED)
+- (void)performFaviconsCleanup {
+  ChromeBrowserState* browserState = _mainBrowserState;
+  if (!browserState) {
+    return;
+  }
+  base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
+      FROM_HERE, base::BindOnce(&UpdateFaviconsStorageForBrowserState,
+                                browserState->AsWeakPtr(),
+                                /*fallback_to_google_server=*/false));
+}
+#endif
 
 @end
