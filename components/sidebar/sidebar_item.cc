@@ -5,6 +5,8 @@
 
 #include "brave/components/sidebar/sidebar_item.h"
 
+#include "brave/components/sidebar/features.h"
+
 namespace sidebar {
 
 // static
@@ -39,6 +41,13 @@ SidebarItem& SidebarItem::operator=(SidebarItem&&) = default;
 
 SidebarItem::~SidebarItem() = default;
 
+bool SidebarItem::OpenInPanel() const {
+  if (base::FeatureList::IsEnabled(sidebar::features::kSidebarMobileView)) {
+    return open_in_panel || mobile_view;
+  }
+  return open_in_panel;
+}
+
 bool SidebarItem::operator==(const SidebarItem& item) const {
   return url == item.url && title == item.title && type == item.type &&
          built_in_item_type == item.built_in_item_type &&
@@ -64,6 +73,14 @@ bool IsValidItem(const SidebarItem& item) {
   // WebType
   return item.url.is_valid() &&
          item.built_in_item_type == SidebarItem::BuiltInItemType::kNone;
+}
+
+bool IsMobileViewItem(const SidebarItem& item) {
+  if (!base::FeatureList::IsEnabled(sidebar::features::kSidebarMobileView)) {
+    return false;
+  }
+
+  return item.url.is_valid() && item.mobile_view;
 }
 
 }  // namespace sidebar

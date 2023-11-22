@@ -491,7 +491,7 @@ void SidebarItemsContentsView::UpdateItemViewStateAt(size_t index,
   const auto& item = sidebar_model_->GetAllSidebarItems()[index];
   SidebarItemView* item_view = GetItemViewAt(index);
 
-  if (item.open_in_panel) {
+  if (item.OpenInPanel()) {
     item_view->SetActiveState(active);
   }
 
@@ -518,7 +518,7 @@ void SidebarItemsContentsView::OnItemPressed(const views::View* item,
   }
 
   const auto& item_model = controller->model()->GetAllSidebarItems()[*index];
-  if (item_model.open_in_panel) {
+  if (item_model.OpenInPanel()) {
 #if BUILDFLAG(ENABLE_AI_CHAT)
     if (item_model.built_in_item_type ==
         sidebar::SidebarItem::BuiltInItemType::kChatUI) {
@@ -528,7 +528,7 @@ void SidebarItemsContentsView::OnItemPressed(const views::View* item,
       metrics->HandleOpenViaSidebar();
     }
 #endif
-    controller->ActivatePanelItem(item_model.built_in_item_type);
+    controller->ActivatePanelItem(item_model);
     return;
   }
 

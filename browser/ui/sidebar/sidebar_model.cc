@@ -144,6 +144,10 @@ void SidebarModel::OnItemUpdated(const SidebarItem& item,
 void SidebarModel::OnWillRemoveItem(const SidebarItem& item, size_t index) {
   if (index == active_index_)
     UpdateActiveIndexAndNotify(std::nullopt);
+
+  for (Observer& obs : observers_) {
+    obs.OnWillRemoveItem(item);
+  }
 }
 
 void SidebarModel::OnItemRemoved(const SidebarItem& item, size_t index) {
@@ -199,7 +203,7 @@ bool SidebarModel::IsSidebarHasAllBuiltInItems() const {
 }
 
 std::optional<size_t> SidebarModel::GetIndexOf(const SidebarItem& item) const {
-  const auto items = GetAllSidebarItems();
+  const auto& items = GetAllSidebarItems();
   const auto iter = base::ranges::find_if(items, [&item](const auto& i) {
     return (item.built_in_item_type == i.built_in_item_type &&
             item.url == i.url);
@@ -212,7 +216,7 @@ std::optional<size_t> SidebarModel::GetIndexOf(const SidebarItem& item) const {
 
 std::optional<size_t> SidebarModel::GetIndexOf(
     SidebarItem::BuiltInItemType type) const {
-  const auto items = GetAllSidebarItems();
+  const auto& items = GetAllSidebarItems();
   const auto iter = base::ranges::find_if(items, [&type](const auto& i) {
     return IsBuiltInType(i) && (type == i.built_in_item_type);
   });

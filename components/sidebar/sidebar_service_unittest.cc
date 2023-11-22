@@ -18,6 +18,7 @@
 #include "brave/components/ai_chat/core/common/buildflags/buildflags.h"
 #include "brave/components/playlist/common/buildflags/buildflags.h"
 #include "brave/components/sidebar/constants.h"
+#include "brave/components/sidebar/features.h"
 #include "brave/components/sidebar/pref_names.h"
 #include "brave/components/sidebar/sidebar_item.h"
 #include "brave/components/sidebar/sidebar_p3a.h"
@@ -1146,6 +1147,68 @@ TEST_F(SidebarServiceOrderingTest, LoadFromPrefsAiChatBuiltInNotListed) {
 #endif
 
   LoadFromPrefsTest(std::move(sidebar), items, expected_count);
+}
+
+class SidebarServiceTestWithMobileView : public SidebarServiceTest {
+ public:
+  SidebarServiceTestWithMobileView() {
+    scoped_feature_list_.InitAndEnableFeature(features::kSidebarMobileView);
+  }
+  ~SidebarServiceTestWithMobileView() override = default;
+
+  base::test::ScopedFeatureList scoped_feature_list_;
+};
+
+TEST_F(SidebarServiceTest, MobileViewTest) {
+  SidebarService::RegisterProfilePrefs(prefs_.registry(), Channel::CANARY);
+  InitService();
+
+  SidebarItem item = SidebarItem::Create(
+      GURL("https://www.brave.com/"), u"brave software",
+      SidebarItem::Type::kTypeWeb, SidebarItem::BuiltInItemType::kNone,
+      /*open_in_panel*/ false);
+  EXPECT_FALSE(item.OpenInPanel());
+
+  item.mobile_view = true;
+  EXPECT_FALSE(item.OpenInPanel());
+
+  service_->AddItem(item);
+  ResetService();
+  InitService();
+
+  // Check |item|'s |mobile_view| is preserved;
+  const auto last_item_index = service_->items().size() - 1;
+  const auto last_item = service_->items()[last_item_index];
+  EXPECT_TRUE(last_item.mobile_view);
+  EXPECT_FALSE(last_item.open_in_panel);
+  EXPECT_FALSE(last_item.OpenInPanel());
+}
+
+TEST_F(SidebarServiceTestWithMobileView, MobileViewTest) {
+  SidebarService::RegisterProfilePrefs(prefs_.registry(), Channel::CANARY);
+  InitService();
+
+  SidebarItem item = SidebarItem::Create(
+      GURL("https://www.brave.com/"), u"brave software",
+      SidebarItem::Type::kTypeWeb, SidebarItem::BuiltInItemType::kNone,
+      /*open_in_panel*/ false);
+  EXPECT_FALSE(item.OpenInPanel());
+
+  // Check OpenInPanel() returns true even |open_in_panel| is false.
+  item.mobile_view = true;
+  EXPECT_FALSE(item.open_in_panel);
+  EXPECT_TRUE(item.OpenInPanel());
+
+  service_->AddItem(item);
+  ResetService();
+  InitService();
+
+  // Check |item|'s |mobile_view| is preserved;
+  const auto last_item_index = service_->items().size() - 1;
+  const auto last_item = service_->items()[last_item_index];
+  EXPECT_TRUE(last_item.mobile_view);
+  EXPECT_FALSE(last_item.open_in_panel);
+  EXPECT_TRUE(last_item.OpenInPanel());
 }
 
 }  // namespace sidebar
