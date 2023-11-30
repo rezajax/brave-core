@@ -242,7 +242,6 @@ const Config = function () {
   this.offline = getNPMConfig(['offline']) || false
   this.use_libfuzzer = false
   this.androidAabToApk = false
-  this.enable_dangling_raw_ptr_checks = false
   this.useBraveHermeticToolchain =
     this.gomaServerHost.endsWith('.brave.com') ||
     this.rbeService.includes('.brave.com:') ||
@@ -420,7 +419,6 @@ Config.prototype.buildArgs = function () {
     brave_services_production_domain: this.braveServicesProductionDomain,
     brave_services_staging_domain: this.braveServicesStagingDomain,
     brave_services_dev_domain: this.braveServicesDevDomain,
-    enable_dangling_raw_ptr_checks: this.enable_dangling_raw_ptr_checks,
     ...this.extraGnArgs,
   }
 
