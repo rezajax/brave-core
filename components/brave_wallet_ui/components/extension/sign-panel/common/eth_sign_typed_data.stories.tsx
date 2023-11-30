@@ -4,7 +4,10 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import * as React from 'react'
-import { mockSignMessageRequest } from '../../../../stories/mock-data/mock-eth-requests'
+
+import {
+  mockSignMessageRequest //
+} from '../../../../stories/mock-data/mock-eth-requests'
 import { EthSignTypedData } from './eth_sign_typed_data'
 
 export function _EthSignTypedData() {
