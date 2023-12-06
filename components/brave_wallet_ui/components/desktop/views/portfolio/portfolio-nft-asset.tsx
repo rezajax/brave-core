@@ -15,16 +15,10 @@ import { getBalance } from '../../../../utils/balance-utils'
 import { makeSendRoute } from '../../../../utils/routes-utils'
 import Amount from '../../../../utils/amount'
 
-// selectors
-import { WalletSelectors } from '../../../../common/selectors'
-
 // Components
 import { NftScreen } from '../../../../nft/components/nft-details/nft-screen'
 
 // Hooks
-import {
-  useUnsafeWalletSelector //
-} from '../../../../common/hooks/use-safe-selector'
 import {
   useGetNetworkQuery,
   useGetSimpleHashSpamNftsQuery,
@@ -35,7 +29,8 @@ import {
 } from '../../../../common/hooks/use-scoped-balance-updater'
 import { useAccountsQuery } from '../../../../common/slices/api.slice.extra'
 import {
-  selectAllVisibleUserAssetsFromQueryResult //
+  selectAllVisibleUserAssetsFromQueryResult, //
+  selectHiddenNftsFromQueryResult
 } from '../../../../common/slices/entities/blockchain-token.entity'
 
 // Styled Components
@@ -52,21 +47,17 @@ export const PortfolioNftAsset = () => {
     tokenId?: string
   }>()
 
-  // redux
-  const hiddenNfts = useUnsafeWalletSelector(
-    WalletSelectors.removedNonFungibleTokens
-  )
-
   // queries
   const { data: simpleHashNfts = [], isLoading: isLoadingSpamNfts } =
     useGetSimpleHashSpamNftsQuery()
 
-  const { userVisibleTokensInfo, isLoadingVisibleTokens } =
+  const { hiddenNfts, userVisibleTokensInfo, isLoadingTokens } =
     useGetUserTokensRegistryQuery(undefined, {
       selectFromResult: (result) => ({
+        hiddenNfts: selectHiddenNftsFromQueryResult(result),
         userVisibleTokensInfo:
           selectAllVisibleUserAssetsFromQueryResult(result),
-        isLoadingVisibleTokens: result.isLoading
+        isLoadingTokens: result.isLoading
       })
     })
 
@@ -153,7 +144,7 @@ export const PortfolioNftAsset = () => {
   if (
     !selectedAssetFromParams &&
     !isLoadingSpamNfts &&
-    !isLoadingVisibleTokens &&
+    !isLoadingTokens &&
     userVisibleTokensInfo.length === 0
   ) {
     return <Redirect to={WalletRoutes.PortfolioNFTs} />

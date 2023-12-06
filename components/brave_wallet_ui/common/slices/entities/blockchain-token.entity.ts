@@ -38,6 +38,7 @@ export type BlockchainTokenEntityAdaptorState = ReturnType<
   idsByCoinType: Record<BraveWallet.CoinType, EntityId[]>
   visibleTokenIds: string[]
   hiddenTokenIds: string[]
+  deletedTokenIds: string[]
   visibleTokenIdsByChainId: Record<string, string[]>
   visibleTokenIdsByCoinType: Record<BraveWallet.CoinType, EntityId[]>
   hiddenTokenIdsByChainId: Record<string, string[]>
@@ -73,6 +74,7 @@ BlockchainTokenEntityAdaptorState = {
   idsByCoinType: {},
   visibleTokenIds: [],
   hiddenTokenIds: [],
+  deletedTokenIds: [],
   visibleTokenIdsByChainId: {},
   visibleTokenIdsByCoinType: {},
   hiddenTokenIdsByChainId: {},
@@ -103,7 +105,6 @@ export const combineTokenRegistries = (
   tokensRegistry: BlockchainTokenEntityAdaptorState,
   userTokensRegistry: BlockchainTokenEntityAdaptorState
 ): BlockchainTokenEntityAdaptorState => {
-  // TODO: hidden ids
   const chainIds = new Set(
     Object.keys(tokensRegistry.idsByChainId).concat(
       Object.keys(userTokensRegistry.idsByChainId)
@@ -346,6 +347,9 @@ export const combineTokenRegistries = (
     // use the tokens registry state to reduce amount of additions
     ...tokensRegistry,
 
+    // unmodified user registry ids
+    deletedTokenIds: userTokensRegistry.deletedTokenIds,
+
     // new combined grouping Ids
     visibleTokenIds,
     hiddenTokenIds,
@@ -546,3 +550,14 @@ export const selectAllVisibleUserAssetsFromQueryResult =
   createDraftSafeSelector([selectTokensRegistryFromQueryResult], (assets) =>
     getEntitiesListFromEntityState(assets, assets.visibleTokenIds)
   )
+
+/**
+ * Used to select only hidden NFTs from useGetUserTokensRegistryQuery
+ */
+export const selectHiddenNftsFromQueryResult = createDraftSafeSelector(
+  [selectTokensRegistryFromQueryResult],
+  (assets) =>
+    getEntitiesListFromEntityState(assets, assets.hiddenTokenIds).filter(
+      (t) => t.isErc1155 || t.isErc721 || t.isNft
+    )
+)

@@ -9,8 +9,8 @@ import { BraveWallet, SupportedTestNetworks } from '../constants/types'
 // utils
 import Amount from './amount'
 import { getRampNetworkPrefix } from './string-utils'
-
 import { getNetworkLogo, makeNativeAssetLogo } from '../options/asset-options'
+import { LOCAL_STORAGE_KEYS } from '../common/constants/local-storage-keys'
 
 export const getUniqueAssets = (assets: BraveWallet.BlockchainToken[]) => {
   return assets.filter((asset, index) => {
@@ -306,3 +306,26 @@ export const checkIfTokenNeedsNetworkIcon = (
  */
 export const isStripeSupported = () =>
   navigator.language.toLowerCase() === 'en-us'
+
+export const getHiddenTokenIds = (): string[] => {
+  return JSON.parse(
+    localStorage.getItem(LOCAL_STORAGE_KEYS.USER_HIDDEN_TOKEN_IDS) || '[]'
+  )
+}
+
+export const getDeletedTokenIds = (): string[] => {
+  return JSON.parse(
+    localStorage.getItem(LOCAL_STORAGE_KEYS.USER_DELETED_TOKEN_IDS) || '[]'
+  )
+}
+
+export const getHiddenOrDeletedTokenIdsList = () => {
+  return getDeletedTokenIds().concat(getHiddenTokenIds())
+}
+
+export const isTokenRemovedInLocalStorage = (
+  tokenId: string,
+  removedIds: string[]
+) => {
+  return removedIds.includes(tokenId)
+}
