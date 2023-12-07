@@ -9,13 +9,13 @@
 #include "brave/components/sidebar/mobile_view_id.h"
 #include "chrome/browser/ui/side_panel/side_panel_entry_id.h"
 
-#define SidePanelEntryKey SidePanelEntryKeyChromium
+#define SidePanelEntryKey SidePanelEntryKey_Chromium
 
 #include "src/chrome/browser/ui/side_panel/side_panel_entry_key.h"  // // IWYU pragma: export
 
 #undef SidePanelEntryKey
 
-class SidePanelEntryKey : public SidePanelEntryKeyChromium {
+class SidePanelEntryKey : public SidePanelEntryKey_Chromium {
  public:
   explicit SidePanelEntryKey(SidePanelEntryId id);
   SidePanelEntryKey(SidePanelEntryId id, extensions::ExtensionId extension_id);
@@ -33,7 +33,7 @@ class SidePanelEntryKey : public SidePanelEntryKeyChromium {
   }
 
  private:
-  std::optional<sidebar::MobileViewId> mobile_view_id_ = std::nullopt;
+  std::optional<sidebar::MobileViewId> mobile_view_id_;
 };
 
 #endif  // BRAVE_CHROMIUM_SRC_CHROME_BROWSER_UI_SIDE_PANEL_SIDE_PANEL_ENTRY_KEY_H_

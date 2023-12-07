@@ -273,8 +273,8 @@ void SidebarService::MigratePrefSidebarBuiltInItemsToHidden() {
 }
 
 void SidebarService::AddItem(const SidebarItem& item) {
-  DCHECK(IsValidItem(item));
-  if (IsWebType(item)) {
+  DCHECK(item.IsValidItem());
+  if (item.IsWebType()) {
     items_.push_back(item);
     for (Observer& obs : observers_) {
       // Index starts at zero.
@@ -422,8 +422,9 @@ std::vector<SidebarItem::BuiltInItemType>
 SidebarService::GetCurrentlyPresentBuiltInTypes() const {
   std::vector<SidebarItem::BuiltInItemType> items;
   base::ranges::for_each(items_, [&items](const auto& item) {
-    if (IsBuiltInType(item))
+    if (item.IsBuiltInType()) {
       items.push_back(item.built_in_item_type);
+    }
   });
   return items;
 }
@@ -448,7 +449,7 @@ std::optional<SidebarItem> SidebarService::GetDefaultPanelItem() const {
         base::ranges::find(items_, type, &SidebarItem::built_in_item_type);
     if (found_item_iter != items_.end()) {
       default_item = *found_item_iter;
-      DCHECK_EQ(default_item->OpenInPanel(), true);
+      DCHECK_EQ(default_item->CanOpenInPanel(), true);
       break;
     }
   }
@@ -457,7 +458,7 @@ std::optional<SidebarItem> SidebarService::GetDefaultPanelItem() const {
 
 bool SidebarService::IsEditableItemAt(size_t index) const {
   DCHECK(index < items_.size());
-  return sidebar::IsWebType(items_[index]);
+  return items_[index].IsWebType();
 }
 
 void SidebarService::SetSidebarShowOption(ShowSidebarOption show_options) {
@@ -719,7 +720,7 @@ size_t SidebarService::GetBuiltInItemIndexToInsert(
   auto find_prev_builtin_in_items = [&]() {
     return std::find_if(items.cbegin(), items.cend(),
                         [&prev_builtin_item](const SidebarItem& item) {
-                          return IsBuiltInType(item) &&
+                          return item.IsBuiltInType() &&
                                  item.built_in_item_type == prev_builtin_item;
                         });
   };

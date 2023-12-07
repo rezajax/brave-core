@@ -126,7 +126,7 @@ void SidebarItemsContentsView::OnThemeChanged() {
 
   for (size_t item_index = 0; item_index < items_num; ++item_index) {
     const auto item = items[item_index];
-    if (!sidebar::IsWebType(item)) {
+    if (!item.IsWebType()) {
       continue;
     }
 
@@ -150,7 +150,7 @@ void SidebarItemsContentsView::UpdateAllBuiltInItemsViewState() {
   const size_t items_num = items.size();
   for (size_t item_index = 0; item_index < items_num; ++item_index) {
     const auto item = items[item_index];
-    if (!sidebar::IsBuiltInType(item)) {
+    if (!item.IsBuiltInType()) {
       continue;
     }
 
@@ -300,7 +300,7 @@ void SidebarItemsContentsView::AddItemView(const sidebar::SidebarItem& item,
                           base::Unretained(this), item_view));
   item_view->set_drag_controller(drag_controller_);
 
-  if (sidebar::IsWebType(item)) {
+  if (item.IsWebType()) {
     SetDefaultImageFor(item);
   }
 
@@ -383,7 +383,7 @@ void SidebarItemsContentsView::ShowItemAddedFeedbackBubble(
 
 bool SidebarItemsContentsView::IsBuiltInTypeItemView(views::View* view) const {
   auto index = GetIndexOf(view);
-  return sidebar::IsBuiltInType(sidebar_model_->GetAllSidebarItems()[*index]);
+  return sidebar_model_->GetAllSidebarItems()[*index].IsBuiltInType();
 }
 
 void SidebarItemsContentsView::SetImageForItem(const sidebar::SidebarItem& item,
@@ -491,11 +491,11 @@ void SidebarItemsContentsView::UpdateItemViewStateAt(size_t index,
   const auto& item = sidebar_model_->GetAllSidebarItems()[index];
   SidebarItemView* item_view = GetItemViewAt(index);
 
-  if (item.OpenInPanel()) {
+  if (item.CanOpenInPanel()) {
     item_view->SetActiveState(active);
   }
 
-  if (sidebar::IsBuiltInType(item)) {
+  if (item.IsBuiltInType()) {
     for (const auto state : views::Button::kButtonStates) {
       auto color_state = state;
       if (active && state != views::Button::STATE_DISABLED) {
@@ -518,7 +518,7 @@ void SidebarItemsContentsView::OnItemPressed(const views::View* item,
   }
 
   const auto& item_model = controller->model()->GetAllSidebarItems()[*index];
-  if (item_model.OpenInPanel()) {
+  if (item_model.CanOpenInPanel()) {
 #if BUILDFLAG(ENABLE_AI_CHAT)
     if (item_model.built_in_item_type ==
         sidebar::SidebarItem::BuiltInItemType::kChatUI) {

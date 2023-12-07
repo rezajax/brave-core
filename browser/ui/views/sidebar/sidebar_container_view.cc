@@ -729,18 +729,17 @@ void SidebarContainerView::OnEntryShown(SidePanelEntry* entry) {
   const auto items_count = items.size();
   for (size_t index = 0; index < items_count; ++index) {
     const auto& item = items[index];
-    if (!item.OpenInPanel()) {
+    if (!item.CanOpenInPanel()) {
       continue;
     }
 
-    if (sidebar::IsMobileViewItem(item) &&
-        entry->key().mobile_view_id() ==
-            sidebar::MobileViewId(item.url.spec())) {
+    if (item.IsMobileViewItem() && entry->key().mobile_view_id() ==
+                                       sidebar::MobileViewId(item.url.spec())) {
       controller->ActivateItemAt(index);
       return;
     }
 
-    if (!sidebar::IsBuiltInType(item)) {
+    if (!item.IsBuiltInType()) {
       continue;
     }
 
@@ -775,13 +774,12 @@ void SidebarContainerView::OnEntryHidden(SidePanelEntry* entry) {
   const auto items_count = items.size();
   for (size_t index = 0; index < items_count; ++index) {
     const auto& item = items[index];
-    if (!item.OpenInPanel()) {
+    if (!item.CanOpenInPanel()) {
       continue;
     }
 
-    if (sidebar::IsMobileViewItem(item) &&
-        entry->key().mobile_view_id() ==
-            sidebar::MobileViewId(item.url.spec())) {
+    if (item.IsMobileViewItem() && entry->key().mobile_view_id() ==
+                                       sidebar::MobileViewId(item.url.spec())) {
       // Only deactivate sidebar item for hidden |entry| when it was active
       // and it's not active one now.
       // It can happen when shown & hidden entries have same sidebar item(ex,
@@ -795,7 +793,7 @@ void SidebarContainerView::OnEntryHidden(SidePanelEntry* entry) {
       continue;
     }
 
-    if (!sidebar::IsBuiltInType(item)) {
+    if (!item.IsBuiltInType()) {
       continue;
     }
 

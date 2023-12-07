@@ -49,7 +49,11 @@ struct SidebarItem {
   SidebarItem& operator=(SidebarItem&&);
   ~SidebarItem();
 
-  bool OpenInPanel() const;
+  bool CanOpenInPanel() const;
+  bool IsBuiltInType() const;
+  bool IsWebType() const;
+  bool IsValidItem() const;
+  bool IsMobileViewItem() const;
 
   bool operator==(const SidebarItem& item) const;
 
@@ -65,11 +69,6 @@ struct SidebarItem {
   // should be preserved till this feature flag is removed.
   bool mobile_view = false;
 };
-
-bool IsBuiltInType(const SidebarItem& item);
-bool IsWebType(const SidebarItem& item);
-bool IsValidItem(const SidebarItem& item);
-bool IsMobileViewItem(const SidebarItem& item);
 
 }  // namespace sidebar
 

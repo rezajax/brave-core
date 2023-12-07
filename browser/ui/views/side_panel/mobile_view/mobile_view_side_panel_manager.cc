@@ -65,14 +65,14 @@ void MobileViewSidePanelManager::CreateMobileViewSidePanelCoordinator(
 void MobileViewSidePanelManager::OnItemAdded(const sidebar::SidebarItem& item,
                                              size_t index,
                                              bool user_gesture) {
-  if (sidebar::IsMobileViewItem(item)) {
+  if (item.IsMobileViewItem()) {
     CreateMobileViewSidePanelCoordinator(item);
   }
 }
 
 void MobileViewSidePanelManager::OnWillRemoveItem(
     const sidebar::SidebarItem& item) {
-  if (sidebar::IsMobileViewItem(item)) {
+  if (item.IsMobileViewItem()) {
     coordinators_.erase(sidebar::MobileViewId(item.url.spec()));
   }
 }
@@ -80,10 +80,10 @@ void MobileViewSidePanelManager::OnWillRemoveItem(
 void MobileViewSidePanelManager::OnItemUpdated(
     const sidebar::SidebarItem& item,
     const sidebar::SidebarItemUpdate& update) {
-  NOTIMPLEMENTED_LOG_ONCE();
-  if (sidebar::IsMobileViewItem(item)) {
+  if (item.IsMobileViewItem()) {
     // TODO(simonhong): Create coordinator for |item| if it's changed
     // as open in panel item.
+    NOTIMPLEMENTED_LOG_ONCE();
   }
 }
 

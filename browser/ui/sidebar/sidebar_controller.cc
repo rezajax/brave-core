@@ -65,8 +65,8 @@ bool SidebarController::IsActiveIndex(std::optional<size_t> index) const {
 bool SidebarController::DoesBrowserHaveOpenedTabForItem(
     const SidebarItem& item) const {
   // This method is only for builtin item's icon state updating.
-  DCHECK(sidebar::IsBuiltInType(item));
-  DCHECK(!item.OpenInPanel());
+  DCHECK(item.IsBuiltInType());
+  DCHECK(!item.CanOpenInPanel());
 
   const std::vector<Browser*> browsers =
       chrome::FindAllTabbedBrowsersWithProfile(browser_->profile());
@@ -92,7 +92,7 @@ void SidebarController::ActivateItemAt(std::optional<size_t> index,
 
   const auto& item = sidebar_model_->GetAllSidebarItems()[*index];
   // Only an item for panel can get activated.
-  if (item.OpenInPanel()) {
+  if (item.CanOpenInPanel()) {
     sidebar_model_->SetActiveIndex(index);
     return;
   }
@@ -108,7 +108,7 @@ void SidebarController::ActivateItemAt(std::optional<size_t> index,
   }
 
   // Iterate whenever builtin shortcut type item icon clicks.
-  if (IsBuiltInType(item)) {
+  if (item.IsBuiltInType()) {
     IterateOrLoadAtActiveTab(item.url);
     return;
   }
@@ -132,9 +132,9 @@ void SidebarController::ActivatePanelItem(
 }
 
 void SidebarController::ActivatePanelItem(const SidebarItem& item) {
-  CHECK(item.OpenInPanel());
+  CHECK(item.CanOpenInPanel());
 
-  if (IsMobileViewItem(item)) {
+  if (item.IsMobileViewItem()) {
     if (auto* panel_ui = SidePanelUI::GetSidePanelUIForBrowser(browser_)) {
       panel_ui->Show(SidePanelEntryKey(SidePanelEntryId::kMobileView,
                                        sidebar::MobileViewId(item.url.spec())));

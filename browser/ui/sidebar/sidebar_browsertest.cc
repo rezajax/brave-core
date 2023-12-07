@@ -738,7 +738,7 @@ IN_PROC_BROWSER_TEST_F(SidebarBrowserTest, DisabledItemsTest) {
   for (const auto& item : model->GetAllSidebarItems()) {
     // Check disabled builtin items are not included in guest browser's items
     // list.
-    if (IsBuiltInType(item)) {
+    if (item.IsBuiltInType()) {
       EXPECT_FALSE(IsDisabledItemForGuest(item.built_in_item_type));
     }
   }
@@ -750,7 +750,7 @@ IN_PROC_BROWSER_TEST_F(SidebarBrowserTest, DisabledItemsTest) {
   for (const auto& item : model->GetAllSidebarItems()) {
     // Check disabled builtin items are not included in private browser's items
     // list.
-    if (IsBuiltInType(item)) {
+    if (item.IsBuiltInType()) {
       EXPECT_FALSE(IsDisabledItemForPrivate(item.built_in_item_type));
     }
   }

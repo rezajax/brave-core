@@ -19,11 +19,11 @@
 
 MobileViewSidePanelCoordinator::MobileViewSidePanelCoordinator(
     Browser& browser,
-    SidePanelRegistry& registry,
+    SidePanelRegistry& global_registry,
     const GURL& url)
-    : browser_(browser), registry_(registry), url_(url) {
+    : browser_(browser), global_registry_(global_registry), url_(url) {
   CHECK(url_.is_valid());
-  registry_->Register(std::make_unique<SidePanelEntry>(
+  global_registry_->Register(std::make_unique<SidePanelEntry>(
       GetEntryKey(), u"MobileView", ui::ImageModel(),
       base::BindRepeating(&MobileViewSidePanelCoordinator::CreateView,
                           base::Unretained(this))));
@@ -40,21 +40,21 @@ std::unique_ptr<views::View> MobileViewSidePanelCoordinator::CreateView() {
 
   // TODO(simonhong): Implement mobile view top UI.
   label_ = view->AddChildView(std::make_unique<views::Label>());
-  auto webview = std::make_unique<views::WebView>(browser_->profile());
+  auto* webview =
+      view->AddChildView(std::make_unique<views::WebView>(browser_->profile()));
   webview->LoadInitialURL(url_);
   Observe(webview->GetWebContents());
   webview->SetProperty(
       views::kFlexBehaviorKey,
       views::FlexSpecification(views::MinimumFlexSizeRule::kPreferred,
                                views::MaximumFlexSizeRule::kUnbounded));
-  webview_ = view->AddChildView(std::move(webview));
 
   return view;
 }
 
 void MobileViewSidePanelCoordinator::PrimaryPageChanged(content::Page& page) {
   label_->SetText(base::UTF8ToUTF16(
-      webview_->GetWebContents()->GetVisibleURL().possibly_invalid_spec()));
+      web_contents()->GetVisibleURL().possibly_invalid_spec()));
 }
 
 SidePanelEntry::Key MobileViewSidePanelCoordinator::GetEntryKey() const {
@@ -63,5 +63,5 @@ SidePanelEntry::Key MobileViewSidePanelCoordinator::GetEntryKey() const {
 }
 
 void MobileViewSidePanelCoordinator::DeregisterEntry() {
-  registry_->Deregister(GetEntryKey());
+  global_registry_->Deregister(GetEntryKey());
 }

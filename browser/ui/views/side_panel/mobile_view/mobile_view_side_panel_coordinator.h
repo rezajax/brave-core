@@ -19,13 +19,12 @@ class SidePanelRegistry;
 namespace views {
 class Label;
 class View;
-class WebView;
 }  // namespace views
 
 class MobileViewSidePanelCoordinator : public content::WebContentsObserver {
  public:
   MobileViewSidePanelCoordinator(Browser& browser,
-                                 SidePanelRegistry& registry,
+                                 SidePanelRegistry& global_registry,
                                  const GURL& url);
   ~MobileViewSidePanelCoordinator() override;
   MobileViewSidePanelCoordinator(const MobileViewSidePanelCoordinator&) =
@@ -42,9 +41,8 @@ class MobileViewSidePanelCoordinator : public content::WebContentsObserver {
   void DeregisterEntry();
 
   raw_ref<Browser> browser_;
-  raw_ref<SidePanelRegistry> registry_;
+  raw_ref<SidePanelRegistry> global_registry_;
   raw_ptr<views::Label> label_ = nullptr;
-  raw_ptr<views::WebView> webview_ = nullptr;
   const GURL url_;
 };
 

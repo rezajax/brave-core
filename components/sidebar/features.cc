@@ -7,6 +7,7 @@
 
 namespace sidebar::features {
 
+// Load sidebar item's url in the panel instead of loading it in the tab.
 BASE_FEATURE(kSidebarMobileView,
              "SidebarMobileView",
              base::FEATURE_DISABLED_BY_DEFAULT);

@@ -5,18 +5,18 @@
 
 #include "chrome/browser/ui/side_panel/side_panel_entry_key.h"
 
-#define SidePanelEntryKey SidePanelEntryKeyChromium
+#define SidePanelEntryKey SidePanelEntryKey_Chromium
 
 #include "src/chrome/browser/ui/side_panel/side_panel_entry_key.cc"
 
 #undef SidePanelEntryKey
 
 SidePanelEntryKey::SidePanelEntryKey(SidePanelEntryId id)
-    : SidePanelEntryKeyChromium(id) {}
+    : SidePanelEntryKey_Chromium(id) {}
 
 SidePanelEntryKey::SidePanelEntryKey(SidePanelEntryId id,
                                      extensions::ExtensionId extension_id)
-    : SidePanelEntryKeyChromium(id, extension_id) {}
+    : SidePanelEntryKey_Chromium(id, extension_id) {}
 
 SidePanelEntryKey::SidePanelEntryKey(SidePanelEntryId id,
                                      sidebar::MobileViewId mobile_view_id)
@@ -34,7 +34,7 @@ SidePanelEntryKey& SidePanelEntryKey::operator=(
 SidePanelEntryKey::~SidePanelEntryKey() = default;
 
 bool SidePanelEntryKey::operator==(const SidePanelEntryKey& other) const {
-  return SidePanelEntryKeyChromium::operator==(other) &&
+  return SidePanelEntryKey_Chromium::operator==(other) &&
          mobile_view_id_ == other.mobile_view_id();
 }
 
@@ -44,5 +44,5 @@ bool SidePanelEntryKey::operator<(const SidePanelEntryKey& other) const {
     return mobile_view_id_.value() < other.mobile_view_id_.value();
   }
 
-  return SidePanelEntryKeyChromium::operator<(other);
+  return SidePanelEntryKey_Chromium::operator<(other);
 }
