@@ -149,11 +149,11 @@ export const useGetCombinedTokensRegistryQuery = (
 }
 
 export const useGetCombinedTokensListQuery = (
-  arg?: undefined,
+  arg?: undefined | typeof skipToken,
   opts?: { skip?: boolean }
 ) => {
   const { isLoadingUserTokens, userTokens } = useGetUserTokensRegistryQuery(
-    undefined,
+    arg || undefined,
     {
       selectFromResult: (res) => ({
         isLoadingUserTokens: res.isLoading,
