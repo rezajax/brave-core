@@ -18,11 +18,11 @@ import { TxWarningBanner } from './tx_warning_banner'
 
 // styles
 import { FullWidth } from '../../../shared/style'
-import { WarningsList } from '../style'
 import {
   WarningCollapse,
-  WarningTitle
-} from '../confirm_simulated_tx_panel.styles'
+  WarningTitle,
+  WarningsList
+} from './tx_warnings.styles'
 
 export function TransactionWarnings({
   isWarningCollapsed,
