@@ -12,9 +12,6 @@ import { BraveWallet } from '../../../../constants/types'
 
 // utils
 import { getLocale } from '../../../../../common/locale'
-import {
-  translateSimulationWarning //
-} from '../../../../utils/tx-simulation-utils'
 
 // components
 import { TxWarningBanner } from './tx_warning_banner'
@@ -24,38 +21,38 @@ import { FullWidth } from '../../../shared/style'
 import { WarningsList } from '../style'
 import {
   CriticalWarningIcon,
+  IconSlot,
   WarningCollapse,
+  WarningTitle,
   WarningTriangleFilledIcon
 } from '../confirm_simulated_tx_panel.styles'
 
-export function SimulationWarnings({
+export function TransactionWarnings({
   isWarningCollapsed,
   setIsWarningCollapsed,
-  txSimulation
+  warnings
 }: {
-  txSimulation:
-    | BraveWallet.EVMSimulationResponse
-    | BraveWallet.SolanaSimulationResponse
+  warnings: Array<Pick<BraveWallet.BlowfishWarning, 'message' | 'severity'>>
   isWarningCollapsed: boolean
-  setIsWarningCollapsed: React.Dispatch<React.SetStateAction<boolean>>
+  setIsWarningCollapsed?: React.Dispatch<React.SetStateAction<boolean>>
 }): JSX.Element | null {
   // memos
-  const hasCriticalWarnings = txSimulation.warnings.some(
+  const hasCriticalWarnings = warnings.some(
     (warning) =>
       warning.severity === BraveWallet.BlowfishWarningSeverity.kCritical
   )
 
   // no warnings
-  if (txSimulation.warnings.length < 1) {
+  if (warnings.length < 1) {
     return null
   }
 
   // 1 warning
-  if (txSimulation.warnings.length === 1) {
+  if (warnings.length === 1) {
     return (
       <FullWidth>
         <TxWarningBanner isCritical={hasCriticalWarnings}>
-          {translateSimulationWarning(txSimulation.warnings[0])}
+          {warnings[0].message}
         </TxWarningBanner>
       </FullWidth>
     )
@@ -67,27 +64,31 @@ export function SimulationWarnings({
       <WarningCollapse
         isOpen={!isWarningCollapsed}
         isCritical={hasCriticalWarnings}
-        onToggle={() => setIsWarningCollapsed((prev) => !prev)}
-        title={
-          hasCriticalWarnings
+        onToggle={
+          setIsWarningCollapsed
+            ? () => setIsWarningCollapsed((prev) => !prev)
+            : undefined
+        }
+      >
+        <WarningTitle slot='title'>
+          {hasCriticalWarnings
             ? getLocale('braveWalletRiskOfLossAction')
             : getLocale('braveWalletFoundIssues').replace(
                 '$1',
-                txSimulation.warnings.length.toString()
-              )
-        }
-      >
-        <div slot='icon'>
+                warnings.length.toString()
+              )}
+        </WarningTitle>
+        <IconSlot slot='icon'>
           {hasCriticalWarnings ? (
             <CriticalWarningIcon />
           ) : (
             <WarningTriangleFilledIcon />
           )}
-        </div>
+        </IconSlot>
 
         <WarningsList>
-          {txSimulation.warnings.map((warning) => (
-            <li key={warning.message}>{translateSimulationWarning(warning)}</li>
+          {warnings.map((warning) => (
+            <li key={warning.message}>{warning.message}</li>
           ))}
         </WarningsList>
       </WarningCollapse>
