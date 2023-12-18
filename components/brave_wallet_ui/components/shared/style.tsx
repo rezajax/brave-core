@@ -93,7 +93,11 @@ export const walletButtonFocusMixin = css`
   }
 `
 
-export const forceVisibleScrollbarMixin = css`
+/**
+ * Also forces the scroll indicator to be visible on MacOS when present,
+ * even when the element is not hovered
+ */
+export const styledScrollbarMixin = css`
   ::-webkit-scrollbar {
     appearance: none;
     -webkit-appearance: none;

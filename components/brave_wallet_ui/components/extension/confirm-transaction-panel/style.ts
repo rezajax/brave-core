@@ -14,7 +14,7 @@ import {
   AssetIconProps,
   AssetIconFactory,
   WalletButton,
-  forceVisibleScrollbarMixin,
+  styledScrollbarMixin,
   Row,
   Column
 } from '../../shared/style'
@@ -120,7 +120,7 @@ export const MessageBox = styled.div<{ isDetails: boolean }>`
   overflow-x: hidden;
   position: relative;
   word-break: break-all;
-  ${forceVisibleScrollbarMixin}
+  ${styledScrollbarMixin}
 `
 
 export const TransactionTitle = styled.span`
@@ -285,7 +285,7 @@ export const WarningsList = styled.ul`
   max-height: 230px;
   overflow-y: scroll;
 
-  ${forceVisibleScrollbarMixin}
+  ${styledScrollbarMixin}
 
   & > li {
     line-height: 18px;

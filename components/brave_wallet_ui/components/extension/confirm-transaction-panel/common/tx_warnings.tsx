@@ -20,11 +20,8 @@ import { TxWarningBanner } from './tx_warning_banner'
 import { FullWidth } from '../../../shared/style'
 import { WarningsList } from '../style'
 import {
-  CriticalWarningIcon,
-  IconSlot,
   WarningCollapse,
-  WarningTitle,
-  WarningTriangleFilledIcon
+  WarningTitle
 } from '../confirm_simulated_tx_panel.styles'
 
 export function TransactionWarnings({
@@ -70,7 +67,10 @@ export function TransactionWarnings({
             : undefined
         }
       >
-        <WarningTitle slot='title'>
+        <WarningTitle
+          slot='title'
+          isCritical={hasCriticalWarnings}
+        >
           {hasCriticalWarnings
             ? getLocale('braveWalletRiskOfLossAction')
             : getLocale('braveWalletFoundIssues').replace(
@@ -78,13 +78,6 @@ export function TransactionWarnings({
                 warnings.length.toString()
               )}
         </WarningTitle>
-        <IconSlot slot='icon'>
-          {hasCriticalWarnings ? (
-            <CriticalWarningIcon />
-          ) : (
-            <WarningTriangleFilledIcon />
-          )}
-        </IconSlot>
 
         <WarningsList>
           {warnings.map((warning) => (
