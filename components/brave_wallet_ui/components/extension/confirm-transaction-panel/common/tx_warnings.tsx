@@ -84,11 +84,13 @@ export function TxWarningBanner({
 export function TransactionWarnings({
   isWarningCollapsed,
   setIsWarningCollapsed,
-  warnings
+  warnings,
+  onDismiss
 }: {
   warnings: Array<Pick<BraveWallet.BlowfishWarning, 'message' | 'severity'>>
   isWarningCollapsed: boolean
   setIsWarningCollapsed?: React.Dispatch<React.SetStateAction<boolean>>
+  onDismiss?: (() => void) | (() => Promise<void>)
 }): JSX.Element | null {
   // memos
   const hasCriticalWarnings = warnings.some(
@@ -105,7 +107,10 @@ export function TransactionWarnings({
   if (warnings.length === 1) {
     return (
       <FullWidth>
-        <TxWarningBanner isCritical={hasCriticalWarnings}>
+        <TxWarningBanner
+          isCritical={hasCriticalWarnings}
+          onDismiss={onDismiss}
+        >
           {warnings[0].message}
         </TxWarningBanner>
       </FullWidth>
@@ -141,6 +146,16 @@ export function TransactionWarnings({
           {warnings.map((warning) => (
             <li key={warning.message}>{warning.message}</li>
           ))}
+          {onDismiss && (
+            <Row>
+              <Button
+                kind='plain'
+                onClick={onDismiss}
+              >
+                {getLocale('braveWalletDismissButton')}
+              </Button>
+            </Row>
+          )}
         </WarningsList>
       </WarningCollapse>
     </FullWidth>
