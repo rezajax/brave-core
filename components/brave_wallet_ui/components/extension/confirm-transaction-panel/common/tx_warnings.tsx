@@ -5,6 +5,7 @@
 
 import * as React from 'react'
 import Button from '@brave/leo/react/button'
+import Alert from '@brave/leo/react/alert'
 
 // types
 import { BraveWallet } from '../../../../constants/types'
@@ -13,43 +14,60 @@ import { BraveWallet } from '../../../../constants/types'
 import { getLocale } from '../../../../../common/locale'
 
 // styles
-import { FullWidth, Text } from '../../../shared/style'
+import { FullWidth } from '../../../shared/style'
 import {
   WarningCollapse,
   WarningTitle,
   WarningsList,
-  AlertIcon,
-  WarningAlertRow
+  WarningCloseIcon
 } from './tx_warnings.styles'
 
 export function TxWarningBanner({
   retrySimulation,
+  onDismiss,
   isCritical,
   children
 }: React.PropsWithChildren<{
   retrySimulation?: (() => void) | (() => Promise<void>)
+  onDismiss?: (() => void) | (() => Promise<void>)
   isCritical?: boolean
 }>) {
   // render
   return (
     <FullWidth>
-      <WarningAlertRow
-        isCritical={isCritical}
-        justifyContent={'flex-start'}
+      <Alert
+        type={isCritical ? 'error' : 'warning'}
+        mode='simple'
       >
-        <AlertIcon isCritical={isCritical} />
-        <Text textSize='12px'>
-          {children || getLocale('braveWalletTransactionPreviewFailed')}
-        </Text>
+        <div slot='icon'>{/* No Icon */}</div>
+
         {retrySimulation ? (
-          <Button
-            kind='plain'
-            onClick={retrySimulation}
-          >
-            {getLocale('braveWalletButtonRetry')}
-          </Button>
-        ) : null}
-      </WarningAlertRow>
+          getLocale('braveWalletTransactionPreviewFailed')
+        ) : (
+          <WarningTitle isCritical={isCritical}>{children}</WarningTitle>
+        )}
+
+        {(onDismiss || retrySimulation) && (
+          <div slot='actions'>
+            {retrySimulation && (
+              <Button
+                kind='plain'
+                onClick={retrySimulation}
+              >
+                {getLocale('braveWalletButtonRetry')}
+              </Button>
+            )}
+            {onDismiss && (
+              <Button
+                kind='plain'
+                onClick={onDismiss}
+              >
+                <WarningCloseIcon isCritical={isCritical} />
+              </Button>
+            )}
+          </div>
+        )}
+      </Alert>
     </FullWidth>
   )
 }
