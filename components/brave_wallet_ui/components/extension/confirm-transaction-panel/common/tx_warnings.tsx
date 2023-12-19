@@ -14,7 +14,7 @@ import { BraveWallet } from '../../../../constants/types'
 import { getLocale } from '../../../../../common/locale'
 
 // styles
-import { FullWidth } from '../../../shared/style'
+import { FullWidth, Row } from '../../../shared/style'
 import {
   WarningCollapse,
   WarningTitle,
@@ -42,29 +42,38 @@ export function TxWarningBanner({
         <div slot='icon'>{/* No Icon */}</div>
 
         {retrySimulation ? (
-          getLocale('braveWalletTransactionPreviewFailed')
+          <WarningTitle isCritical={isCritical}>
+            {getLocale('braveWalletTransactionPreviewFailed')}
+          </WarningTitle>
         ) : (
-          <WarningTitle isCritical={isCritical}>{children}</WarningTitle>
+          <WarningTitle
+            isBold
+            isCritical={isCritical}
+          >
+            {children}
+          </WarningTitle>
         )}
 
         {(onDismiss || retrySimulation) && (
           <div slot='actions'>
-            {retrySimulation && (
-              <Button
-                kind='plain'
-                onClick={retrySimulation}
-              >
-                {getLocale('braveWalletButtonRetry')}
-              </Button>
-            )}
-            {onDismiss && (
-              <Button
-                kind='plain'
-                onClick={onDismiss}
-              >
-                <WarningCloseIcon isCritical={isCritical} />
-              </Button>
-            )}
+            <Row>
+              {retrySimulation && (
+                <Button
+                  kind='plain'
+                  onClick={retrySimulation}
+                >
+                  {getLocale('braveWalletButtonRetry')}
+                </Button>
+              )}
+              {onDismiss && (
+                <Button
+                  kind='plain'
+                  onClick={onDismiss}
+                >
+                  <WarningCloseIcon isCritical={isCritical} />
+                </Button>
+              )}
+            </Row>
           </div>
         )}
       </Alert>
@@ -118,6 +127,7 @@ export function TransactionWarnings({
         <WarningTitle
           slot='title'
           isCritical={hasCriticalWarnings}
+          isBold
         >
           {hasCriticalWarnings
             ? getLocale('braveWalletRiskOfLossAction')
