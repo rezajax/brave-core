@@ -203,6 +203,7 @@ void BraveRequestHandler::OnURLRequestDestroyed(brave::BraveRequestInfo& ctx) {
   ctx.browser_context = nullptr;
   ctx.allowed_unsafe_redirect_url = nullptr;
   ctx.new_url = nullptr;
+  ctx.override_response_headers = nullptr;
 }
 
 void BraveRequestHandler::RunCallbackForRequestIdentifier(

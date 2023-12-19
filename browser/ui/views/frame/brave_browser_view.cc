@@ -335,6 +335,7 @@ BraveBrowserView::~BraveBrowserView() {
   GetBrowserViewLayout()->set_sidebar_container(nullptr);
   GetBrowserViewLayout()->set_sidebar_separator(nullptr);
   GetBrowserViewLayout()->set_vertical_tab_strip_host(nullptr);
+  GetBrowserViewLayout()->set_reader_mode_toolbar(nullptr);
 }
 
 sidebar::Sidebar* BraveBrowserView::InitSidebar() {
