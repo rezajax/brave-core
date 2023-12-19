@@ -3,9 +3,8 @@
 // License, v. 2.0. If a copy of the MPL was not distributed with this file,
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
-/* eslint-disable @typescript-eslint/key-spacing */
-
 import * as React from 'react'
+import Button from '@brave/leo/react/button'
 
 // types
 import { BraveWallet } from '../../../../constants/types'
@@ -13,16 +12,47 @@ import { BraveWallet } from '../../../../constants/types'
 // utils
 import { getLocale } from '../../../../../common/locale'
 
-// components
-import { TxWarningBanner } from './tx_warning_banner'
-
 // styles
-import { FullWidth } from '../../../shared/style'
+import { FullWidth, Text } from '../../../shared/style'
 import {
   WarningCollapse,
   WarningTitle,
-  WarningsList
+  WarningsList,
+  AlertIcon,
+  WarningAlertRow
 } from './tx_warnings.styles'
+
+export function TxWarningBanner({
+  retrySimulation,
+  isCritical,
+  children
+}: React.PropsWithChildren<{
+  retrySimulation?: (() => void) | (() => Promise<void>)
+  isCritical?: boolean
+}>) {
+  // render
+  return (
+    <FullWidth>
+      <WarningAlertRow
+        isCritical={isCritical}
+        justifyContent={'flex-start'}
+      >
+        <AlertIcon isCritical={isCritical} />
+        <Text textSize='12px'>
+          {children || getLocale('braveWalletTransactionPreviewFailed')}
+        </Text>
+        {retrySimulation ? (
+          <Button
+            kind='plain'
+            onClick={retrySimulation}
+          >
+            {getLocale('braveWalletButtonRetry')}
+          </Button>
+        ) : null}
+      </WarningAlertRow>
+    </FullWidth>
+  )
+}
 
 export function TransactionWarnings({
   isWarningCollapsed,
