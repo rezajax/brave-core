@@ -20,7 +20,8 @@ import {
   WarningTitle,
   WarningsList,
   WarningCloseIcon,
-  WarningButton
+  WarningButton,
+  DismissButton
 } from './tx_warnings.styles'
 
 export function TxWarningBanner({
@@ -144,21 +145,28 @@ export function TransactionWarnings({
               )}
         </WarningTitle>
 
-        <WarningsList>
-          {warnings.map((warning) => (
-            <li key={warning.message}>{warning.message}</li>
-          ))}
+        <div>
+          <WarningsList>
+            {warnings.map((warning) => (
+              <li key={warning.message}>{warning.message}</li>
+            ))}
+          </WarningsList>
+
           {onDismiss && (
-            <Row>
-              <Button
+            <Row
+              alignItems='flex-start'
+              justifyContent='flex-start'
+              minWidth={'100%'}
+            >
+              <DismissButton
                 kind='plain'
                 onClick={onDismiss}
               >
                 {getLocale('braveWalletDismissButton')}
-              </Button>
+              </DismissButton>
             </Row>
           )}
-        </WarningsList>
+        </div>
       </WarningCollapse>
     </FullWidth>
   )
