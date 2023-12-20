@@ -19,7 +19,8 @@ import {
   WarningCollapse,
   WarningTitle,
   WarningsList,
-  WarningCloseIcon
+  WarningCloseIcon,
+  WarningButton
 } from './tx_warnings.styles'
 
 export function TxWarningBanner({
@@ -66,12 +67,13 @@ export function TxWarningBanner({
                 </Button>
               )}
               {onDismiss && (
-                <Button
+                <WarningButton
                   kind='plain'
                   onClick={onDismiss}
+                  isCritical={isCritical}
                 >
-                  <WarningCloseIcon isCritical={isCritical} />
-                </Button>
+                  <WarningCloseIcon />
+                </WarningButton>
               )}
             </Row>
           </div>
