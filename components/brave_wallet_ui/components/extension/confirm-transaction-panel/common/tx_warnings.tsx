@@ -45,7 +45,13 @@ export function TxWarningBanner({
 
         {retrySimulation ? (
           <WarningTitle isCritical={isCritical}>
-            {getLocale('braveWalletTransactionPreviewFailed')}
+            {getLocale('braveWalletTransactionPreviewFailed')}{' '}
+            <Button
+              kind='plain'
+              onClick={retrySimulation}
+            >
+              {getLocale('braveWalletButtonRetry')}
+            </Button>
           </WarningTitle>
         ) : (
           <WarningTitle
@@ -56,27 +62,15 @@ export function TxWarningBanner({
           </WarningTitle>
         )}
 
-        {(onDismiss || retrySimulation) && (
+        {onDismiss && (
           <div slot='actions'>
-            <Row>
-              {retrySimulation && (
-                <Button
-                  kind='plain'
-                  onClick={retrySimulation}
-                >
-                  {getLocale('braveWalletButtonRetry')}
-                </Button>
-              )}
-              {onDismiss && (
-                <WarningButton
-                  kind='plain'
-                  onClick={onDismiss}
-                  isCritical={isCritical}
-                >
-                  <WarningCloseIcon />
-                </WarningButton>
-              )}
-            </Row>
+            <WarningButton
+              kind='plain'
+              onClick={onDismiss}
+              isCritical={isCritical}
+            >
+              <WarningCloseIcon />
+            </WarningButton>
           </div>
         )}
       </Alert>
