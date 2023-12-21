@@ -11,7 +11,8 @@ action("generate_tsconfig") {
     "//ui/webui/resources/js:build_ts",
   ]
   inputs = [
-    "gen-tsconfig.js",
+    "../../build/commands/lib/genTsConfig.js",
+    "../../build/commands/scripts/genTsConfig.js",
     "path-map.js",
   ]
   outputs = [ "$root_gen_dir/tsconfig-webpack.json" ]
