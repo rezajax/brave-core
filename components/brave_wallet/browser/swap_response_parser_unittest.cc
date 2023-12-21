@@ -574,4 +574,705 @@ TEST(SwapResponseParserUnitTest, ParseJupiterErrorResponse) {
   }
 }
 
+TEST(SwapResponseParserUnitTest, ParseLiFiQuoteResponse) {
+  {
+    // OK: valid quote
+    std::string json(R"(
+    {
+      "routes": [
+        {
+          "id": "0x343bc553146a3dd8438518d80bd1b6957f3fec05d137ff65a940bfb5390d3f1f",
+          "fromChainId": "1",
+          "fromAmountUSD": "1.00",
+          "fromAmount": "1000000",
+          "fromToken": {
+            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "chainId": "1",
+            "symbol": "USDC",
+            "decimals": "6",
+            "name": "USD Coin",
+            "coinKey": "USDC",
+            "logoURI": "usdc.png",
+            "priceUSD": "1"
+          },
+          "fromAddress": "0xa92D461a9a988A7f11ec285d39783A637Fdd6ba4",
+          "toChainId": "10",
+          "toAmountUSD": "1.01",
+          "toAmount": "1013654",
+          "toAmountMin": "1008586",
+          "toToken": {
+            "address": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
+            "chainId": "10",
+            "symbol": "USDT",
+            "decimals": "6",
+            "name": "USDT",
+            "coinKey": "USDT",
+            "logoURI": "usdt.png",
+            "priceUSD": "0.999685"
+          },
+          "toAddress": "0xa92D461a9a988A7f11ec285d39783A637Fdd6ba4",
+          "gasCostUSD": "14.65",
+          "containsSwitchChain": false,
+          "steps": [
+            {
+              "type": "lifi",
+              "id": "5a6876f1-988e-4710-85b7-be2bd7681421",
+              "tool": "optimism",
+              "toolDetails": {
+                "key": "optimism",
+                "name": "Optimism Gateway",
+                "logoURI": "optimism.png"
+              },
+              "action": {
+                "fromToken": {
+                  "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+                  "chainId": "1",
+                  "symbol": "USDC",
+                  "decimals": "6",
+                  "name": "USD Coin",
+                  "coinKey": "USDC",
+                  "logoURI": "usdc.png",
+                  "priceUSD": "1"
+                },
+                "fromAmount": "1000000",
+                "toToken": {
+                  "address": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
+                  "chainId": "10",
+                  "symbol": "USDT",
+                  "decimals": "6",
+                  "name": "USDT",
+                  "coinKey": "USDT",
+                  "logoURI": "usdt.png",
+                  "priceUSD": "0.999685"
+                },
+                "fromChainId": "1",
+                "toChainId": "10",
+                "slippage": "0.005",
+                "fromAddress": "0xa92D461a9a988A7f11ec285d39783A637Fdd6ba4",
+                "toAddress": "0xa92D461a9a988A7f11ec285d39783A637Fdd6ba4"
+              },
+              "estimate": {
+                "tool": "optimism",
+                "approvalAddress": "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE",
+                "toAmountMin": "1008586",
+                "toAmount": "1013654",
+                "fromAmount": "1000000",
+                "feeCosts": [
+                  {
+                    "name": "LP Fee",
+                    "description": "Fee paid to the Liquidity Provider",
+                    "token": {
+                      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+                      "chainId": "1",
+                      "symbol": "USDC",
+                      "decimals": "6",
+                      "name": "USD Coin",
+                      "coinKey": "USDC",
+                      "logoURI": "usdc.png",
+                      "priceUSD": "1"
+                    },
+                    "amount": "3000",
+                    "amountUSD": "0.01",
+                    "percentage": "0.003",
+                    "included": true
+                  }
+                ],
+                "gasCosts": [
+                  {
+                    "type": "SEND",
+                    "price": "17621901985",
+                    "estimate": "375000",
+                    "limit": "618000",
+                    "amount": "6608213244375000",
+                    "amountUSD": "14.65",
+                    "token": {
+                      "address": "0x0000000000000000000000000000000000000000",
+                      "chainId": "1",
+                      "symbol": "ETH",
+                      "decimals": "18",
+                      "name": "ETH",
+                      "coinKey": "ETH",
+                      "logoURI": "eth.png",
+                      "priceUSD": "2216.770000000000000000"
+                    }
+                  }
+                ],
+                "executionDuration": "106.944",
+                "fromAmountUSD": "1.00",
+                "toAmountUSD": "1.01"
+              },
+              "includedSteps": [
+                {
+                  "id": "9ac4d9f1-9b72-463d-baf1-fcd8b09f8a8d",
+                  "type": "swap",
+                  "action": {
+                    "fromChainId": "1",
+                    "fromAmount": "1000000",
+                    "fromToken": {
+                      "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+                      "chainId": "1",
+                      "symbol": "USDC",
+                      "decimals": "6",
+                      "name": "USD Coin",
+                      "coinKey": "USDC",
+                      "logoURI": "usdc.png",
+                      "priceUSD": "1"
+                    },
+                    "toChainId": "1",
+                    "toToken": {
+                      "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+                      "chainId": "1",
+                      "symbol": "USDT",
+                      "decimals": "6",
+                      "name": "USDT",
+                      "coinKey": "USDT",
+                      "logoURI": "usdt.png",
+                      "priceUSD": "0.999685"
+                    },
+                    "slippage": "0.005"
+                  },
+                  "estimate": {
+                    "tool": "verse-dex",
+                    "fromAmount": "1000000",
+                    "toAmount": "1013654",
+                    "toAmountMin": "1008586",
+                    "approvalAddress": "0xB4B0ea46Fe0E9e8EAB4aFb765b527739F2718671",
+                    "executionDuration": "30",
+                    "feeCosts": [
+                      {
+                        "name": "LP Fee",
+                        "description": "Fee paid to the Liquidity Provider",
+                        "token": {
+                          "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+                          "chainId": "1",
+                          "symbol": "USDC",
+                          "decimals": "6",
+                          "name": "USD Coin",
+                          "coinKey": "USDC",
+                          "logoURI": "usdc.png",
+                          "priceUSD": "1"
+                        },
+                        "amount": "3000",
+                        "amountUSD": "0.01",
+                        "percentage": "0.003",
+                        "included": true
+                      }
+                    ],
+                    "gasCosts": [
+                      {
+                        "type": "SEND",
+                        "price": "17621901985",
+                        "estimate": "200000",
+                        "limit": "260000",
+                        "amount": "3524380397000000",
+                        "amountUSD": "7.81",
+                        "token": {
+                          "address": "0x0000000000000000000000000000000000000000",
+                          "chainId": "1",
+                          "symbol": "ETH",
+                          "decimals": "18",
+                          "name": "ETH",
+                          "coinKey": "ETH",
+                          "logoURI": "eth.png",
+                          "priceUSD": "2216.770000000000000000"
+                        }
+                      }
+                    ]
+                  },
+                  "tool": "verse-dex",
+                  "toolDetails": {
+                    "key": "verse-dex",
+                    "name": "Verse Dex",
+                    "logoURI": "https://analytics.verse.bitcoin.com/logo.png"
+                  }
+                },
+                {
+                  "id": "b952ed38-1d5c-43bc-990a-468fd32d29b9",
+                  "type": "cross",
+                  "action": {
+                    "fromChainId": "1",
+                    "fromAmount": "1008586",
+                    "fromToken": {
+                      "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+                      "chainId": "1",
+                      "symbol": "USDT",
+                      "decimals": "6",
+                      "name": "USDT",
+                      "coinKey": "USDT",
+                      "logoURI": "usdt.png",
+                      "priceUSD": "0.999685"
+                    },
+                    "toChainId": "10",
+                    "toToken": {
+                      "address": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
+                      "chainId": "10",
+                      "symbol": "USDT",
+                      "decimals": "6",
+                      "name": "USDT",
+                      "coinKey": "USDT",
+                      "logoURI": "usdt.png",
+                      "priceUSD": "0.999685"
+                    },
+                    "slippage": "0.005",
+                    "destinationGasConsumption": "0",
+                    "destinationCallData": "0x0"
+                  },
+                  "estimate": {
+                    "tool": "optimism",
+                    "fromAmount": "1013654",
+                    "toAmount": "1013654",
+                    "toAmountMin": "1008586",
+                    "approvalAddress": "0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1",
+                    "executionDuration": "76.944",
+                    "feeCosts": [],
+                    "gasCosts": [
+                      {
+                        "type": "SEND",
+                        "price": "17621901985",
+                        "estimate": "175000",
+                        "limit": "227500",
+                        "amount": "3083832847375000",
+                        "amountUSD": "6.84",
+                        "token": {
+                          "address": "0x0000000000000000000000000000000000000000",
+                          "chainId": "1",
+                          "symbol": "ETH",
+                          "decimals": "18",
+                          "name": "ETH",
+                          "coinKey": "ETH",
+                          "logoURI": "eth.png",
+                          "priceUSD": "2216.770000000000000000"
+                        }
+                      }
+                    ]
+                  },
+                  "tool": "optimism",
+                  "toolDetails": {
+                    "key": "optimism",
+                    "name": "Optimism Gateway",
+                    "logoURI": "optimism.png"
+                  }
+                }
+              ],
+              "integrator": "jumper.exchange"
+            }
+          ],
+          "insurance": {
+            "state": "NOT_INSURABLE",
+            "feeAmountUsd": "0"
+          },
+          "tags": [
+            "RECOMMENDED",
+            "CHEAPEST",
+            "FASTEST"
+          ]
+        }
+      ]
+    })");
+
+    auto quote = lifi::ParseQuoteResponse(ParseJson(json));
+    ASSERT_TRUE(quote);
+    ASSERT_EQ(quote->routes.size(), 1u);
+    const auto& route = quote->routes.at(0);
+    EXPECT_EQ(
+        route->id,
+        "0x343bc553146a3dd8438518d80bd1b6957f3fec05d137ff65a940bfb5390d3f1f");
+    EXPECT_EQ(route->from_amount, "1000000");
+    EXPECT_EQ(route->from_token->contract_address,
+              "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48");
+    EXPECT_EQ(route->from_token->chain_id, "0x1");
+    EXPECT_EQ(route->from_token->symbol, "USDC");
+    EXPECT_EQ(route->from_token->decimals, 6);
+    EXPECT_EQ(route->from_token->name, "USD Coin");
+    EXPECT_EQ(route->from_token->logo, "usdc.png");
+    EXPECT_EQ(route->from_address,
+              "0xa92D461a9a988A7f11ec285d39783A637Fdd6ba4");
+    EXPECT_EQ(route->to_amount, "1013654");
+    EXPECT_EQ(route->to_amount_min, "1008586");
+    EXPECT_EQ(route->to_token->contract_address,
+              "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58");
+    EXPECT_EQ(route->to_token->chain_id, "0xa");
+    EXPECT_EQ(route->to_token->symbol, "USDT");
+    EXPECT_EQ(route->to_token->decimals, 6);
+    EXPECT_EQ(route->to_token->name, "USDT");
+    EXPECT_EQ(route->to_token->logo, "usdt.png");
+    EXPECT_EQ(route->to_address, "0xa92D461a9a988A7f11ec285d39783A637Fdd6ba4");
+
+    ASSERT_EQ(route->steps.size(), 1u);
+    const auto& step = route->steps.at(0);
+    EXPECT_EQ(step->type, mojom::LiFiStepType::kNative);
+    EXPECT_EQ(step->id, "5a6876f1-988e-4710-85b7-be2bd7681421");
+    EXPECT_EQ(step->tool, "optimism");
+    EXPECT_EQ(step->tool_details->key, "optimism");
+    EXPECT_EQ(step->tool_details->name, "Optimism Gateway");
+    EXPECT_EQ(step->tool_details->logo, "optimism.png");
+    EXPECT_EQ(step->action->from_token->contract_address,
+              "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48");
+    EXPECT_EQ(step->action->from_token->chain_id, "0x1");
+    EXPECT_EQ(step->action->from_token->symbol, "USDC");
+    EXPECT_EQ(step->action->from_token->decimals, 6);
+    EXPECT_EQ(step->action->from_token->name, "USD Coin");
+    EXPECT_EQ(step->action->from_token->logo, "usdc.png");
+    EXPECT_EQ(step->action->from_amount, "1000000");
+    EXPECT_EQ(step->action->to_token->contract_address,
+              "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58");
+    EXPECT_EQ(step->action->to_token->chain_id, "0xa");
+    EXPECT_EQ(step->action->to_token->symbol, "USDT");
+    EXPECT_EQ(step->action->to_token->decimals, 6);
+    EXPECT_EQ(step->action->to_token->name, "USDT");
+    EXPECT_EQ(step->action->to_token->logo, "usdt.png");
+    EXPECT_EQ(step->action->slippage, "0.005");
+    EXPECT_EQ(step->action->from_address,
+              "0xa92D461a9a988A7f11ec285d39783A637Fdd6ba4");
+    EXPECT_EQ(step->action->to_address,
+              "0xa92D461a9a988A7f11ec285d39783A637Fdd6ba4");
+    EXPECT_EQ(step->estimate->tool, "optimism");
+    EXPECT_EQ(step->estimate->approval_address,
+              "0x1231DEB6f5749EF6cE6943a275A1D3E7486F4EaE");
+    EXPECT_EQ(step->estimate->to_amount_min, "1008586");
+    EXPECT_EQ(step->estimate->to_amount, "1013654");
+    EXPECT_EQ(step->estimate->from_amount, "1000000");
+    ASSERT_EQ(step->estimate->fee_costs.size(), 1u);
+    const auto& fee_cost = step->estimate->fee_costs.at(0);
+    EXPECT_EQ(fee_cost->name, "LP Fee");
+    EXPECT_EQ(fee_cost->description, "Fee paid to the Liquidity Provider");
+    EXPECT_EQ(fee_cost->token->contract_address,
+              "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48");
+    EXPECT_EQ(fee_cost->token->chain_id, "0x1");
+    EXPECT_EQ(fee_cost->token->symbol, "USDC");
+    EXPECT_EQ(fee_cost->token->decimals, 6);
+    EXPECT_EQ(fee_cost->token->name, "USD Coin");
+    EXPECT_EQ(fee_cost->token->logo, "usdc.png");
+    EXPECT_EQ(fee_cost->amount, "3000");
+    EXPECT_EQ(fee_cost->percentage, "0.003");
+    EXPECT_TRUE(fee_cost->included);
+    ASSERT_EQ(step->estimate->gas_costs.size(), 1u);
+    const auto& gas_cost = step->estimate->gas_costs.at(0);
+    EXPECT_EQ(gas_cost->type, "SEND");
+    EXPECT_EQ(gas_cost->estimate, "375000");
+    EXPECT_EQ(gas_cost->limit, "618000");
+    EXPECT_EQ(gas_cost->amount, "6608213244375000");
+    EXPECT_EQ(gas_cost->token->contract_address, "");
+    EXPECT_EQ(gas_cost->token->chain_id, "0x1");
+    EXPECT_EQ(gas_cost->token->symbol, "ETH");
+    EXPECT_EQ(gas_cost->token->decimals, 18);
+    EXPECT_EQ(gas_cost->token->name, "ETH");
+    EXPECT_EQ(gas_cost->token->logo, "eth.png");
+    EXPECT_EQ(step->estimate->execution_duration, "106.944");
+
+    ASSERT_TRUE(step->included_steps);
+    ASSERT_EQ(step->included_steps->size(), 2u);
+    const auto& included_step_1 = step->included_steps->at(0);
+    EXPECT_EQ(included_step_1->id, "9ac4d9f1-9b72-463d-baf1-fcd8b09f8a8d");
+    EXPECT_EQ(included_step_1->type, mojom::LiFiStepType::kSwap);
+    EXPECT_EQ(included_step_1->tool, "verse-dex");
+    EXPECT_EQ(included_step_1->tool_details->key, "verse-dex");
+    EXPECT_EQ(included_step_1->tool_details->name, "Verse Dex");
+    EXPECT_EQ(included_step_1->tool_details->logo,
+              "https://analytics.verse.bitcoin.com/logo.png");
+    EXPECT_EQ(included_step_1->action->from_amount, "1000000");
+    EXPECT_EQ(included_step_1->action->from_token->contract_address,
+              "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48");
+    EXPECT_EQ(included_step_1->action->from_token->chain_id, "0x1");
+    EXPECT_EQ(included_step_1->action->from_token->symbol, "USDC");
+    EXPECT_EQ(included_step_1->action->from_token->decimals, 6);
+    EXPECT_EQ(included_step_1->action->from_token->name, "USD Coin");
+    EXPECT_EQ(included_step_1->action->from_token->logo, "usdc.png");
+    EXPECT_EQ(included_step_1->action->to_token->contract_address,
+              "0xdAC17F958D2ee523a2206206994597C13D831ec7");
+    EXPECT_EQ(included_step_1->action->to_token->chain_id, "0x1");
+    EXPECT_EQ(included_step_1->action->to_token->symbol, "USDT");
+    EXPECT_EQ(included_step_1->action->to_token->decimals, 6);
+    EXPECT_EQ(included_step_1->action->to_token->name, "USDT");
+    EXPECT_EQ(included_step_1->action->to_token->logo, "usdt.png");
+    EXPECT_EQ(included_step_1->action->slippage, "0.005");
+    EXPECT_EQ(included_step_1->estimate->tool, "verse-dex");
+    EXPECT_EQ(included_step_1->estimate->from_amount, "1000000");
+    EXPECT_EQ(included_step_1->estimate->to_amount, "1013654");
+    EXPECT_EQ(included_step_1->estimate->to_amount_min, "1008586");
+    EXPECT_EQ(included_step_1->estimate->approval_address,
+              "0xB4B0ea46Fe0E9e8EAB4aFb765b527739F2718671");
+    EXPECT_EQ(included_step_1->estimate->execution_duration, "30");
+    ASSERT_EQ(included_step_1->estimate->fee_costs.size(), 1u);
+    const auto& included_step_1_fee_cost =
+        included_step_1->estimate->fee_costs.at(0);
+    EXPECT_EQ(included_step_1_fee_cost->name, "LP Fee");
+    EXPECT_EQ(included_step_1_fee_cost->description,
+              "Fee paid to the Liquidity Provider");
+    EXPECT_EQ(included_step_1_fee_cost->token->contract_address,
+              "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48");
+    EXPECT_EQ(included_step_1_fee_cost->token->chain_id, "0x1");
+    EXPECT_EQ(included_step_1_fee_cost->token->symbol, "USDC");
+    EXPECT_EQ(included_step_1_fee_cost->token->decimals, 6);
+    EXPECT_EQ(included_step_1_fee_cost->token->name, "USD Coin");
+    EXPECT_EQ(included_step_1_fee_cost->token->logo, "usdc.png");
+    EXPECT_EQ(included_step_1_fee_cost->amount, "3000");
+    EXPECT_EQ(included_step_1_fee_cost->percentage, "0.003");
+    EXPECT_TRUE(included_step_1_fee_cost->included);
+    ASSERT_EQ(included_step_1->estimate->gas_costs.size(), 1u);
+    const auto& included_step_1_gas_cost =
+        included_step_1->estimate->gas_costs.at(0);
+    EXPECT_EQ(included_step_1_gas_cost->type, "SEND");
+    EXPECT_EQ(included_step_1_gas_cost->estimate, "200000");
+    EXPECT_EQ(included_step_1_gas_cost->limit, "260000");
+    EXPECT_EQ(included_step_1_gas_cost->amount, "3524380397000000");
+    EXPECT_EQ(included_step_1_gas_cost->token->contract_address, "");
+    EXPECT_EQ(included_step_1_gas_cost->token->chain_id, "0x1");
+    EXPECT_EQ(included_step_1_gas_cost->token->symbol, "ETH");
+    EXPECT_EQ(included_step_1_gas_cost->token->decimals, 18);
+    EXPECT_EQ(included_step_1_gas_cost->token->name, "ETH");
+    EXPECT_EQ(included_step_1_gas_cost->token->logo, "eth.png");
+    EXPECT_FALSE(included_step_1->included_steps);
+
+    const auto& included_step_2 = step->included_steps->at(1);
+    EXPECT_EQ(included_step_2->id, "b952ed38-1d5c-43bc-990a-468fd32d29b9");
+    EXPECT_EQ(included_step_2->type, mojom::LiFiStepType::kCross);
+    EXPECT_EQ(included_step_2->tool, "optimism");
+    EXPECT_EQ(included_step_2->tool_details->key, "optimism");
+    EXPECT_EQ(included_step_2->tool_details->name, "Optimism Gateway");
+    EXPECT_EQ(included_step_2->tool_details->logo, "optimism.png");
+    EXPECT_EQ(included_step_2->action->from_amount, "1008586");
+    EXPECT_EQ(included_step_2->action->from_token->contract_address,
+              "0xdAC17F958D2ee523a2206206994597C13D831ec7");
+    EXPECT_EQ(included_step_2->action->from_token->chain_id, "0x1");
+    EXPECT_EQ(included_step_2->action->from_token->symbol, "USDT");
+    EXPECT_EQ(included_step_2->action->from_token->decimals, 6);
+    EXPECT_EQ(included_step_2->action->from_token->name, "USDT");
+    EXPECT_EQ(included_step_2->action->from_token->logo, "usdt.png");
+    EXPECT_EQ(included_step_2->action->to_token->contract_address,
+              "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58");
+    EXPECT_EQ(included_step_2->action->to_token->chain_id, "0xa");
+    EXPECT_EQ(included_step_2->action->to_token->symbol, "USDT");
+    EXPECT_EQ(included_step_2->action->to_token->decimals, 6);
+    EXPECT_EQ(included_step_2->action->to_token->name, "USDT");
+    EXPECT_EQ(included_step_2->action->to_token->logo, "usdt.png");
+    EXPECT_EQ(included_step_2->action->slippage, "0.005");
+    EXPECT_EQ(included_step_2->action->destination_call_data, "0x0");
+    EXPECT_EQ(included_step_2->estimate->tool, "optimism");
+    EXPECT_EQ(included_step_2->estimate->from_amount, "1013654");
+    EXPECT_EQ(included_step_2->estimate->to_amount, "1013654");
+    EXPECT_EQ(included_step_2->estimate->to_amount_min, "1008586");
+    EXPECT_EQ(included_step_2->estimate->approval_address,
+              "0x99C9fc46f92E8a1c0deC1b1747d010903E884bE1");
+    EXPECT_EQ(included_step_2->estimate->execution_duration, "76.944");
+    EXPECT_TRUE(included_step_2->estimate->fee_costs.empty());
+    ASSERT_EQ(included_step_2->estimate->gas_costs.size(), 1u);
+    const auto& included_step_2_gas_cost =
+        included_step_2->estimate->gas_costs.at(0);
+    EXPECT_EQ(included_step_2_gas_cost->type, "SEND");
+    EXPECT_EQ(included_step_2_gas_cost->estimate, "175000");
+    EXPECT_EQ(included_step_2_gas_cost->limit, "227500");
+    EXPECT_EQ(included_step_2_gas_cost->amount, "3083832847375000");
+    EXPECT_EQ(included_step_2_gas_cost->token->contract_address, "");
+    EXPECT_EQ(included_step_2_gas_cost->token->chain_id, "0x1");
+    EXPECT_EQ(included_step_2_gas_cost->token->symbol, "ETH");
+    EXPECT_EQ(included_step_2_gas_cost->token->decimals, 18);
+    EXPECT_EQ(included_step_2_gas_cost->token->name, "ETH");
+    EXPECT_EQ(included_step_2_gas_cost->token->logo, "eth.png");
+    EXPECT_FALSE(included_step_2->included_steps);
+
+    EXPECT_EQ(route->insurance->state, "NOT_INSURABLE");
+    EXPECT_EQ(route->insurance->fee_amount_usd, "0");
+    ASSERT_EQ(route->tags.size(), 3u);
+    EXPECT_EQ(route->tags.at(0), "RECOMMENDED");
+    EXPECT_EQ(route->tags.at(1), "CHEAPEST");
+    EXPECT_EQ(route->tags.at(2), "FASTEST");
+  }
+}
+
+TEST(SwapResponseParserUnitTest, ParseLiFiTransactionResponse) {
+  {
+    // OK: valid Solana transaction
+    std::string json(R"(
+    {
+      "transactionRequest": {
+        "data": "b255Yg=="
+      }
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    ASSERT_TRUE(transaction);
+    ASSERT_TRUE(transaction->is_solana_transaction());
+    EXPECT_EQ(transaction->get_solana_transaction(), "b255Yg==");
+  }
+
+  {
+    // KO: empty data field
+    std::string json(R"(
+    {
+      "transactionRequest": {}
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    EXPECT_FALSE(transaction);
+  }
+
+  {
+    // KO: missing transactionRequest field
+    std::string json(R"(
+    {
+      "foobar": 123
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    EXPECT_FALSE(transaction);
+  }
+
+  {
+    // OK: valid EVM transaction
+    std::string json(R"(
+    {
+      "transactionRequest": {
+        "from": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0",
+        "to": "0x1111111254fb6c44bac0bed2854e76f90643097d",
+        "chainId": "100",
+        "data": "0x...",
+        "value": "0x0de0b6b3a7640000",
+        "gasPrice": "0xb2d05e00",
+        "gasLimit": "0x0e9cb2"
+      }
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    ASSERT_TRUE(transaction);
+    ASSERT_TRUE(transaction->is_evm_transaction());
+    const auto& evm_transaction = transaction->get_evm_transaction();
+    EXPECT_EQ(evm_transaction->from,
+              "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0");
+    EXPECT_EQ(evm_transaction->to,
+              "0x1111111254fb6c44bac0bed2854e76f90643097d");
+    EXPECT_EQ(evm_transaction->chain_id, "0x64");
+    EXPECT_EQ(evm_transaction->data, "0x...");
+    EXPECT_EQ(evm_transaction->value, "0x0de0b6b3a7640000");
+    EXPECT_EQ(evm_transaction->gas_price, "0xb2d05e00");
+    EXPECT_EQ(evm_transaction->gas_limit, "0x0e9cb2");
+  }
+
+  {
+    // KO: missing from field
+    std::string json(R"(
+    {
+      "transactionRequest": {
+        "to": "0x1111111254fb6c44bac0bed2854e76f90643097d",
+        "chainId": "100",
+        "data": "0x...",
+        "value": "0x0de0b6b3a7640000",
+        "gasPrice": "0xb2d05e00",
+        "gasLimit": "0x0e9cb2"
+      }
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    EXPECT_FALSE(transaction);
+  }
+
+  {
+    // KO: missing to field
+    std::string json(R"(
+    {
+      "transactionRequest": {
+        "from": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0",
+        "chainId": "100",
+        "data": "0x...",
+        "value": "0x0de0b6b3a7640000",
+        "gasPrice": "0xb2d05e00",
+        "gasLimit": "0x0e9cb2"
+      }
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    EXPECT_FALSE(transaction);
+  }
+
+  {
+    // KO: missing chainId field
+    std::string json(R"(
+    {
+      "transactionRequest": {
+        "from": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0",
+        "to": "0x1111111254fb6c44bac0bed2854e76f90643097d",
+        "data": "0x...",
+        "value": "0x0de0b6b3a7640000",
+        "gasPrice": "0xb2d05e00",
+        "gasLimit": "0x0e9cb2"
+      }
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    EXPECT_FALSE(transaction);
+  }
+
+  {
+    // KO: missing data field
+    std::string json(R"(
+    {
+      "transactionRequest": {
+        "from": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0",
+        "to": "0x1111111254fb6c44bac0bed2854e76f90643097d",
+        "chainId": "100",
+        "value": "0x0de0b6b3a7640000",
+        "gasPrice": "0xb2d05e00",
+        "gasLimit": "0x0e9cb2"
+      }
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    EXPECT_FALSE(transaction);
+  }
+
+  {
+    // KO: missing value field
+    std::string json(R"(
+    {
+      "transactionRequest": {
+        "from": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0",
+        "to": "0x1111111254fb6c44bac0bed2854e76f90643097d",
+        "chainId": "100",
+        "data": "0x...",
+        "gasPrice": "0xb2d05e00",
+        "gasLimit": "0x0e9cb2"
+      }
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    EXPECT_FALSE(transaction);
+  }
+
+  {
+    // KO: missing gasPrice field
+    std::string json(R"(
+    {
+      "transactionRequest": {
+        "from": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0",
+        "to": "0x1111111254fb6c44bac0bed2854e76f90643097d",
+        "chainId": "100",
+        "data": "0x...",
+        "value": "0x0de0b6b3a7640000",
+        "gasLimit": "0x0e9cb2"
+      }
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    EXPECT_FALSE(transaction);
+  }
+
+  {
+    // KO: missing gasLimit field
+    std::string json(R"(
+    {
+      "transactionRequest": {
+        "from": "0x552008c0f6870c2f77e5cC1d2eb9bdff03e30Ea0",
+        "to": "0x1111111254fb6c44bac0bed2854e76f90643097d",
+        "chainId": "100",
+        "data": "0x...",
+        "value": "0x0de0b6b3a7640000",
+        "gasPrice": "0xb2d05e00"
+      }
+    })");
+
+    auto transaction = lifi::ParseTransactionResponse(ParseJson(json));
+    EXPECT_FALSE(transaction);
+  }
+}
+
 }  // namespace brave_wallet

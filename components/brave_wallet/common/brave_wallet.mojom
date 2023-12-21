@@ -511,11 +511,13 @@ union SwapTransactionParamsUnion {
 union SwapQuoteUnion {
   JupiterQuote jupiter_quote;
   ZeroExQuote zero_ex_quote;
+  LiFiQuote lifi_quote;
 };
 
 union SwapTransactionUnion {
   string jupiter_transaction;
   ZeroExQuote zero_ex_transaction;
+  LiFiTransactionUnion lifi_transaction;
 };
 
 struct ZeroExSource {
@@ -625,6 +627,108 @@ struct JupiterError {
   string error;
   string message;
   bool is_insufficient_liquidity;
+};
+
+enum LiFiStepType {
+  kSwap,
+  kCross,
+  kNative
+};
+
+struct LiFiToolDetails {
+  string key;
+  string name;
+  string logo;
+};
+
+struct LiFiInsurance {
+  string state;
+  string fee_amount_usd;
+};
+
+struct LiFiAction {
+  BlockchainToken from_token;
+  string from_amount;
+  BlockchainToken to_token;
+  string slippage;
+
+  string? from_address;
+  string? to_address;
+  string? destination_call_data;
+};
+
+struct LiFiFeeCost {
+  string name;
+  string description;
+  string percentage;
+  BlockchainToken token;
+  string amount;
+  bool included;
+};
+
+struct LiFiGasCost {
+  string type;
+  string estimate;
+  string limit;
+  string amount;
+  BlockchainToken token;
+};
+
+struct LiFiStepEstimate {
+  string tool;
+  string from_amount;
+  string to_amount;
+  string to_amount_min;
+  string approval_address;
+  string execution_duration;
+  array<LiFiFeeCost> fee_costs;
+  array<LiFiGasCost> gas_costs;
+};
+
+struct LiFiStep {
+  string id;
+  LiFiStepType type;
+  string tool;
+  LiFiToolDetails tool_details;
+  LiFiAction action;
+  LiFiStepEstimate estimate;
+
+  // Not defined in included steps
+  string? integrator;
+  array<LiFiStep>? included_steps;
+};
+
+struct LiFiRoute {
+  string id;
+  BlockchainToken from_token;
+  string from_amount;
+  string from_address;
+  BlockchainToken to_token;
+  string to_amount;
+  string to_amount_min;
+  string to_address;
+  array<LiFiStep> steps;
+  LiFiInsurance insurance;
+  array<string> tags;
+};
+
+struct LiFiQuote {
+  array<LiFiRoute> routes;
+};
+
+union LiFiTransactionUnion {
+  string solana_transaction;
+  LiFiEVMTransaction evm_transaction;
+};
+
+struct LiFiEVMTransaction {
+  string data;
+  string from;
+  string to;
+  string chain_id;
+  string value;
+  string gas_price;
+  string gas_limit;
 };
 
 enum DiscountCode {

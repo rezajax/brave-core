@@ -22,6 +22,14 @@ std::optional<std::string> ParseJupiterTransactionResponse(
     const base::Value& json_value);
 mojom::JupiterErrorPtr ParseJupiterErrorResponse(const base::Value& json_value);
 std::optional<std::string> ConvertAllNumbersToString(const std::string& json);
+
+namespace lifi {
+mojom::LiFiTransactionUnionPtr ParseTransactionResponse(
+    const base::Value& json_value);
+
+mojom::LiFiQuotePtr ParseQuoteResponse(const base::Value& json_value);
+}  // namespace lifi
+
 }  // namespace brave_wallet
 
 #endif  // BRAVE_COMPONENTS_BRAVE_WALLET_BROWSER_SWAP_RESPONSE_PARSER_H_

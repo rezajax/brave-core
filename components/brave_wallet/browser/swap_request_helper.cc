@@ -132,4 +132,45 @@ std::optional<std::string> EncodeJupiterTransactionParams(
   return result;
 }
 
+namespace lifi {
+
+std::optional<std::string> EncodeQuoteParams(
+    const mojom::SwapQuoteParams& params) {
+  base::Value::Dict result;
+
+  result.Set("fromChainId", params.from_chain_id);
+  result.Set("fromAmount", params.from_amount);
+  result.Set("fromTokenAddress", params.from_token);
+  result.Set("fromAddress", params.from_account_id->address);
+  result.Set("toChainId", params.to_chain_id);
+  result.Set("toTokenAddress", params.to_token);
+  result.Set("toAddress", params.to_account_id->address);
+  result.Set("allowDestinationCall", true);
+
+  base::Value::Dict options;
+  options.Set("insurance", true);
+  options.Set("integrator", "brave");  // FIXME
+  options.Set("allowSwitchChain", false);
+  options.Set("fee", 0.2);  // FIXME
+
+  double slippage_percentage = 0.0;
+  if (base::StringToDouble(params.slippage_percentage, &slippage_percentage)) {
+    options.Set("slippage",
+                base::StringPrintf("%.6f", slippage_percentage / 100));
+  }
+
+  result.Set("options", std::move(options));
+
+  return GetJSON(base::Value(std::move(result)));
+}
+
+std::optional<std::string> EncodeTransactionParams(
+    const mojom::LiFiStep& step) {
+  base::Value::Dict result;
+
+  return GetJSON(base::Value(std::move(result)));
+}
+
+}  // namespace lifi
+
 }  // namespace brave_wallet

@@ -17,6 +17,13 @@ std::optional<std::string> EncodeJupiterTransactionParams(
     const mojom::JupiterTransactionParams& params,
     bool has_fee);
 
+namespace lifi {
+std::optional<std::string> EncodeQuoteParams(
+    const mojom::SwapQuoteParams& params);
+
+std::optional<std::string> EncodeTransactionParams(const mojom::LiFiStep& step);
+}  // namespace lifi
+
 }  // namespace brave_wallet
 
 #endif  // BRAVE_COMPONENTS_BRAVE_WALLET_BROWSER_SWAP_REQUEST_HELPER_H_

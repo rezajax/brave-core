@@ -16,6 +16,8 @@
 #include "brave/components/brave_wallet/browser/json_rpc_requests_helper.h"
 #include "brave/components/brave_wallet/browser/json_rpc_response_parser.h"
 #include "brave/components/brave_wallet/browser/swap_responses.h"
+#include "brave/components/brave_wallet/common/hex_utils.h"
+#include "brave/components/brave_wallet/common/string_utils.h"
 #include "brave/components/json/rs/src/lib.rs.h"
 
 namespace {
@@ -24,6 +26,8 @@ constexpr int kSwapValidationErrorCode = 100;
 constexpr char kInsufficientAssetLiquidity[] = "INSUFFICIENT_ASSET_LIQUIDITY";
 constexpr char kJupiterNoRoutesMessage[] =
     "No routes found for the input and output mints";
+constexpr char kLiFiNativeAssetContractAddress[] =
+    "0x0000000000000000000000000000000000000000";
 
 }  // namespace
 
@@ -359,5 +363,274 @@ std::optional<std::string> ConvertAllNumbersToString(const std::string& json) {
 
   return converted_json;
 }
+
+namespace lifi {
+
+namespace {
+
+std::optional<std::string> ChainIdToHex(const std::string& value) {
+  // LiFi uses the following two chain ID strings interchangeably for Solana
+  // Ref: https://docs.li.fi/li.fi-api/solana/request-examples
+  if (value == "SOL" || value == "1151111081099710") {
+    return mojom::kSolanaMainnet;
+  }
+
+  uint256_t out;
+  if (!Base10ValueToUint256(value, &out)) {
+    return std::nullopt;
+  }
+
+  return Uint256ValueToHex(out);
+}
+
+mojom::BlockchainTokenPtr ParseToken(const swap_responses::LiFiToken& value) {
+  auto result = mojom::BlockchainToken::New();
+  result->name = value.name;
+  result->symbol = value.symbol;
+  result->logo = value.logo_uri;
+  result->contract_address =
+      value.address == kLiFiNativeAssetContractAddress ? "" : value.address;
+
+  if (!base::StringToInt(value.decimals, &result->decimals)) {
+    return nullptr;
+  }
+
+  auto chain_id = ChainIdToHex(value.chain_id);
+  if (!chain_id) {
+    return nullptr;
+  }
+  result->chain_id = chain_id.value();
+
+  // LiFi does not return the coin type, so we infer it from the chain ID.
+  if (result->chain_id == mojom::kSolanaMainnet) {
+    result->coin = mojom::CoinType::SOL;
+  } else {
+    result->coin = mojom::CoinType::ETH;
+  }
+
+  return result;
+}
+
+std::optional<mojom::LiFiStepType> ParseStepType(const std::string& value) {
+  if (value == "swap") {
+    return mojom::LiFiStepType::kSwap;
+  }
+
+  if (value == "cross") {
+    return mojom::LiFiStepType::kCross;
+  }
+
+  if (value == "lifi") {
+    return mojom::LiFiStepType::kNative;
+  }
+
+  return std::nullopt;
+}
+
+mojom::LiFiActionPtr ParseAction(const swap_responses::LiFiAction& value) {
+  auto result = mojom::LiFiAction::New();
+  result->from_amount = value.from_amount;
+  result->from_token = ParseToken(value.from_token);
+  result->from_address = value.from_address;
+
+  result->to_token = ParseToken(value.to_token);
+  result->to_address = value.to_address;
+
+  result->slippage = value.slippage;
+  result->destination_call_data = value.destination_call_data;
+  return result;
+}
+
+mojom::LiFiStepEstimatePtr ParseEstimate(
+    const swap_responses::LiFiEstimate& value) {
+  auto result = mojom::LiFiStepEstimate::New();
+  result->tool = value.tool;
+  result->from_amount = value.from_amount;
+  result->to_amount = value.to_amount;
+  result->to_amount_min = value.to_amount_min;
+  result->approval_address = value.approval_address;
+
+  for (const auto& fee_cost_value : value.fee_costs) {
+    auto fee_cost = mojom::LiFiFeeCost::New();
+    fee_cost->name = fee_cost_value.name;
+    fee_cost->description = fee_cost_value.description;
+    fee_cost->percentage = fee_cost_value.percentage;
+    fee_cost->token = ParseToken(fee_cost_value.token);
+    fee_cost->amount = fee_cost_value.amount;
+    fee_cost->included = fee_cost_value.included;
+    result->fee_costs.push_back(std::move(fee_cost));
+  }
+
+  for (const auto& gas_cost_value : value.gas_costs) {
+    auto gas_cost = mojom::LiFiGasCost::New();
+    gas_cost->type = gas_cost_value.type;
+    gas_cost->estimate = gas_cost_value.estimate;
+    gas_cost->limit = gas_cost_value.limit;
+    gas_cost->amount = gas_cost_value.amount;
+    gas_cost->token = ParseToken(gas_cost_value.token);
+    result->gas_costs.push_back(std::move(gas_cost));
+  }
+
+  result->execution_duration = value.execution_duration;
+
+  return result;
+}
+
+mojom::LiFiStepPtr ParseStep(const swap_responses::LiFiStep& value) {
+  auto result = mojom::LiFiStep::New();
+  result->id = value.id;
+
+  auto step_type = ParseStepType(value.type);
+  if (!step_type) {
+    return nullptr;
+  }
+  result->type = std::move(*step_type);
+
+  result->tool = value.tool;
+
+  auto tool_details = mojom::LiFiToolDetails::New();
+  tool_details->key = value.tool_details.key;
+  tool_details->name = value.tool_details.name;
+  tool_details->logo = value.tool_details.logo_uri;
+  result->tool_details = std::move(tool_details);
+
+  result->action = ParseAction(value.action);
+  result->estimate = ParseEstimate(value.estimate);
+
+  result->integrator = value.integrator;
+
+  if (!value.included_steps) {
+    return result;
+  }
+
+  std::vector<mojom::LiFiStepPtr> included_steps = {};
+  for (const auto& included_step_value : *value.included_steps) {
+    auto included_step = ParseStep(included_step_value);
+    if (!included_step) {
+      return nullptr;
+    }
+
+    included_steps.push_back(std::move(included_step));
+  }
+  result->included_steps = std::move(included_steps);
+
+  return result;
+}
+
+}  // namespace
+
+mojom::LiFiQuotePtr ParseQuoteResponse(const base::Value& json_value) {
+  auto value = swap_responses::LiFiQuoteResponse::FromValue(json_value);
+  if (!value) {
+    return nullptr;
+  }
+
+  auto result = mojom::LiFiQuote::New();
+
+  for (const auto& route_value : value->routes) {
+    auto route = mojom::LiFiRoute::New();
+    route->id = route_value.id;
+
+    auto from_token = ParseToken(route_value.from_token);
+    if (!from_token) {
+      return nullptr;
+    }
+    route->from_token = std::move(from_token);
+    route->from_amount = route_value.from_amount;
+    route->from_address = route_value.from_address;
+
+    auto to_token = ParseToken(route_value.to_token);
+    if (!to_token) {
+      return nullptr;
+    }
+    route->to_token = std::move(to_token);
+
+    route->to_amount = route_value.to_amount;
+    route->to_amount_min = route_value.to_amount_min;
+    route->to_address = route_value.to_address;
+
+    auto insurance = mojom::LiFiInsurance::New();
+    insurance->state = route_value.insurance.state;
+    insurance->fee_amount_usd = route_value.insurance.fee_amount_usd;
+    route->insurance = std::move(insurance);
+
+    for (const auto& step_value : route_value.steps) {
+      auto step = ParseStep(step_value);
+      if (!step) {
+        return nullptr;
+      }
+
+      route->steps.push_back(std::move(step));
+    }
+
+    route->tags = route_value.tags;
+    result->routes.push_back(std::move(route));
+  }
+
+  return result;
+}
+
+mojom::LiFiTransactionUnionPtr ParseTransactionResponse(
+    const base::Value& json_value) {
+  auto value = swap_responses::LiFiTransactionResponse::FromValue(json_value);
+  if (!value) {
+    return nullptr;
+  }
+
+  // SOL -> any transfers
+  if (!value->transaction_request.data.empty() &&
+      !value->transaction_request.from && !value->transaction_request.to &&
+      !value->transaction_request.value &&
+      !value->transaction_request.gas_price &&
+      !value->transaction_request.gas_limit &&
+      !value->transaction_request.chain_id) {
+    return mojom::LiFiTransactionUnion::NewSolanaTransaction(
+        value->transaction_request.data);
+  }
+
+  // EVM -> any transfers
+  if (value->transaction_request.data.empty() ||
+
+      !value->transaction_request.from ||
+      value->transaction_request.from->empty() ||
+
+      !value->transaction_request.to ||
+      value->transaction_request.to->empty() ||
+
+      !value->transaction_request.value ||
+      value->transaction_request.value->empty() ||
+
+      !value->transaction_request.gas_price ||
+      value->transaction_request.gas_price->empty() ||
+
+      !value->transaction_request.gas_limit ||
+      value->transaction_request.gas_limit->empty() ||
+
+      !value->transaction_request.chain_id ||
+      value->transaction_request.chain_id->empty()) {
+    return nullptr;
+  }
+
+  auto evm_transaction = mojom::LiFiEVMTransaction::New();
+  evm_transaction->data = value->transaction_request.data;
+  evm_transaction->from = value->transaction_request.from.value();
+  evm_transaction->to = value->transaction_request.to.value();
+  evm_transaction->value = value->transaction_request.value.value();
+  evm_transaction->gas_price = value->transaction_request.gas_price.value();
+  evm_transaction->gas_limit = value->transaction_request.gas_limit.value();
+
+  if (value->transaction_request.chain_id) {
+    auto chain_id = ChainIdToHex(value->transaction_request.chain_id.value());
+    if (!chain_id) {
+      return nullptr;
+    }
+    evm_transaction->chain_id = chain_id.value();
+  }
+
+  return mojom::LiFiTransactionUnion::NewEvmTransaction(
+      std::move(evm_transaction));
+}
+
+}  // namespace lifi
 
 }  // namespace brave_wallet
