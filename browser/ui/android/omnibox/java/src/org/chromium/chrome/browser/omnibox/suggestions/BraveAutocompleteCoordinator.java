@@ -32,28 +32,35 @@ public class BraveAutocompleteCoordinator {
         return new ViewProvider<SuggestionListViewHolder>() {
             private List<Callback<SuggestionListViewHolder>> mCallbacks = new ArrayList<>();
             private SuggestionListViewHolder mHolder;
+
             @Override
             public void inflate() {
-                provider.whenLoaded((holder) -> {
-                    OmniboxSuggestionsDropdown dropdown = holder.dropdown;
-                    if (dropdown != null && dropdown.getAdapter() != null
-                            && dropdown.getAdapter() instanceof OmniboxSuggestionsDropdownAdapter) {
-                        ((OmniboxSuggestionsDropdownAdapter) dropdown.getAdapter())
-                                .registerType(
-                                        BraveOmniboxSuggestionUiType.BRAVE_SEARCH_PROMO_BANNER,
-                                        parent
-                                        -> LayoutInflater.from(parent.getContext())
-                                                   .inflate(R.layout.omnibox_brave_search_banner,
-                                                           null),
-                                        BraveSearchBannerViewBinder::bind);
+                provider.whenLoaded(
+                        (holder) -> {
+                            OmniboxSuggestionsDropdown dropdown = holder.dropdown;
+                            if (dropdown != null
+                                    && dropdown.getAdapter() != null
+                                    && dropdown.getAdapter()
+                                            instanceof OmniboxSuggestionsDropdownAdapter) {
+                                ((OmniboxSuggestionsDropdownAdapter) dropdown.getAdapter())
+                                        .registerType(
+                                                BraveOmniboxSuggestionUiType
+                                                        .BRAVE_SEARCH_PROMO_BANNER,
+                                                parent ->
+                                                        LayoutInflater.from(parent.getContext())
+                                                                .inflate(
+                                                                        R.layout
+                                                                                .search_suggestion_layout,
+                                                                        null),
+                                                BraveSearchBannerViewBinder::bind);
 
-                        mHolder = holder;
-                        for (int i = 0; i < mCallbacks.size(); i++) {
-                            mCallbacks.get(i).onResult(holder);
-                        }
-                        mCallbacks = null;
-                    }
-                });
+                                mHolder = holder;
+                                for (int i = 0; i < mCallbacks.size(); i++) {
+                                    mCallbacks.get(i).onResult(holder);
+                                }
+                                mCallbacks = null;
+                            }
+                        });
                 provider.inflate();
             }
 

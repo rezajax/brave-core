@@ -88,12 +88,12 @@ class BraveDropdownItemViewInfoListBuilder extends DropdownItemViewInfoListBuild
         List<DropdownItemViewInfo> viewInfoList =
                 super.buildDropdownViewInfoList(autocompleteResult);
 
-        if (isBraveSearchPromoBanner()) {
-            final PropertyModel model = mBraveSearchBannerProcessor.createModel();
+        // if (isBraveSearchPromoBanner()) {
+        final PropertyModel model = mBraveSearchBannerProcessor.createModel();
             mBraveSearchBannerProcessor.populateModel(model);
             viewInfoList.add(new DropdownItemViewInfo(
                     mBraveSearchBannerProcessor, model, GroupConfig.getDefaultInstance()));
-        }
+        // }
 
         return viewInfoList;
     }
