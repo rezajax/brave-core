@@ -8,11 +8,7 @@ import Button from '@brave/leo/react/button'
 import { useLocation } from 'react-router-dom'
 
 // types
-import {
-  BraveWallet,
-  WalletState,
-  WalletRoutes
-} from '../../../../constants/types'
+import { BraveWallet, WalletRoutes } from '../../../../constants/types'
 
 // options
 import { AllNetworksOption } from '../../../../options/network-filter-options'
@@ -60,16 +56,17 @@ import { PaddedRow } from '../style'
 
 // hooks
 import { useAssetManagement } from '../../../../common/hooks/assets-management'
-import { useSelector } from 'react-redux'
 import {
   useGetSelectedChainQuery,
-  useGetTokensRegistryQuery
+  useGetTokensRegistryQuery,
+  useGetUserTokensRegistryQuery
 } from '../../../../common/slices/api.slice'
 import {
   getEntitiesListFromEntityState //
 } from '../../../../utils/entities.utils'
 import {
-  blockchainTokenEntityAdaptorInitialState //
+  blockchainTokenEntityAdaptorInitialState,
+  selectAllUserAssetsFromQueryResult
 } from '../../../../common/slices/entities/blockchain-token.entity'
 
 export interface Props {
@@ -80,17 +77,17 @@ export const EditVisibleAssetsModal = ({ onClose }: Props) => {
   // routing
   const { hash } = useLocation()
 
-  // redux
-  const userVisibleTokensInfo = useSelector(
-    ({ wallet }: { wallet: WalletState }) => wallet.userVisibleTokensInfo
-  )
-
   // queries
   const { data: selectedNetwork } = useGetSelectedChainQuery()
   const {
     data: tokenEntityState = blockchainTokenEntityAdaptorInitialState,
     isLoading
   } = useGetTokensRegistryQuery()
+  const { userTokens } = useGetUserTokensRegistryQuery(undefined, {
+    selectFromResult: (res) => ({
+      userTokens: selectAllUserAssetsFromQueryResult(res)
+    })
+  })
 
   // custom hooks
   const { onUpdateVisibleAssets } = useAssetManagement()
@@ -119,20 +116,20 @@ export const EditVisibleAssetsModal = ({ onClose }: Props) => {
 
   // This method here is used to determine if that is the case
   // and allows us to handle our true visible lists.
-  const isUserVisibleTokensInfoEmpty = React.useMemo((): boolean => {
+  const isUserTokensInfoEmpty = React.useMemo((): boolean => {
     return (
-      userVisibleTokensInfo.length === 1 &&
-      userVisibleTokensInfo[0].contractAddress === '' &&
-      !userVisibleTokensInfo[0].visible
+      userTokens.length === 1 &&
+      userTokens[0].contractAddress === '' &&
+      !userTokens[0].visible
     )
-  }, [userVisibleTokensInfo])
+  }, [userTokens])
 
   React.useEffect(() => {
-    if (isUserVisibleTokensInfoEmpty) {
+    if (isUserTokensInfoEmpty) {
       return
     }
-    setUpdatedTokensList(userVisibleTokensInfo)
-  }, [userVisibleTokensInfo])
+    setUpdatedTokensList(userTokens)
+  }, [userTokens])
 
   // Memos
   const nativeAsset = React.useMemo(() => {
@@ -165,10 +162,10 @@ export const EditVisibleAssetsModal = ({ onClose }: Props) => {
   // User tokens sorted by visibility
   const usersTokensSortedByVisibility: BraveWallet.BlockchainToken[] =
     React.useMemo(() => {
-      return [...userVisibleTokensInfo].sort(
+      return [...userTokens].sort(
         (a, b) => Number(b.visible) - Number(a.visible)
       )
-    }, [userVisibleTokensInfo])
+    }, [userTokens])
 
   // Users visible tokens based on selectedNetworkFilter
   const userVisibleTokensBySelectedNetwork: BraveWallet.BlockchainToken[] =
@@ -183,7 +180,7 @@ export const EditVisibleAssetsModal = ({ onClose }: Props) => {
 
   // Constructed list based on Users Visible Tokens and Full Token List
   const tokenList: BraveWallet.BlockchainToken[] = React.useMemo(() => {
-    const userVisibleContracts = isUserVisibleTokensInfoEmpty
+    const userVisibleContracts = isUserTokensInfoEmpty
       ? []
       : userVisibleTokensBySelectedNetwork.map((token) =>
           token.contractAddress.toLowerCase()
@@ -199,13 +196,13 @@ export const EditVisibleAssetsModal = ({ onClose }: Props) => {
         !userVisibleContracts.includes(token?.contractAddress?.toLowerCase())
     )
 
-    return isUserVisibleTokensInfoEmpty
+    return isUserTokensInfoEmpty
       ? filteredTokenRegistry
       : [...userVisibleTokensBySelectedNetwork, ...filteredTokenRegistry]
   }, [
-    isUserVisibleTokensInfoEmpty,
+    isUserTokensInfoEmpty,
     tokenListForSelectedNetworks,
-    userVisibleTokensInfo,
+    userTokens,
     nativeAsset,
     userVisibleTokensBySelectedNetwork
   ])

@@ -566,20 +566,19 @@ export async function makeTokensRegistry(
           fungibleIdsByChainId[networkId].push(tokenId)
         }
 
-        if (visible && !locallyRemovedTokenIds.includes(tokenId)) {
-          visibleTokenIdsByChainId[networkId].push(tokenId)
-
-          if (isNft) {
-            nonFungibleVisibleTokenIdsByChainId[networkId].push(tokenId)
-          } else {
-            fungibleVisibleTokenIdsByChainId[networkId].push(tokenId)
-          }
-        } else {
+        if (!visible || locallyRemovedTokenIds.includes(tokenId)) {
           hiddenTokenIdsByChainId[networkId].push(tokenId)
           if (isNft) {
             nonFungibleHiddenTokenIdsByChainId[networkId].push(tokenId)
           } else {
             fungibleHiddenTokenIdsByChainId[networkId].push(tokenId)
+          }
+        } else {
+          visibleTokenIdsByChainId[networkId].push(tokenId)
+          if (isNft) {
+            nonFungibleVisibleTokenIdsByChainId[networkId].push(tokenId)
+          } else {
+            fungibleVisibleTokenIdsByChainId[networkId].push(tokenId)
           }
         }
       }
