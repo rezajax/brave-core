@@ -500,6 +500,8 @@ export async function makeTokensRegistry(
 
   const deletedTokenIds: string[] = locallyDeletedTokenIds
   const hiddenTokenIds: string[] = []
+  const spamTokenIds: string[] = []
+  const nonSpamTokenIds: string[] = []
 
   const fungibleIdsByChainId: Record<string, string[]> = {}
   const fungibleIdsByCoinType: Record<BraveWallet.CoinType, string[]> = {}
@@ -556,28 +558,34 @@ export async function makeTokensRegistry(
         const tokenId = getAssetIdKey(token)
         const { visible } = token
         const isNft = token.isNft || token.isErc1155 || token.isErc721
+        const isHidden = !visible || locallyRemovedTokenIds.includes(tokenId)
 
         idsByChainId[networkId].push(tokenId)
+
+        if (token.isSpam) {
+          spamTokenIds.push(tokenId)
+        } else {
+          nonSpamTokenIds.push(tokenId)
+        }
+
         if (isNft) {
           nonFungibleTokenIds.push(tokenId)
           nonFungibleIdsByChainId[networkId].push(tokenId)
+          if (isHidden) {
+            hiddenTokenIdsByChainId[networkId].push(tokenId)
+            nonFungibleHiddenTokenIdsByChainId[networkId].push(tokenId)
+          } else {
+            visibleTokenIdsByChainId[networkId].push(tokenId)
+            nonFungibleVisibleTokenIdsByChainId[networkId].push(tokenId)
+          }
         } else {
           fungibleTokenIds.push(tokenId)
           fungibleIdsByChainId[networkId].push(tokenId)
-        }
-
-        if (!visible || locallyRemovedTokenIds.includes(tokenId)) {
-          hiddenTokenIdsByChainId[networkId].push(tokenId)
-          if (isNft) {
-            nonFungibleHiddenTokenIdsByChainId[networkId].push(tokenId)
-          } else {
+          if (isHidden) {
+            hiddenTokenIdsByChainId[networkId].push(tokenId)
             fungibleHiddenTokenIdsByChainId[networkId].push(tokenId)
-          }
-        } else {
-          visibleTokenIdsByChainId[networkId].push(tokenId)
-          if (isNft) {
-            nonFungibleVisibleTokenIdsByChainId[networkId].push(tokenId)
           } else {
+            visibleTokenIdsByChainId[networkId].push(tokenId)
             fungibleVisibleTokenIdsByChainId[networkId].push(tokenId)
           }
         }
@@ -668,7 +676,10 @@ export async function makeTokensRegistry(
       nonFungibleIdsByCoinType,
       nonFungibleVisibleTokenIds,
       nonFungibleVisibleTokenIdsByChainId,
-      nonFungibleVisibleTokenIdsByCoinType
+      nonFungibleVisibleTokenIdsByCoinType,
+
+      spamTokenIds,
+      nonSpamTokenIds
     },
     userTokenListsForNetworks.flat(1)
   )
