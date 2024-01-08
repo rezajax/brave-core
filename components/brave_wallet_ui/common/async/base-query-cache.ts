@@ -112,7 +112,7 @@ export class BaseQueryCache {
   private _nftImageIpfsGateWayUrlRegistry: Record<string, string | null> = {}
   private _extractedIPFSUrlRegistry: Record<string, string | undefined> = {}
   private _enabledCoinTypes: number[]
-  private _erc721MetadataRegistry: Record<string, ERC721Metadata>
+  private _erc721MetadataRegistry: Record<string, ERC721Metadata> = {}
   public rewardsInfo: BraveRewardsInfo | undefined = undefined
 
   getWalletInfo = async () => {
