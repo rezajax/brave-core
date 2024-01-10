@@ -882,7 +882,8 @@ const util = {
     fs.appendFileSync(excludeFileName, '\n' + exclusion)
   },
 
-  iosCreateXCFrameworks: (buildConfig = config.defaultBuildConfig, options = {}) => {
+  iosCreateXCFrameworks: (buildConfig = config.defaultBuildConfig,
+                          options = {}) => {
     config.buildConfig = buildConfig
     config.targetOS = 'ios'
     config.update(options)
