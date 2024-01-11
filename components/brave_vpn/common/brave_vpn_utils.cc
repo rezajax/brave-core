@@ -66,14 +66,15 @@ bool IsBraveVPNWireguardEnabled(PrefService* local_state) {
 #endif
 }
 #if BUILDFLAG(IS_WIN)
-void MigrateWireguardFeatureFlag(PrefService* local_prefs) {
+void MigrateWireguardFeatureFlag(PrefService* local_prefs,
+                                 version_info::Channel channel) {
   auto* wireguard_enabled_pref =
       local_prefs->FindPreference(prefs::kBraveVPNWireguardEnabled);
   if (wireguard_enabled_pref && wireguard_enabled_pref->IsDefaultValue()) {
     local_prefs->SetBoolean(
         prefs::kBraveVPNWireguardEnabled,
         base::FeatureList::IsEnabled(features::kBraveVPNUseWireguardService) &&
-            brave_vpn::wireguard::IsWireguardServiceInstalled());
+            brave_vpn::wireguard::IsWireguardServiceInstalled(channel));
   }
 }
 #endif  // BUILDFLAG(IS_WIN)

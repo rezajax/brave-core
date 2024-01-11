@@ -26,6 +26,7 @@
 #include "brave/components/p3a/star_randomness_meta.h"
 #include "brave/components/tor/buildflags/buildflags.h"
 #include "chrome/browser/profiles/profile.h"
+#include "chrome/common/channel_info.h"
 #include "chrome/common/pref_names.h"
 #include "components/gcm_driver/gcm_buildflags.h"
 #include "components/translate/core/browser/translate_prefs.h"
@@ -252,7 +253,7 @@ void MigrateObsoleteLocalStatePrefs(PrefService* local_state) {
 
 #if BUILDFLAG(ENABLE_BRAVE_VPN) && BUILDFLAG(IS_WIN)
   // Migrating the feature flag here because dependencies relying on its value.
-  brave_vpn::MigrateWireguardFeatureFlag(local_state);
+  brave_vpn::MigrateWireguardFeatureFlag(local_state, chrome::GetChannel());
 #endif
 
 #if !BUILDFLAG(IS_ANDROID)
