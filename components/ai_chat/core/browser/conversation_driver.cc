@@ -286,16 +286,16 @@ void ConversationDriver::UpdateOrCreateLastAssistantEntry(std::string updated_te
   updated_text = base::TrimWhitespaceASCII(updated_text, base::TRIM_LEADING);
   if (chat_history_.empty() ||
       chat_history_.back().character_type != CharacterType::ASSISTANT) {
+    // OnHistoryUpdate will be called by AddToConversationHistory.
     AddToConversationHistory({CharacterType::ASSISTANT,
-                              ConversationTurnVisibility::VISIBLE,
-                              updated_text});
+                              ConversationTurnVisibility::VISIBLE, updated_text,
+                              std::nullopt});
   } else {
     chat_history_.back().text = updated_text;
-  }
-
-  // Trigger an observer update to refresh the UI.
-  for (auto& obs : observers_) {
-    obs.OnHistoryUpdate();
+    // Trigger an observer update to refresh the UI.
+    for (auto& obs : observers_) {
+      obs.OnHistoryUpdate();
+    }
   }
 }
 
@@ -504,8 +504,9 @@ std::vector<std::string> ConversationDriver::GetSuggestedQuestions(
 }
 
 void ConversationDriver::SetShouldSendPageContents(bool should_send) {
-  DCHECK(IsContentAssociationPossible());
-  DCHECK(should_send_page_contents_ != should_send);
+  if (should_send_page_contents_ == should_send) {
+    return;
+  }
   should_send_page_contents_ = should_send;
 
   MaybeSeedOrClearSuggestions();
@@ -598,6 +599,25 @@ void ConversationDriver::OnSuggestedQuestionsResponse(
   DVLOG(2) << "Got questions:" << base::JoinString(suggestions_, "\n");
 }
 
+bool ConversationDriver::ShouldUnlinkPageContent() {
+  // Only unlink if panel is closed and there is no conversation history.
+  // When panel is open or has existing conversation, do not change the state.
+  return !is_conversation_active_ && chat_history_.empty();
+}
+
+void ConversationDriver::SummarizeSelectedText(
+    const std::string& selected_text,
+    bool should_unlink_page_content) {
+  if (should_unlink_page_content) {
+    SetShouldSendPageContents(false);
+  }
+  mojom::ConversationTurn turn = {
+      CharacterType::HUMAN, ConversationTurnVisibility::VISIBLE,
+      l10n_util::GetStringUTF8(IDS_CHAT_UI_SUMMARIZE_SELECTED_TEXT),
+      selected_text};
+  SubmitHumanConversationEntry(turn);
+}
+
 void ConversationDriver::SubmitHumanConversationEntry(
     mojom::ConversationTurn turn) {
   VLOG(1) << __func__;
@@ -607,7 +627,7 @@ void ConversationDriver::SubmitHumanConversationEntry(
   // - conversation to be active
   // - is request in progress (should only be possible if regular entry is
   // in-progress and another entry is submitted outside of regular UI, e.g. from
-  // location bar.
+  // location bar or context menu.
   if (!is_conversation_active_ || !HasUserOptedIn() ||
       is_request_in_progress_) {
     VLOG(1) << "Adding as a pending conversation entry";
@@ -648,6 +668,10 @@ void ConversationDriver::SubmitHumanConversationEntry(
 
   // Directly modify Entry's text to remove engine-breaking substrings
   engine_->SanitizeInput(turn.text);
+  if (turn.selected_text) {
+    engine_->SanitizeInput(*turn.selected_text);
+  }
+  auto selected_text = turn.selected_text;
 
   // TODO(petemill): Tokenize the summary question so that we
   // don't have to do this weird substitution.
@@ -659,6 +683,10 @@ void ConversationDriver::SubmitHumanConversationEntry(
              l10n_util::GetStringUTF8(IDS_CHAT_UI_SUMMARIZE_VIDEO)) {
     question_part =
         l10n_util::GetStringUTF8(IDS_AI_CHAT_QUESTION_SUMMARIZE_VIDEO);
+  } else if (turn.text ==
+             l10n_util::GetStringUTF8(IDS_CHAT_UI_SUMMARIZE_SELECTED_TEXT)) {
+    question_part =
+        l10n_util::GetStringUTF8(IDS_AI_CHAT_QUESTION_SUMMARIZE_SELECTED_TEXT);
   } else {
     question_part = turn.text;
   }
@@ -677,10 +705,10 @@ void ConversationDriver::SubmitHumanConversationEntry(
 
   if (is_page_associated) {
     // Fetch updated page content before performing generation
-    GeneratePageContent(
-        base::BindOnce(&ConversationDriver::PerformAssistantGeneration,
-                       weak_ptr_factory_.GetWeakPtr(), question_part,
-                       std::move(history), current_navigation_id_));
+    GeneratePageContent(base::BindOnce(
+        &ConversationDriver::PerformAssistantGeneration,
+        weak_ptr_factory_.GetWeakPtr(), question_part, std::move(selected_text),
+        std::move(history), current_navigation_id_));
   } else {
     // Now the conversation is committed, we can remove some unneccessary data
     // if we're not associated with a page.
@@ -688,12 +716,14 @@ void ConversationDriver::SubmitHumanConversationEntry(
     suggestions_.clear();
     OnSuggestedQuestionsChanged();
     // Perform generation immediately
-    PerformAssistantGeneration(question_part, history, current_navigation_id_);
+    PerformAssistantGeneration(question_part, std::move(selected_text), history,
+                               current_navigation_id_);
   }
 }
 
 void ConversationDriver::PerformAssistantGeneration(
     std::string input,
+    std::optional<std::string> selected_text,
     std::vector<mojom::ConversationTurn> history,
     int64_t current_navigation_id,
     std::string page_content,
@@ -706,9 +736,9 @@ void ConversationDriver::PerformAssistantGeneration(
   auto data_completed_callback =
       base::BindOnce(&ConversationDriver::OnEngineCompletionComplete,
                      weak_ptr_factory_.GetWeakPtr(), current_navigation_id);
-  engine_->GenerateAssistantResponse(is_video, page_content, history, input,
-                                     std::move(data_received_callback),
-                                     std::move(data_completed_callback));
+  engine_->GenerateAssistantResponse(
+      is_video, page_content, std::move(selected_text), history, input,
+      std::move(data_received_callback), std::move(data_completed_callback));
 }
 
 void ConversationDriver::RetryAPIRequest() {
@@ -816,7 +846,7 @@ void ConversationDriver::SubmitSummarizationRequest() {
 
   mojom::ConversationTurn turn = {
       CharacterType::HUMAN, ConversationTurnVisibility::VISIBLE,
-      l10n_util::GetStringUTF8(IDS_CHAT_UI_SUMMARIZE_PAGE)};
+      l10n_util::GetStringUTF8(IDS_CHAT_UI_SUMMARIZE_PAGE), std::nullopt};
   SubmitHumanConversationEntry(std::move(turn));
 }
 

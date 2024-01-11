@@ -47,6 +47,7 @@ class EngineConsumerClaudeRemote : public EngineConsumer {
   void GenerateAssistantResponse(
       const bool& is_video,
       const std::string& page_content,
+      std::optional<std::string> selected_text,
       const ConversationHistory& conversation_history,
       const std::string& human_input,
       GenerationDataCallback data_received_callback,

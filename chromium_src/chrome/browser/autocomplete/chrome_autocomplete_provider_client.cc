@@ -55,20 +55,27 @@ void ChromeAutocompleteProviderClient::OpenLeo(const std::u16string& query) {
     return;
   }
 
+  auto* chat_tab_helper = ai_chat::AIChatTabHelper::FromWebContents(
+      browser->tab_strip_model()->GetActiveWebContents());
+  DCHECK(chat_tab_helper);
+
+  bool should_unlink_page_content = chat_tab_helper->ShouldUnlinkPageContent();
+
   // Activate the panel.
   auto* sidebar_controller =
       static_cast<BraveBrowser*>(browser)->sidebar_controller();
   sidebar_controller->ActivatePanelItem(
       sidebar::SidebarItem::BuiltInItemType::kChatUI);
 
+  if (should_unlink_page_content) {
+    chat_tab_helper->SetShouldSendPageContents(false);
+  }
+
   // Send the query to the AIChat's backend.
-  auto* chat_tab_helper = ai_chat::AIChatTabHelper::FromWebContents(
-      browser->tab_strip_model()->GetActiveWebContents());
-  DCHECK(chat_tab_helper);
   ai_chat::mojom::ConversationTurn turn = {
       ai_chat::mojom::CharacterType::HUMAN,
       ai_chat::mojom::ConversationTurnVisibility::VISIBLE,
-      base::UTF16ToUTF8(query)};
+      base::UTF16ToUTF8(query), std::nullopt};
   chat_tab_helper->SubmitHumanConversationEntry(std::move(turn));
   ai_chat::AIChatMetrics* metrics =
       g_brave_browser_process->process_misc_metrics()->ai_chat_metrics();
