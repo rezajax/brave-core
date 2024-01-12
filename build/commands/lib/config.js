@@ -195,7 +195,7 @@ const Config = function () {
   this.rewardsGrantProdEndpoint = getNPMConfig(['rewards_grant_prod_endpoint']) || ''
   this.ignorePatchVersionNumber = !this.isBraveReleaseBuild() && getNPMConfig(['ignore_patch_version_number'], !this.isCI)
   this.braveVersion = getBraveVersion(this.ignorePatchVersionNumber)
-  this.bravePatchVersion = getNPMConfig(['brave_version_patch']) || ''
+  this.iosPatchVersion = getNPMConfig(['brave_ios_marketing_version_patch']) || ''
   this.androidOverrideVersionName = this.braveVersion
   this.releaseTag = this.braveVersion.split('+')[0]
   this.mac_signing_identifier = getNPMConfig(['mac_signing_identifier'])
@@ -605,8 +605,8 @@ Config.prototype.buildArgs = function () {
     if (this.targetEnvironment) {
       args.target_environment = this.targetEnvironment
     }
-    if (this.bravePatchVersion != '') {
-      args.brave_version_patch = this.bravePatchVersion
+    if (this.iosPatchVersion != '') {
+      args.brave_ios_marketing_version_patch = this.iosPatchVersion
     }
     args.enable_stripping = !this.isComponentBuild()
     // Component builds are not supported for iOS:
