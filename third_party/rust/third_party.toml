@@ -152,6 +152,9 @@ serde = { version = "^1.0.117", features = ["derive"] }
 thiserror = "^1.0.30"
 fvm_ipld_encoding = "0.3"
 
+# ipfs
+libipld = "0.16.0"
+
 [dependencies.multihash]
 version="0.16"
 default-features = false
