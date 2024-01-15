@@ -78,10 +78,6 @@ class SyncServiceObserverMock : public SyncServiceObserver {
 
   MOCK_METHOD(void, OnStateChanged, (SyncService * sync), (override));
   MOCK_METHOD(void, OnSyncCycleCompleted, (SyncService * sync), (override));
-  MOCK_METHOD(void,
-              OnSyncConfigurationCompleted,
-              (SyncService * sync),
-              (override));
   MOCK_METHOD(void, OnSyncShutdown, (SyncService * sync), (override));
 };
 
