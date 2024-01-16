@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.chromium.base.Callback;
+import org.chromium.base.FeatureMap;
 import org.chromium.base.jank_tracker.JankTracker;
 import org.chromium.base.shared_preferences.PreferenceKeyRegistry;
 import org.chromium.base.shared_preferences.SharedPreferencesManager;
@@ -330,8 +331,8 @@ public class BytecodeTest {
         Assert.assertTrue(classExists("org/chromium/chrome/browser/tasks/ReturnToChromeUtil"));
         Assert.assertTrue(classExists("org/chromium/chrome/browser/IntentHandler"));
         Assert.assertTrue(classExists("org/chromium/chrome/browser/BraveIntentHandler"));
-        Assert.assertTrue(classExists("org/chromium/chrome/browser/flags/CachedFlag"));
-        Assert.assertTrue(classExists("org/chromium/chrome/browser/flags/BraveCachedFlag"));
+        Assert.assertTrue(classExists("org/chromium/base/cached_flags/CachedFlag"));
+        Assert.assertTrue(classExists("org/chromium/base/cached_flags/BraveCachedFlag"));
         Assert.assertTrue(classExists("org/chromium/chrome/browser/logo/LogoMediator"));
         Assert.assertTrue(classExists("org/chromium/chrome/browser/logo/BraveLogoMediator"));
         Assert.assertTrue(
@@ -1017,8 +1018,9 @@ public class BytecodeTest {
                         "org/chromium/chrome/browser/BraveAppHooks"));
         Assert.assertTrue(
                 constructorsMatch(
-                        "org/chromium/chrome/browser/flags/CachedFlag",
-                        "org/chromium/chrome/browser/flags/BraveCachedFlag",
+                        "org/chromium/base/cached_flags/CachedFlag",
+                        "org/chromium/base/cached_flags/BraveCachedFlag",
+                        FeatureMap.class,
                         String.class,
                         boolean.class));
 
@@ -1430,10 +1432,12 @@ public class BytecodeTest {
                 "org/chromium/chrome/browser/bookmarks/BookmarkManagerMediator", "mContext"));
         Assert.assertTrue(fieldExists(
                 "org/chromium/chrome/browser/bookmarks/BookmarkToolbarCoordinator", "mToolbar"));
-        Assert.assertTrue(fieldExists("org/chromium/chrome/browser/bookmarks/BookmarkPage",
-                "mBookmarkManagerCoordinator"));
         Assert.assertTrue(
-                fieldExists("org/chromium/chrome/browser/flags/CachedFlag", "mDefaultValue"));
+                fieldExists(
+                        "org/chromium/chrome/browser/bookmarks/BookmarkPage",
+                        "mBookmarkManagerCoordinator"));
+        Assert.assertTrue(
+                fieldExists("org/chromium/base/cached_flags/CachedFlag", "mDefaultValue"));
         Assert.assertFalse(
                 fieldExists("org/chromium/chrome/browser/tasks/tab_groups/TabGroupModelFilter",
                         "mIsResetting"));
