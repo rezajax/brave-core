@@ -62,6 +62,7 @@ static_library("p3a") {
     "constellation/rs/cxx:rust_lib",
     "//base",
     "//brave/brave_domains",
+    "//brave/components/brave_referrals/common",
     "//brave/components/brave_stats/browser",
     "//brave/components/l10n/common",
     "//brave/components/p3a:buildflags",
@@ -107,6 +108,7 @@ source_set("unit_tests") {
   deps = [
     "constellation/rs/cxx:rust_lib",
     "//base/test:test_support",
+    "//brave/components/brave_referrals/common",
     "//brave/components/p3a",
     "//brave/components/p3a:buildflags",
     "//components/cbor",

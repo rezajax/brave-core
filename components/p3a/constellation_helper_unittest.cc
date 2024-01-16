@@ -16,11 +16,13 @@
 #include "base/strings/string_util.h"
 #include "base/test/bind.h"
 #include "base/time/time.h"
+#include "brave/components/brave_referrals/common/pref_names.h"
 #include "brave/components/p3a/metric_log_type.h"
 #include "brave/components/p3a/p3a_config.h"
 #include "brave/components/p3a/p3a_message.h"
 #include "brave/components/p3a/star_randomness_test_util.h"
 #include "brave/components/p3a/uploader.h"
+#include "components/prefs/pref_registry_simple.h"
 #include "components/prefs/testing_pref_service.h"
 #include "content/public/test/browser_task_environment.h"
 #include "services/network/public/cpp/resource_request.h"
@@ -58,6 +60,8 @@ class P3AConstellationHelperTest : public testing::Test {
     p3a_config_.star_randomness_host = kTestHost;
 
     ConstellationHelper::RegisterPrefs(local_state_.registry());
+
+    local_state_.registry()->RegisterStringPref(kReferralPromoCode, {});
 
     url_loader_factory_.SetInterceptor(base::BindLambdaForTesting(
         [&](const network::ResourceRequest& request) {
@@ -244,7 +248,7 @@ TEST_F(P3AConstellationHelperTest, GenerateBasicMessage) {
     helper_->StartMessagePreparation(
         kTestHistogramName, log_type,
         GenerateP3AConstellationMessage(kTestHistogramName, test_epoch,
-                                        meta_info, kP3AUploadType));
+                                        meta_info, kP3AUploadType, false));
     task_environment_.RunUntilIdle();
 
     CheckPointsRequestMade(log_type);
@@ -256,6 +260,57 @@ TEST_F(P3AConstellationHelperTest, GenerateBasicMessage) {
     EXPECT_EQ(epoch_from_callback_, test_epoch);
     points_request_made_[log_type] = false;
   }
+}
+
+TEST_F(P3AConstellationHelperTest, IncludeRefcode) {
+  MessageMetainfo meta_info;
+  meta_info.Init(&local_state_, "release", "2022-01-01");
+
+  std::string message_with_no_refcode = GenerateP3AConstellationMessage(
+      kTestHistogramName, 0, meta_info, kP3AUploadType, false);
+  std::vector<std::string> no_refcode_layers = base::SplitString(
+      message_with_no_refcode, kP3AMessageConstellationLayerSeparator,
+      base::WhitespaceHandling::TRIM_WHITESPACE,
+      base::SplitResult::SPLIT_WANT_NONEMPTY);
+
+  EXPECT_EQ(no_refcode_layers.size(), 8U);
+  EXPECT_FALSE(base::StartsWith(no_refcode_layers.at(7), "ref"));
+
+  std::string message_with_refcode = GenerateP3AConstellationMessage(
+      kTestHistogramName, 0, meta_info, kP3AUploadType, true);
+  std::vector<std::string> refcode_layers = base::SplitString(
+      message_with_refcode, kP3AMessageConstellationLayerSeparator,
+      base::WhitespaceHandling::TRIM_WHITESPACE,
+      base::SplitResult::SPLIT_WANT_NONEMPTY);
+
+  EXPECT_EQ(refcode_layers.size(), 9U);
+  EXPECT_EQ(refcode_layers.at(8), "ref|none");
+
+  local_state_.SetString(kReferralPromoCode, "BRV003");
+  meta_info.Init(&local_state_, "release", "2022-01-01");
+
+  message_with_refcode = GenerateP3AConstellationMessage(
+      kTestHistogramName, 0, meta_info, kP3AUploadType, true);
+  refcode_layers = base::SplitString(message_with_refcode,
+                                     kP3AMessageConstellationLayerSeparator,
+                                     base::WhitespaceHandling::TRIM_WHITESPACE,
+                                     base::SplitResult::SPLIT_WANT_NONEMPTY);
+
+  EXPECT_EQ(refcode_layers.size(), 9U);
+  EXPECT_EQ(refcode_layers.at(8), "ref|BRV003");
+
+  local_state_.SetString(kReferralPromoCode, "ZRK009");
+  meta_info.Init(&local_state_, "release", "2022-01-01");
+
+  message_with_refcode = GenerateP3AConstellationMessage(
+      kTestHistogramName, 0, meta_info, kP3AUploadType, true);
+  refcode_layers = base::SplitString(message_with_refcode,
+                                     kP3AMessageConstellationLayerSeparator,
+                                     base::WhitespaceHandling::TRIM_WHITESPACE,
+                                     base::SplitResult::SPLIT_WANT_NONEMPTY);
+
+  EXPECT_EQ(refcode_layers.size(), 9U);
+  EXPECT_EQ(refcode_layers.at(8), "ref|other");
 }
 
 }  // namespace p3a

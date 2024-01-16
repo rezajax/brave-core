@@ -284,6 +284,15 @@ inline constexpr auto kEphemeralHistograms =
     "Brave.WebTorrent.UsageWeekly"
 });
 
+// List of metrics which will include the stored refcode when transmitted
+// via the STAR/Constellation protocol.
+inline constexpr auto kHistogramsWithRefcodeIncluded =
+  base::MakeFixedFlatSetSorted<std::string_view>({
+    // TODO(djandries): Replace this metric with the first metric
+    // to include a refcode.
+    "Brave.ExampleMetric"
+});
+
 // clang-format on
 
 }  // namespace p3a
