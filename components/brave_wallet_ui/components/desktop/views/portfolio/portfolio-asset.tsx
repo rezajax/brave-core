@@ -75,7 +75,8 @@ import {
   useGetPriceHistoryQuery,
   useGetDefaultFiatCurrencyQuery,
   useGetRewardsInfoQuery,
-  useGetCoinMarketQuery
+  useGetCoinMarketQuery,
+  useUpdateUserAssetVisibleMutation
 } from '../../../../common/slices/api.slice'
 import {
   useAccountsQuery,
@@ -206,6 +207,9 @@ export const PortfolioAsset = (props: Props) => {
   ])
 
   const isRewardsToken = getIsRewardsToken(selectedAssetFromParams)
+
+  // mutations
+  const [updateUserAssetVisible] = useUpdateUserAssetVisibleMutation()
 
   // queries
   const { accounts } = useAccountsQuery()
@@ -448,19 +452,17 @@ export const PortfolioAsset = (props: Props) => {
     []
   )
 
-  const onHideAsset = React.useCallback(() => {
+  const onHideAsset = React.useCallback(async () => {
     if (!selectedAssetFromParams) return
-    dispatch(
-      WalletActions.setUserAssetVisible({
-        token: selectedAssetFromParams,
-        isVisible: false
-      })
-    )
+    await updateUserAssetVisible({
+      token: selectedAssetFromParams,
+      isVisible: false
+    }).unwrap()
     dispatch(WalletActions.refreshBalancesAndPriceHistory())
     if (showHideTokenModel) setShowHideTokenModal(false)
     if (showTokenDetailsModal) setShowTokenDetailsModal(false)
     history.push(WalletRoutes.PortfolioAssets)
-  }, [selectedAssetFromParams, showTokenDetailsModal])
+  }, [selectedAssetFromParams, showTokenDetailsModal, updateUserAssetVisible])
 
   const onSelectBuy = React.useCallback(() => {
     history.push(

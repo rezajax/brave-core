@@ -21,7 +21,6 @@ import {
 import {
   DefaultBaseCryptocurrencyChanged,
   DefaultBaseCurrencyChanged,
-  SetUserAssetVisiblePayloadType,
   UpdateUsetAssetType
 } from '../constants/action_types'
 import { LOCAL_STORAGE_KEYS } from '../../common/constants/local-storage-keys'
@@ -107,9 +106,6 @@ export const WalletAsyncActions = {
   addUserAsset: createAction<BraveWallet.BlockchainToken>('addUserAsset'),
   updateUserAsset: createAction<UpdateUsetAssetType>('updateUserAsset'),
   removeUserAsset: createAction<BraveWallet.BlockchainToken>('removeUserAsset'),
-  setUserAssetVisible: createAction<SetUserAssetVisiblePayloadType>(
-    'setUserAssetVisible'
-  ), // alias for ApiProxy.braveWalletService.setUserAssetVisible
   selectAccount: createAction<BraveWallet.AccountId>('selectAccount'), // should use apiProxy - keyringService
   getAllNetworks: createAction('getAllNetworks'), // alias to refreshFullNetworkList
   walletCreated: createAction('walletCreated'),

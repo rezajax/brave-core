@@ -8,7 +8,6 @@ import { EntityId } from '@reduxjs/toolkit'
 // types
 import { BraveWallet } from '../../../constants/types'
 import { WalletApiEndpointBuilderParams } from '../api-base.slice'
-import { SetUserAssetVisiblePayloadType } from '../../constants/action_types'
 import { type BaseQueryCache } from '../../async/base-query-cache'
 
 // utils
@@ -198,7 +197,13 @@ export const tokenEndpoints = ({
       ]
     }),
 
-    updateUserAssetVisible: mutation<boolean, SetUserAssetVisiblePayloadType>({
+    updateUserAssetVisible: mutation<
+      boolean,
+      {
+        token: BraveWallet.BlockchainToken
+        isVisible: boolean
+      }
+    >({
       queryFn: async (
         { isVisible, token },
         { endpoint },

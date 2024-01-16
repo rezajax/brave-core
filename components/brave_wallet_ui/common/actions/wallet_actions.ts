@@ -37,7 +37,6 @@ export const {
   setSelectedGroupAssetsByItem,
   setSelectedNetworkFilter,
   setSolFeeEstimates,
-  setUserAssetVisible,
   setVisibleTokensInfo,
   unlocked,
   updateUserAsset,
