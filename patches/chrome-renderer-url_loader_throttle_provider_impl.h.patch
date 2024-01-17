@@ -1,0 +1,12 @@
+diff --git a/chrome/renderer/url_loader_throttle_provider_impl.h b/chrome/renderer/url_loader_throttle_provider_impl.h
+index ace2a3261eabe2f44bd1d2a34d6dca9a37d7a01e..e61dd78277058b1ff4784c5f08033f40a76449f8 100644
+--- a/chrome/renderer/url_loader_throttle_provider_impl.h
++++ b/chrome/renderer/url_loader_throttle_provider_impl.h
+@@ -62,6 +62,7 @@ class URLLoaderThrottleProviderImpl : public blink::URLLoaderThrottleProvider {
+       const network::ResourceRequest& request) override;
+   void SetOnline(bool is_online) override;
+ 
++  BRAVE_URL_LOADER_THROTTLE_PROVIDER_IMPL_H_
+  private:
+   mojo::PendingRemote<safe_browsing::mojom::SafeBrowsing>
+   CloneSafeBrowsingPendingRemote();
