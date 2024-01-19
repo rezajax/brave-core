@@ -10,3 +10,11 @@ index 81dceec0b449c6fa90984f0bede8d3b94a93910a..d0ab6cfc944112e174d49d13e1abef25
  
    if (!is_chromeos_ash) {
      sources += [
+@@ -6261,6 +6262,7 @@ static_library("browser") {
+       "ScreenCaptureKit.framework",  # Available in macOS 12.3, stable in 13.2.
+       "UniformTypeIdentifiers.framework",  # macOS 11
+     ]
++    public_deps += [ "//brave/browser/mac:keystone_glue" ]
+   }
+ 
+   if (is_win || is_linux || is_android || is_chromeos) {

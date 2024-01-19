@@ -273,6 +273,7 @@ if (enable_sparkle) {
     "//brave/browser/mac/sparkle_glue.mm",
     "//brave/browser/mac/su_updater.h",
   ]
+  brave_chrome_browser_deps += [ "//brave/browser/mac:keystone_glue" ]
 }
 
 if (enable_speedreader) {
