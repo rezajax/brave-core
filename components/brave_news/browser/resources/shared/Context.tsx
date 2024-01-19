@@ -4,7 +4,7 @@
 // You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import * as React from 'react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react'
 import getBraveNewsController, { Channels, Configuration, FeedV2, Publisher, PublisherType, Publishers, isPublisherEnabled } from './api'
 import { ChannelsCachingWrapper } from './channelsCache'
 import { ConfigurationCachingWrapper } from './configurationCache'
@@ -42,6 +42,11 @@ interface BraveNewsContext {
   toggleBraveNewsOnNTP: (enabled: boolean) => void
   openArticlesInNewTab: boolean,
   setOpenArticlesInNewTab: (newTab: boolean) => void
+
+  reportViewCount: (newViews: number) => void
+  reportVisit: (depth: number) => void
+  reportSidebarFilterUsage: () => void
+  reportSessionStart: () => void
 }
 
 export const BraveNewsContext = React.createContext<BraveNewsContext>({
@@ -64,7 +69,11 @@ export const BraveNewsContext = React.createContext<BraveNewsContext>({
   isShowOnNTPPrefEnabled: undefined,
   toggleBraveNewsOnNTP: (enabled: boolean) => { },
   openArticlesInNewTab: true,
-  setOpenArticlesInNewTab: () => { }
+  setOpenArticlesInNewTab: () => { },
+  reportViewCount: (newViews: number) => { },
+  reportVisit: (depth: number) => { },
+  reportSidebarFilterUsage: () => { },
+  reportSessionStart: () => { },
 })
 
 export const publishersCache = new PublishersCachingWrapper()
@@ -146,6 +155,28 @@ export function BraveNewsContextProvider(props: { children: React.ReactNode }) {
     configurationCache.set({ openArticlesInNewTab: inNewTab })
   }, [])
 
+  const reportViewCount = (newViews: number) => {
+    getBraveNewsController().onNewCardsViewed(newViews)
+  }
+
+  const reportVisit = (depth: number) => {
+    getBraveNewsController().onCardVisited(depth + 1)
+  }
+
+  const reportSessionStart = () => {
+    getBraveNewsController().onInteractionSessionStarted()
+  }
+
+  const isSidebarFilterUsed = useRef<boolean>(false);
+  const reportSidebarFilterUsage = useCallback(() => {
+    if (isSidebarFilterUsed.current) {
+      // Only report if it was never used during this session
+      return
+    }
+    isSidebarFilterUsed.current = true
+    getBraveNewsController().onSidebarFilterUsage()
+  }, [isSidebarFilterUsed.current])
+
   const context = useMemo<BraveNewsContext>(() => ({
     locale,
     feedView,
@@ -166,8 +197,12 @@ export function BraveNewsContextProvider(props: { children: React.ReactNode }) {
     isShowOnNTPPrefEnabled: configuration.showOnNTP,
     toggleBraveNewsOnNTP,
     openArticlesInNewTab: configuration.openArticlesInNewTab,
-    setOpenArticlesInNewTab
-  }), [customizePage, setFeedView, feedV2, feedV2UpdatesAvailable, channels, publishers, suggestedPublisherIds, updateSuggestedPublisherIds, configuration, toggleBraveNewsOnNTP])
+    setOpenArticlesInNewTab,
+    reportViewCount,
+    reportVisit,
+    reportSidebarFilterUsage,
+    reportSessionStart
+  }), [customizePage, setFeedView, feedV2, feedV2UpdatesAvailable, channels, publishers, suggestedPublisherIds, updateSuggestedPublisherIds, configuration, toggleBraveNewsOnNTP, reportSidebarFilterUsage])
 
   return <BraveNewsContext.Provider value={context}>
     {props.children}
