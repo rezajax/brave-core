@@ -59,7 +59,7 @@
 
 #if BUILDFLAG(ENABLE_AI_CHAT)
 #include "brave/components/ai_chat/content/browser/ai_chat_tab_helper.h"
-#include "brave/components/ai_chat/core/common/features.h"
+#include "brave/components/ai_chat/core/common/utils.h"
 #endif
 
 #if BUILDFLAG(ENABLE_WIDEVINE)
@@ -131,19 +131,19 @@ void AttachTabHelpers(content::WebContents* web_contents) {
   brave_rewards::RewardsTabHelper::CreateForWebContents(web_contents);
 
 #if BUILDFLAG(ENABLE_AI_CHAT)
-  if (ai_chat::features::IsAIChatEnabled()) {
     content::BrowserContext* context = web_contents->GetBrowserContext();
-    auto skus_service_getter = base::BindRepeating(
-        [](content::BrowserContext* context) {
-          return skus::SkusServiceFactory::GetForContext(context);
-        },
-        context);
-    ai_chat::AIChatTabHelper::CreateForWebContents(
-        web_contents,
-        g_brave_browser_process->process_misc_metrics()->ai_chat_metrics(),
-        skus_service_getter, g_browser_process->local_state(),
-        std::string(version_info::GetChannelString(chrome::GetChannel())));
-  }
+    if (ai_chat::IsAIChatEnabled(context)) {
+      auto skus_service_getter = base::BindRepeating(
+          [](content::BrowserContext* context) {
+            return skus::SkusServiceFactory::GetForContext(context);
+          },
+          context);
+      ai_chat::AIChatTabHelper::CreateForWebContents(
+          web_contents,
+          g_brave_browser_process->process_misc_metrics()->ai_chat_metrics(),
+          skus_service_getter, g_browser_process->local_state(),
+          std::string(version_info::GetChannelString(chrome::GetChannel())));
+    }
 #endif
 
 #if BUILDFLAG(ENABLE_WIDEVINE)

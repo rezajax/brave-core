@@ -21,7 +21,12 @@ static_library("common") {
     "//base",
     "//brave/components/ai_chat/core/common/buildflags:buildflags",
     "//components/prefs",
+    "//components/user_prefs",
   ]
+
+  if (!is_ios) {
+    deps += [ "//content/public/browser" ]
+  }
 }
 
 if (!is_ios) {

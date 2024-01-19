@@ -77,6 +77,7 @@
 #if BUILDFLAG(ENABLE_AI_CHAT)
 #include "brave/browser/ui/webui/settings/brave_settings_leo_assistant_handler.h"
 #include "brave/components/ai_chat/core/common/features.h"
+#include "brave/components/ai_chat/core/common/utils.h"
 #endif
 
 #if BUILDFLAG(ENABLE_PLAYLIST)
@@ -203,7 +204,7 @@ void BraveSettingsUI::AddResources(content::WebUIDataSource* html_source,
 
 #if BUILDFLAG(ENABLE_AI_CHAT)
   html_source->AddBoolean("isLeoAssistantAllowed",
-                          ai_chat::features::IsAIChatEnabled());
+                          ai_chat::IsAIChatEnabled(profile));
   html_source->AddBoolean("isLeoAssistantHistoryAllowed",
                           ai_chat::features::IsAIChatHistoryEnabled());
 #else

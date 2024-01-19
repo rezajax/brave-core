@@ -14,7 +14,7 @@
 
 #if BUILDFLAG(ENABLE_AI_CHAT)
 #include "brave/browser/ui/webui/ai_chat/ai_chat_ui.h"
-#include "brave/components/ai_chat/core/common/features.h"
+#include "brave/components/ai_chat/core/common/utils.h"
 #endif
 
 using SidePanelWebUIViewT_AIChatUI = SidePanelWebUIViewT<AIChatUI>;
@@ -56,7 +56,8 @@ void RegisterContextualSidePanel(content::WebContents* web_contents) {
   }
 
 #if BUILDFLAG(ENABLE_AI_CHAT)
-  if (ai_chat::features::IsAIChatEnabled()) {
+  content::BrowserContext* context = web_contents->GetBrowserContext();
+  if (ai_chat::IsAIChatEnabled(context)) {
     // If |registry| already has it, it's no-op.
     registry->Register(std::make_unique<SidePanelEntry>(
         SidePanelEntry::Id::kChatUI,
@@ -64,8 +65,7 @@ void RegisterContextualSidePanel(content::WebContents* web_contents) {
         ui::ImageModel(),
         base::BindRepeating(
             &CreateAIChatSidePanelWebView,
-            Profile::FromBrowserContext(web_contents->GetBrowserContext())
-                ->GetWeakPtr())));
+            Profile::FromBrowserContext(context)->GetWeakPtr())));
   }
 #endif
 }

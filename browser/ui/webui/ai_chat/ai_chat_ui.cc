@@ -12,8 +12,8 @@
 #include "brave/browser/ui/webui/ai_chat/ai_chat_ui_page_handler.h"
 #include "brave/browser/ui/webui/brave_webui_source.h"
 #include "brave/components/ai_chat/core/browser/constants.h"
-#include "brave/components/ai_chat/core/common/features.h"
 #include "brave/components/ai_chat/core/common/pref_names.h"
+#include "brave/components/ai_chat/core/common/utils.h"
 #include "brave/components/ai_chat/resources/page/grit/ai_chat_ui_generated_map.h"
 #include "brave/components/constants/webui_url_constants.h"
 #include "brave/components/l10n/common/localization_util.h"
@@ -141,7 +141,7 @@ UntrustedChatUIConfig::CreateWebUIController(content::WebUI* web_ui,
 
 bool UntrustedChatUIConfig::IsWebUIEnabled(
     content::BrowserContext* browser_context) {
-  return ai_chat::features::IsAIChatEnabled() &&
+  return ai_chat::IsAIChatEnabled(browser_context) &&
          brave::IsRegularProfile(browser_context);
 }
 
