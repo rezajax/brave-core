@@ -52,6 +52,8 @@ inline constexpr char kBraveChatPackageNameAndroid[] =
 inline constexpr char kBraveChatProductIdAndroid[] =
     "brave.ai_chat.product_id_android";
 #endif
+// Used to indicate whether the feature is enabled by group policy.
+inline constexpr char kEnabledByPolicy[] = "brave.ai_chat.enabled_by_policy";
 
 void RegisterProfilePrefs(PrefRegistrySimple* registry);
 
