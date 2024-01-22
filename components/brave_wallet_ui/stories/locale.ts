@@ -148,15 +148,20 @@ provideStrings({
   braveWalletButtonEnable: 'Enable',
 
   // Onboarding - Welcome
-  braveWalletWelcomeTitle:
-    'Secure. Multi-chain. And oh-so-easy to use. ' +
-    'Your Brave Wallet is just a few clicks away',
-  braveWalletWelcomeButton: 'Create new wallet',
-  braveWalletLearnMoreAboutBraveWallet: 'Learn more about Brave Wallet',
-  braveWalletImportExistingWallet: 'Import existing wallet',
-  braveWalletWelcomeRestoreButton: 'Restore',
-  braveWalletConnectHardwareWallet: 'Connect hardware wallet',
-  braveWalletWelcomeDividerText: 'or',
+  braveWalletWelcomeTitle: 'Browser native. Self-custody. And multi-chain.',
+  braveWalletWelcomeDescription:
+    'Take control of your crypto and NFTs. ' +
+    'Brave Wallet supports Ethereum, EVM chains, Solana, Filecoin, and more.',
+  braveWalletWelcomeNewWalletTitle: 'Need a new wallet?',
+  braveWalletWelcomeNewWalletDescription:
+    'Get started with Brave Wallet in minutes.',
+  braveWalletWelcomeImportWalletTitle: 'Already have a wallet?',
+  braveWalletWelcomeImportWalletDescription: 'Import your existing wallet.',
+  braveWalletWelcomeWatchOnlyTitle: 'I need a watch-only wallet',
+  braveWalletWelcomeCopyright:
+    '©2023 Brave Software Inc. Brave and the Brave logo are registered ' +
+    'trademarks of Brave. Other product names and logos may be trademarks ' +
+    'of their respective companies. All rights reserved.',
 
   // Onboarding - Disclosures
   braveWalletDisclosuresTitle: 'Legal stuff',
@@ -964,7 +969,7 @@ provideStrings({
   braveWalletBTCMainnetAccountDescription: 'Bitcoin Mainnet',
   braveWalletBTCTestnetAccountDescription: 'Bitcoin Testnet',
   braveWalletZECAccountDescription: 'Zcash Mainnet',
-  braveWalletZECTestnetAccountDescription : 'Zcash Testnet',
+  braveWalletZECTestnetAccountDescription: 'Zcash Testnet',
   braveWalletShowNetworkLogoOnNftsTitle: 'Network Logo',
   braveWalletShowNetworkLogoOnNftsDescription: 'Show network logo on NFTs',
   braveWalletShowSpamNftsTitle: 'Spam NFTs',

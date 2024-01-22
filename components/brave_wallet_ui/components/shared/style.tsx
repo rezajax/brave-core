@@ -111,6 +111,7 @@ export const Row = styled.div<
     width?: '100%' | 'unset'
     marginBottom?: number | string
     $wrap?: boolean
+    gap?: string | number
   }
 >`
   font-family: 'Poppins';
@@ -135,6 +136,7 @@ export const Row = styled.div<
   position: relative;
   ${makePaddingMixin(0)}
   box-sizing: border-box;
+  gap: ${(p) => p.gap ?? 'unset'};
 `
 
 export const Column = styled.div<
