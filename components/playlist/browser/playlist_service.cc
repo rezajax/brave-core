@@ -1,3 +1,4 @@
+
 /* Copyright (c) 2021 The Brave Authors. All rights reserved.
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
@@ -93,7 +94,6 @@ void PlaylistService::Shutdown() {
   download_request_manager_.reset();
   media_file_download_manager_.reset();
   thumbnail_downloader_.reset();
-  download_request_manager_.reset();
   task_runner_.reset();
   playlist_streaming_.reset();
 #if BUILDFLAG(IS_ANDROID)
@@ -848,6 +848,7 @@ void PlaylistService::ResetAll() {
   // Resets all on-going downloads
   thumbnail_downloader_->CancelAllDownloadRequests();
   media_file_download_manager_->CancelAllDownloadRequests();
+  playlist_streaming_->ClearAllQueries();
 
   // Resets preference ---------------------------------------------------------
   prefs_->ClearPref(kPlaylistCacheByDefault);
