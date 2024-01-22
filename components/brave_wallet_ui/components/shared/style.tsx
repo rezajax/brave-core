@@ -70,6 +70,7 @@ export const MutedLinkText = styled(LinkText)`
   font-size: 12px;
   font-weight: 400;
   color: ${leo.color.text.tertiary};
+  line-height: 20px;
 `
 
 export const ErrorText = styled.span`
