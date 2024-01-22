@@ -149,7 +149,7 @@ std::optional<std::string> EncodeQuoteParams(
 
   base::Value::Dict options;
   options.Set("insurance", true);
-  options.Set("integrator", "brave");  // FIXME
+  options.Set("integrator", kLiFiIntegratorID);
   options.Set("allowSwitchChain", false);
   options.Set("fee", 0.2);  // FIXME
 

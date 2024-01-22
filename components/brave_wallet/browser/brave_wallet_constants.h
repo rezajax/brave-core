@@ -1421,6 +1421,10 @@ inline constexpr char kBlowfishBaseAPIURL[] =
 inline constexpr char kBlowfishAPIVersionHeader[] = "X-Api-Version";
 inline constexpr char kBlowfishAPIVersion[] = "2023-06-05";
 
+// LiFi constants
+inline constexpr char kLiFiBaseAPIURL[] = "https://li.quest/";
+inline constexpr char kLiFiIntegratorID[] = "brave";
+
 constexpr int64_t kBlockTrackerDefaultTimeInSeconds = 20;
 constexpr int64_t kLogTrackerDefaultTimeInSeconds = 20;
 
