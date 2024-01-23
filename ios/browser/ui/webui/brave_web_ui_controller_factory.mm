@@ -13,6 +13,7 @@
 #include "brave/components/constants/pref_names.h"
 #include "brave/components/constants/url_constants.h"
 #include "brave/components/constants/webui_url_constants.h"
+#include "brave/ios/browser/api/ui/webui/components/components_ui.h"
 #include "build/build_config.h"
 #include "components/prefs/pref_service.h"
 #include "ios/components/webui/web_ui_url_constants.h"
@@ -23,6 +24,10 @@
 
 using web::WebUIIOS;
 using web::WebUIIOSController;
+
+namespace chrome {
+extern const char kChromeUIComponentsHost[];
+}    // namespace chrome
 
 namespace brave {
 
@@ -60,6 +65,9 @@ WebUIIOSFactoryFunction GetWebUIIOSFactoryFunction(const GURL& url) {
              brave_rewards::IsSupportedForProfile(browser_state)) {
     return &NewWebUIIOS<BraveRewardsInternalsUI>;
   }*/
+  if (url_host == chrome::kChromeUIComponentsHost) {
+      return &NewWebUIIOS<ComponentsUI>;
+    }
   return nullptr;
 }
 

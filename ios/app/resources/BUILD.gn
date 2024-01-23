@@ -5,6 +5,9 @@
 
 import("//tools/grit/repack.gni")
 
+import("//build/config/locales.gni")
+import("//brave/resources/brave_grit.gni")
+
 group("resources") {
   public_deps = [ ":repack_unscaled_resources" ]
 }
@@ -15,4 +18,23 @@ repack("repack_unscaled_resources") {
   sources = [ "$root_gen_dir/components/brave_components_resources.pak" ]
   deps = [ "//brave/components/resources" ]
   copy_data_to_bundle = true
+}
+
+
+brave_grit("brave_ios_components_resources") {
+  source = "brave_ios_components_resources.grd"
+
+  output_name = "brave_ios_components_resources_new"
+
+  outputs = [
+    "grit/brave_ios_components_resources.h",
+"grit/brave_ios_components_resource_map.h",
+    "brave_ios_components_resources.pak",
+  ]
+
+  deps = [
+    "//brave/components/brave_rewards/resources",
+  ]
+
+  output_dir = "$root_gen_dir/components"
 }

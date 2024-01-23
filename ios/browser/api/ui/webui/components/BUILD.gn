@@ -1,0 +1,30 @@
+# Copyright (c) 2023 The Brave Authors. All rights reserved.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this file,
+# You can obtain one at https://mozilla.org/MPL/2.0/.
+
+import("//brave/build/config.gni")
+import("//build/config/features.gni")
+import("//mojo/public/tools/bindings/mojom.gni")
+
+source_set("components") {
+  sources = [
+    "components_handler.h",
+    "components_handler.mm",
+    "components_ui.h",
+    "components_ui.mm",
+  ]
+
+  deps = [
+    #":resources",
+    "//ios/web/webui",
+    "//ios/web:resources",
+    "//mojo/public/js:resources",
+    "//ios/web",
+    "//ios/web/public",
+    "//ios/web/public/js_messaging",
+    "//ios/web/public/webui",
+    "//mojo/public/cpp/bindings",
+    "//ui/base",
+  ]
+}
