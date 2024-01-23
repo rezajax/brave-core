@@ -28,6 +28,7 @@
 #include "chrome/test/base/testing_browser_process.h"
 #include "chrome/test/base/ui_test_utils.h"
 #include "components/country_codes/country_codes.h"
+#include "components/search_engines/search_engine_choice/search_engine_choice_service.h"
 #include "components/search_engines/search_engines_pref_names.h"
 #include "components/search_engines/search_engines_test_util.h"
 #include "components/search_engines/template_url_data_util.h"
@@ -71,8 +72,12 @@ TemplateURLData CreateTestSearchEngine() {
 }
 
 std::string GetBraveSearchProviderSyncGUID(PrefService* prefs) {
+  CHECK(prefs);
+  search_engines::SearchEngineChoiceService search_engine_choice_service(
+      *prefs);
   auto data = TemplateURLPrepopulateData::GetPrepopulatedEngine(
-      prefs, TemplateURLPrepopulateData::PREPOPULATED_ENGINE_ID_BRAVE);
+      prefs, &search_engine_choice_service,
+      TemplateURLPrepopulateData::PREPOPULATED_ENGINE_ID_BRAVE);
   DCHECK(data);
   return data->sync_guid;
 }
@@ -85,8 +90,13 @@ bool PrepopulatedDataHasDDG(PrefService* prefs) {
           TemplateURLPrepopulateData::
               PREPOPULATED_ENGINE_ID_DUCKDUCKGO_AU_NZ_IE};
 
+  CHECK(prefs);
+  search_engines::SearchEngineChoiceService search_engine_choice_service(
+      *prefs);
+
   for (const auto& id : alt_search_providers) {
-    if (TemplateURLPrepopulateData::GetPrepopulatedEngine(prefs, id)) {
+    if (TemplateURLPrepopulateData::GetPrepopulatedEngine(
+            prefs, &search_engine_choice_service, id)) {
       return true;
     }
   }
