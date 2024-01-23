@@ -2416,6 +2416,21 @@ TEST_F(BraveWalletServiceUnitTest, SetNftDiscoveryEnabled) {
   EXPECT_FALSE(GetPrefs()->GetBoolean(kBraveWalletNftDiscoveryEnabled));
 }
 
+TEST_F(BraveWalletServiceUnitTest, SetPrivateWindowsEnabled) {
+  // Default should be off
+  EXPECT_FALSE(GetPrefs()->GetBoolean(kBraveWalletPrivateWindowsEnabled));
+
+  // Setting private enabled should update the pref.
+  service_->SetPrivateWindowsEnabled(true);
+  base::RunLoop().RunUntilIdle();
+  EXPECT_TRUE(GetPrefs()->GetBoolean(kBraveWalletPrivateWindowsEnabled));
+
+  // Unsetting NFT discovery enabled should update the pref.
+  service_->SetPrivateWindowsEnabled(false);
+  base::RunLoop().RunUntilIdle();
+  EXPECT_FALSE(GetPrefs()->GetBoolean(kBraveWalletPrivateWindowsEnabled));
+}
+
 TEST_F(BraveWalletServiceUnitTest, RecordGeneralUsageMetrics) {
   histogram_tester_->ExpectTotalCount(kBraveWalletMonthlyHistogramName, 0);
   histogram_tester_->ExpectTotalCount(kBraveWalletWeeklyHistogramName, 0);

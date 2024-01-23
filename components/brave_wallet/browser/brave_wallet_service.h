@@ -231,6 +231,11 @@ class BraveWalletService : public KeyedService,
 
   void SetNftDiscoveryEnabled(bool enabled) override;
 
+  void GetPrivateWindowsEnabled(
+      GetPrivateWindowsEnabledCallback callback) override;
+
+  void SetPrivateWindowsEnabled(bool enabled) override;
+
   void GetBalanceScannerSupportedChains(
       GetBalanceScannerSupportedChainsCallback callback) override;
 

@@ -1707,6 +1707,16 @@ void BraveWalletService::SetNftDiscoveryEnabled(bool enabled) {
   profile_prefs_->SetBoolean(kBraveWalletNftDiscoveryEnabled, enabled);
 }
 
+void BraveWalletService::GetPrivateWindowsEnabled(
+    GetPrivateWindowsEnabledCallback callback) {
+  std::move(callback).Run(
+      profile_prefs_->GetBoolean(kBraveWalletPrivateWindowsEnabled));
+}
+
+void BraveWalletService::SetPrivateWindowsEnabled(bool enabled) {
+  profile_prefs_->SetBoolean(kBraveWalletPrivateWindowsEnabled, enabled);
+}
+
 void BraveWalletService::GetBalanceScannerSupportedChains(
     GetBalanceScannerSupportedChainsCallback callback) {
   const auto& contract_addresses = GetEthBalanceScannerContractAddresses();
