@@ -119,32 +119,37 @@ export const addChainIdToToken = (
  * This does not check contract addresses.
  * Make sure that the asset is native FIRST
  */
-export const isKnownMainnetGasToken = (
-  t: Pick<BraveWallet.BlockchainToken, 'chainId' | 'symbol'>
-) => {
-  const lowercaseSymbol = t.symbol.toLowerCase()
+export const isKnownMainnetGasToken = ({
+  chainId,
+  symbol
+}: Pick<BraveWallet.BlockchainToken, 'chainId' | 'symbol'>) => {
+  const lowercaseSymbol = symbol.toLowerCase()
+  if (lowercaseSymbol === 'eth') {
+    return (
+      chainId === BraveWallet.MAINNET_CHAIN_ID ||
+      chainId === BraveWallet.BASE_MAINNET_CHAIN_ID ||
+      chainId === BraveWallet.ARBITRUM_NOVA_CHAIN_ID ||
+      chainId === BraveWallet.OPTIMISM_MAINNET_CHAIN_ID ||
+      chainId === BraveWallet.AURORA_MAINNET_CHAIN_ID
+    )
+  }
   return (
-    (lowercaseSymbol === 'eth' && t.chainId === BraveWallet.MAINNET_CHAIN_ID) ||
-    (lowercaseSymbol === 'eth' &&
-      t.chainId === BraveWallet.OPTIMISM_MAINNET_CHAIN_ID) ||
-    (lowercaseSymbol === 'eth' &&
-      t.chainId === BraveWallet.AURORA_MAINNET_CHAIN_ID) ||
     (lowercaseSymbol === 'matic' &&
-      t.chainId === BraveWallet.POLYGON_MAINNET_CHAIN_ID) ||
+      chainId === BraveWallet.POLYGON_MAINNET_CHAIN_ID) ||
     (lowercaseSymbol === 'ftm' &&
-      t.chainId === BraveWallet.FANTOM_MAINNET_CHAIN_ID) ||
+      chainId === BraveWallet.FANTOM_MAINNET_CHAIN_ID) ||
     (lowercaseSymbol === 'celo' &&
-      t.chainId === BraveWallet.CELO_MAINNET_CHAIN_ID) ||
+      chainId === BraveWallet.CELO_MAINNET_CHAIN_ID) ||
     (lowercaseSymbol === 'bnb' &&
-      t.chainId === BraveWallet.BINANCE_SMART_CHAIN_MAINNET_CHAIN_ID) ||
-    (lowercaseSymbol === 'sol' && t.chainId === BraveWallet.SOLANA_MAINNET) ||
-    (lowercaseSymbol === 'fil' && t.chainId === BraveWallet.FILECOIN_MAINNET) ||
+      chainId === BraveWallet.BINANCE_SMART_CHAIN_MAINNET_CHAIN_ID) ||
+    (lowercaseSymbol === 'sol' && chainId === BraveWallet.SOLANA_MAINNET) ||
+    (lowercaseSymbol === 'fil' && chainId === BraveWallet.FILECOIN_MAINNET) ||
     (lowercaseSymbol === 'avax' &&
-      t.chainId === BraveWallet.AVALANCHE_MAINNET_CHAIN_ID) ||
+      chainId === BraveWallet.AVALANCHE_MAINNET_CHAIN_ID) ||
     (lowercaseSymbol === 'avaxc' &&
-      t.chainId === BraveWallet.AVALANCHE_MAINNET_CHAIN_ID) ||
+      chainId === BraveWallet.AVALANCHE_MAINNET_CHAIN_ID) ||
     (lowercaseSymbol === 'neon' &&
-      t.chainId === BraveWallet.NEON_EVM_MAINNET_CHAIN_ID)
+      chainId === BraveWallet.NEON_EVM_MAINNET_CHAIN_ID)
   )
 }
 
