@@ -517,10 +517,24 @@ const util = {
     Log.progressFinish('touch original vector icon files overridden by brave/vector_icons')
   },
 
+  touchOverriddenPolicyScript: () => {
+    Log.progressStart('touch components/policy/tools/generated_policy_source.py if outdated')
+    var sourceScript = path.join(config.srcDir, 'components',
+      'policy', 'tools', 'generate_policy_source.py')
+    var bravePolicyHelper = path.join(config.srcDir, 'brave', 'script', 'policy_source_helper.py')
+    if (fs.existsSync(sourceScript)) {
+      // If policy_source_helper.py is newer, touch sourceScript to generate
+      // policy_constants.h
+      updateFileUTimesIfOverrideIsNewer(sourceScript, bravePolicyHelper)
+    }
+    Log.progressFinish('touch components/policy/tools/generated_policy_source.py if outdated')
+  },
+
   touchOverriddenFiles: () => {
     Log.progressScope('touch overridden files', () => {
       util.touchOverriddenChromiumSrcFiles()
       util.touchOverriddenVectorIconFiles()
+      util.touchOverriddenPolicyScript()
     })
   },
 
