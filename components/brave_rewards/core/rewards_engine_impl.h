@@ -18,7 +18,6 @@
 #include "base/one_shot_event.h"
 #include "base/types/always_false.h"
 #include "brave/components/brave_rewards/common/mojom/rewards_engine.mojom.h"
-#include "brave/components/brave_rewards/core/logging/logging.h"
 #include "brave/components/brave_rewards/core/rewards_callbacks.h"
 #include "brave/components/brave_rewards/core/rewards_log_stream.h"
 #include "mojo/public/cpp/bindings/associated_remote.h"

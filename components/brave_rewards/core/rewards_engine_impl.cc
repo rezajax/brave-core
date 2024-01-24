@@ -60,12 +60,9 @@ RewardsEngineImpl::RewardsEngineImpl(
       uphold_(std::make_unique<uphold::Uphold>(*this)),
       zebpay_(std::make_unique<zebpay::ZebPay>(*this)) {
   DCHECK(base::ThreadPoolInstance::Get());
-  set_client_for_logging(client_.get());
 }
 
-RewardsEngineImpl::~RewardsEngineImpl() {
-  set_client_for_logging(nullptr);
-}
+RewardsEngineImpl::~RewardsEngineImpl() = default;
 
 // mojom::RewardsEngine implementation begin (in the order of appearance in
 // Mojom)

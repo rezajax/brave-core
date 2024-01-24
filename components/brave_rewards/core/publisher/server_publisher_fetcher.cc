@@ -50,7 +50,7 @@ void ServerPublisherFetcher::Fetch(
   FetchCallbackVector& callbacks = callback_map_[publisher_key];
   callbacks.push_back(callback);
   if (callbacks.size() > 1) {
-    BLOG(1, "Fetch already in progress");
+    engine_->Log(FROM_HERE) << "Fetch already in progress";
     return;
   }
 
@@ -82,7 +82,8 @@ void ServerPublisherFetcher::OnFetchCompleted(
   engine_->database()->InsertServerPublisherInfo(
       **shared_info, [this, publisher_key, shared_info](mojom::Result result) {
         if (result != mojom::Result::OK) {
-          BLOG(0, "Error saving server publisher info record");
+          engine_->LogError(FROM_HERE)
+              << "Error saving server publisher info record";
         }
         RunCallbacks(publisher_key, std::move(*shared_info));
       });
@@ -104,14 +105,15 @@ bool ServerPublisherFetcher::IsExpired(
     // Pessimistically assume that we are incorrectly storing
     // the timestamp in order to avoid a case where we fetch
     // on every tab update.
-    BLOG(0, "Server publisher info has a future updated_at time.");
+    engine_->LogError(FROM_HERE)
+        << "Server publisher info has a future updated_at time.";
   }
 
   return age.InSeconds() > GetCacheExpiryInSeconds();
 }
 
 void ServerPublisherFetcher::PurgeExpiredRecords() {
-  BLOG(1, "Purging expired server publisher info records");
+  engine_->Log(FROM_HERE) << "Purging expired server publisher info records";
   int64_t max_age = GetCacheExpiryInSeconds() * 2;
   engine_->database()->DeleteExpiredServerPublisherInfo(max_age,
                                                         [](auto result) {});
