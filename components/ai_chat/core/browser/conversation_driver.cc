@@ -829,6 +829,12 @@ mojom::SiteInfoPtr ConversationDriver::BuildSiteInfo() {
   site_info->title = base::UTF16ToUTF8(GetPageTitle());
   site_info->is_content_truncated = IsPageContentsTruncated();
   site_info->is_content_association_possible = IsContentAssociationPossible();
+  const GURL url = GetPageURL();
+
+  if (url.SchemeIsHTTPOrHTTPS()) {
+    site_info->hostname = url.host();
+  }
+
   return site_info;
 }
 

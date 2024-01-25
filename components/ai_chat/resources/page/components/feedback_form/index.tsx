@@ -92,11 +92,19 @@ function FeedbackForm(props: FeedbackFormProps) {
             />
           </label>
         </fieldset>
-        <fieldset>
+        {context.siteInfo?.hostname && (
+          <fieldset>
             <Checkbox checked={shouldSendUrl} onChange={handleCheckboxChange}>
-              <label>Share the URL of the page you are on (example.com) to help us make Leo better.</label>
+              <label>{
+                formatMessage(getLocale('sendSiteUrlLabel'), {
+                  placeholders: {
+                    $1: context.siteInfo.hostname
+                  }
+                })
+              }</label>
             </Checkbox>
-        </fieldset>
+          </fieldset>
+        )}
         {!context.isPremiumUser && (
           <div className={styles.premiumNote}>
             {formatMessage(getLocale('feedbackPremiumNote'), {

@@ -247,4 +247,7 @@
   <message name="IDS_CHAT_UI_CONTEXT_TOGGLE_TOOLTIP_INFO" desc="Info tooltip for contextual toggle">
     Toggle on to ask about this page. Its content will be sent to Brave Leo along with your messages.
   </message>
+  <message name="IDS_CHAT_UI_SEND_SITE_URL_LABEL" desc="A checkbox label to opt-in or out for sending current tab's url">
+    Share the URL of the page you are on (<ph name="SITE_URL">$1<ex>www.example.com</ex></ph>) to help us make Leo better.
+  </message>
 </grit-part>

@@ -101,7 +101,8 @@ base::span<const webui::LocalizedString> GetLocalizedStrings() {
       {"welcomeGuideShatCardDesc", IDS_CHAT_UI_WELCOME_GUIDE_CHAT_CARD_DESC},
       {"privacyTitle", IDS_CHAT_UI_PRIVACY_TITLE},
       {"contextToggleLabel", IDS_CHAT_UI_CONTEXT_TOGGLE_LABEL},
-      {"contextToggleTooltipInfo", IDS_CHAT_UI_CONTEXT_TOGGLE_TOOLTIP_INFO}};
+      {"contextToggleTooltipInfo", IDS_CHAT_UI_CONTEXT_TOGGLE_TOOLTIP_INFO},
+      {"sendSiteUrlLabel", IDS_CHAT_UI_SEND_SITE_URL_LABEL}};
 
   return kLocalizedStrings;
 }
