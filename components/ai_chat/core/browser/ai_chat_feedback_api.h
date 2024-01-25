@@ -36,11 +36,12 @@ class AIChatFeedbackAPI {
                   api_request_helper::APIRequestHelper::ResultCallback
                       on_complete_callback);
 
-  void SendFeedback(const std::string& category,
-                    const std::string& feedback,
-                    const std::string& rating_id,
-                    api_request_helper::APIRequestHelper::ResultCallback
-                        on_complete_callback);
+  void SendFeedback(
+      const std::string& category,
+      const std::string& feedback,
+      const std::string& rating_id,
+      api_request_helper::APIRequestHelper::ResultCallback on_complete_callback,
+      const std::optional<GURL> page_url = std::nullopt);
 
  private:
   api_request_helper::APIRequestHelper api_request_helper_;

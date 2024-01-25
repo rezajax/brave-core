@@ -121,7 +121,8 @@ void AIChatFeedbackAPI::SendFeedback(
     const std::string& category,
     const std::string& feedback,
     const std::string& rating_id,
-    api_request_helper::APIRequestHelper::ResultCallback on_complete_callback) {
+    api_request_helper::APIRequestHelper::ResultCallback on_complete_callback,
+    const std::optional<GURL> page_url) {
   base::Value::Dict dict;
 
   dict.Set("ymd", brave_stats::GetDateAsYMD(base::Time::Now()));
@@ -131,6 +132,10 @@ void AIChatFeedbackAPI::SendFeedback(
   dict.Set("locale",
            base::StrCat({brave_l10n::GetDefaultISOLanguageCodeString(), "_",
                          brave_l10n::GetDefaultISOCountryCodeString()}));
+
+  if (page_url.has_value()) {
+    dict.Set("domain", page_url->spec());
+  }
 
   GURL api_url = GetEndpointBaseUrl().Resolve(kFeedbackFormPath);
 

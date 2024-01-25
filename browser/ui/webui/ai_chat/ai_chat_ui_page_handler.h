@@ -80,6 +80,7 @@ class AIChatUIPageHandler : public ai_chat::mojom::PageHandler,
   void SendFeedback(const std::string& category,
                     const std::string& feedback,
                     const std::string& rating_id,
+                    bool send_page_url,
                     SendFeedbackCallback callback) override;
   // content::WebContentsObserver:
   void OnVisibilityChanged(content::Visibility visibility) override;
