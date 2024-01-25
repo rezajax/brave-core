@@ -133,7 +133,7 @@ void AIChatFeedbackAPI::SendFeedback(
            base::StrCat({brave_l10n::GetDefaultISOLanguageCodeString(), "_",
                          brave_l10n::GetDefaultISOCountryCodeString()}));
 
-  if (page_url.has_value()) {
+  if (page_url.has_value() && page_url->SchemeIsHTTPOrHTTPS()) {
     dict.Set("domain", page_url->spec());
   }
 
