@@ -1,8 +1,8 @@
 diff --git a/chrome/browser/BUILD.gn b/chrome/browser/BUILD.gn
-index 81dceec0b449c6fa90984f0bede8d3b94a93910a..d0ab6cfc944112e174d49d13e1abef25ae3fe3c0 100644
+index fc61c9143a9128f231b48f282b9a31966f31da05..8d5626193d43ec8eb45264f37b410dc82a3ce17b 100644
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
-@@ -2671,6 +2671,7 @@ static_library("browser") {
+@@ -2674,6 +2674,7 @@ static_library("browser") {
        "performance_monitor/metric_evaluator_helper_posix.h",
      ]
    }
@@ -10,7 +10,7 @@ index 81dceec0b449c6fa90984f0bede8d3b94a93910a..d0ab6cfc944112e174d49d13e1abef25
  
    if (!is_chromeos_ash) {
      sources += [
-@@ -6261,6 +6262,7 @@ static_library("browser") {
+@@ -6266,6 +6267,7 @@ static_library("browser") {
        "ScreenCaptureKit.framework",  # Available in macOS 12.3, stable in 13.2.
        "UniformTypeIdentifiers.framework",  # macOS 11
      ]
