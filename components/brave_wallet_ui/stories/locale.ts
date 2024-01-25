@@ -124,7 +124,7 @@ provideStrings({
   braveWalletChooseAsset: 'Choose asset',
   braveWalletOrdinalsWarningMessage:
     'Brave Wallet does not currently support Bitcoin NFTs (ordinals). Sending BTC from an address that has ordinals may result in its ordinals being transferred inadvertently.',
-    braveWalletUserUnderstandsLabel: 'I understand',
+  braveWalletUserUnderstandsLabel: 'I understand',
 
   // Create Account Tab
   braveWalletCreateAccountDescription:
@@ -149,6 +149,7 @@ provideStrings({
   braveWalletLearnMore: 'Learn more',
   braveWalletButtonNoThanks: 'No thanks',
   braveWalletButtonEnable: 'Enable',
+  braveWalletProceedButton: 'Proceed',
 
   // Onboarding - Welcome
   braveWalletWelcomeTitle:
@@ -587,6 +588,11 @@ provideStrings({
   braveWalletSignTransactionEIP712MessageDomain: 'Domain',
   braveWalletSignTransactionButton: 'Sign',
   braveWalletApproveTransaction: 'Approve transaction',
+  braveWalletRiskOfLossAction: 'Unsafe action with risk of loss',
+  braveWalletUntrustedRequestWarning:
+    'This request appears unstable or malicious, ' +
+    'and may leave you vulnerable to theft. ' +
+    'Do not continue unless you trust the app.',
 
   // Sign in with Ethereum
   braveWalletSignInWithBraveWallet: 'Sign in with Brave Wallet',
