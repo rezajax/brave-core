@@ -39,11 +39,11 @@ StateMigrationV10::~StateMigrationV10() = default;
 // mojom::WalletStatus::DISCONNECTED_VERIFIED (4) has been renamed to
 // mojom::WalletStatus::kLoggedOut (4).
 
-void StateMigrationV10::Migrate(LegacyResultCallback callback) {
+void StateMigrationV10::Migrate(ResultCallback callback) {
   auto uphold_wallet = engine_->uphold()->GetWallet();
   if (!uphold_wallet) {
     engine_->Log(FROM_HERE) << "Uphold wallet is null.";
-    return callback(mojom::Result::OK);
+    return std::move(callback).Run(mojom::Result::OK);
   }
 
   switch (static_cast<std::underlying_type_t<mojom::WalletStatus>>(
@@ -71,7 +71,7 @@ void StateMigrationV10::Migrate(LegacyResultCallback callback) {
 
       auto wallet_info_endpoint_callback =
           base::BindOnce(&StateMigrationV10::OnGetWallet,
-                         base::Unretained(this), std::move(callback));
+                         weak_factory_.GetWeakPtr(), std::move(callback));
 
       if (is_testing) {
         return std::move(wallet_info_endpoint_callback)
@@ -103,17 +103,17 @@ void StateMigrationV10::Migrate(LegacyResultCallback callback) {
       NOTREACHED();
   }
 
-  callback(engine_->uphold()->SetWallet(std::move(uphold_wallet))
-               ? mojom::Result::OK
-               : mojom::Result::FAILED);
+  std::move(callback).Run(engine_->uphold()->SetWallet(std::move(uphold_wallet))
+                              ? mojom::Result::OK
+                              : mojom::Result::FAILED);
 }
 
-void StateMigrationV10::OnGetWallet(LegacyResultCallback callback,
+void StateMigrationV10::OnGetWallet(ResultCallback callback,
                                     endpoints::GetWallet::Result&& result) {
   auto uphold_wallet = engine_->uphold()->GetWallet();
   if (!uphold_wallet) {
     engine_->LogError(FROM_HERE) << "Uphold wallet is null";
-    return callback(mojom::Result::FAILED);
+    return std::move(callback).Run(mojom::Result::FAILED);
   }
 
   DCHECK(uphold_wallet->status ==
@@ -132,9 +132,9 @@ void StateMigrationV10::OnGetWallet(LegacyResultCallback callback,
     uphold_wallet->address = "";
   }
 
-  callback(engine_->uphold()->SetWallet(std::move(uphold_wallet))
-               ? mojom::Result::OK
-               : mojom::Result::FAILED);
+  std::move(callback).Run(engine_->uphold()->SetWallet(std::move(uphold_wallet))
+                              ? mojom::Result::OK
+                              : mojom::Result::FAILED);
 }
 
 }  // namespace state

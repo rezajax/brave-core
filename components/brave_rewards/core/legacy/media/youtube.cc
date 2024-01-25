@@ -10,6 +10,7 @@
 #include "base/json/json_reader.h"
 #include "base/strings/escape.h"
 #include "base/strings/string_split.h"
+#include "brave/components/brave_rewards/core/common/callback_helpers.h"
 #include "brave/components/brave_rewards/core/common/url_loader.h"
 #include "brave/components/brave_rewards/core/database/database.h"
 #include "brave/components/brave_rewards/core/legacy/media/helper.h"
@@ -19,10 +20,6 @@
 #include "brave/components/brave_rewards/core/rewards_engine_impl.h"
 #include "brave/components/brave_rewards/core/state/state.h"
 #include "net/http/http_status_code.h"
-
-using std::placeholders::_1;
-using std::placeholders::_2;
-using std::placeholders::_3;
 
 namespace brave_rewards::internal {
 
@@ -323,8 +320,9 @@ void YouTube::ProcessMedia(
   uint64_t duration = GetMediaDurationFromParts(parts, media_key);
 
   engine_->database()->GetMediaPublisherInfo(
-      media_key, std::bind(&YouTube::OnMediaPublisherInfo, this, media_id,
-                           media_key, duration, visit_data, 0, _1, _2));
+      media_key, ToLegacyCallback(base::BindOnce(
+                     &YouTube::OnMediaPublisherInfo, weak_factory_.GetWeakPtr(),
+                     media_id, media_key, duration, visit_data, 0)));
 }
 
 void YouTube::ProcessActivityFromUrl(uint64_t window_id,
@@ -367,14 +365,15 @@ void YouTube::OnMediaPublisherInfo(const std::string& media_id,
 
   if (!publisher_info) {
     std::string media_url = GetVideoUrl(media_id);
-    auto callback = std::bind(&YouTube::OnEmbedResponse, this, duration,
-                              media_key, media_url, visit_data, window_id, _1);
 
     const std::string url =
         (std::string)YOUTUBE_PROVIDER_URL +
         "?format=json&url=" + base::EscapeQueryParamValue(media_url, false);
 
-    FetchDataFromUrl(url, callback);
+    FetchDataFromUrl(
+        url,
+        base::BindOnce(&YouTube::OnEmbedResponse, weak_factory_.GetWeakPtr(),
+                       duration, media_key, media_url, visit_data, window_id));
   } else {
     mojom::VisitData new_visit_data;
     new_visit_data.name = publisher_info->name;
@@ -385,7 +384,8 @@ void YouTube::OnMediaPublisherInfo(const std::string& media_id,
 
     engine_->publisher()->SaveVisit(
         id, new_visit_data, duration, true, window_id,
-        [](mojom::Result, mojom::PublisherInfoPtr) {});
+        ToLegacyCallback(
+            base::BindOnce([](mojom::Result, mojom::PublisherInfoPtr) {})));
   }
 }
 
@@ -401,8 +401,9 @@ void YouTube::OnEmbedResponse(const uint64_t duration,
     if (response->status_code == net::HTTP_UNAUTHORIZED) {
       FetchDataFromUrl(
           visit_data.url,
-          std::bind(&YouTube::OnPublisherPage, this, duration, media_key,
-                    std::string(), std::string(), visit_data, window_id, _1));
+          base::BindOnce(&YouTube::OnPublisherPage, weak_factory_.GetWeakPtr(),
+                         duration, media_key, std::string(), std::string(),
+                         visit_data, window_id));
     }
     return;
   }
@@ -412,11 +413,11 @@ void YouTube::OnEmbedResponse(const uint64_t duration,
   std::string publisher_name;
   getJSONValue("author_name", response->body, &publisher_name);
 
-  auto callback =
-      std::bind(&YouTube::OnPublisherPage, this, duration, media_key,
-                publisher_url, publisher_name, visit_data, window_id, _1);
-
-  FetchDataFromUrl(publisher_url, callback);
+  FetchDataFromUrl(
+      publisher_url,
+      base::BindOnce(&YouTube::OnPublisherPage, weak_factory_.GetWeakPtr(),
+                     duration, media_key, publisher_url, publisher_name,
+                     visit_data, window_id));
 }
 
 void YouTube::OnPublisherPage(const uint64_t duration,
@@ -482,28 +483,23 @@ void YouTube::SavePublisherInfo(const uint64_t duration,
 
   engine_->publisher()->SaveVisit(
       publisher_id, new_visit_data, duration, true, window_id,
-      [](mojom::Result, mojom::PublisherInfoPtr) {});
+      ToLegacyCallback(
+          base::BindOnce([](mojom::Result, mojom::PublisherInfoPtr) {})));
 
   if (!media_key.empty()) {
-    engine_->database()->SaveMediaPublisherInfo(media_key, publisher_id,
-                                                [](const mojom::Result) {});
+    engine_->database()->SaveMediaPublisherInfo(
+        media_key, publisher_id,
+        ToLegacyCallback(base::BindOnce([](const mojom::Result) {})));
   }
 }
 
 void YouTube::FetchDataFromUrl(const std::string& url,
-                               LegacyLoadURLCallback callback) {
+                               LoadURLCallback callback) {
   auto request = mojom::UrlRequest::New();
   request->url = url;
 
-  engine_->Get<URLLoader>().Load(
-      std::move(request), URLLoader::LogLevel::kNone,
-      base::BindOnce(&YouTube::OnUrlFetched, base::Unretained(this),
-                     std::move(callback)));
-}
-
-void YouTube::OnUrlFetched(LegacyLoadURLCallback callback,
-                           mojom::UrlResponsePtr response) {
-  callback(std::move(response));
+  engine_->Get<URLLoader>().Load(std::move(request), URLLoader::LogLevel::kNone,
+                                 std::move(callback));
 }
 
 void YouTube::WatchPath(uint64_t window_id,
@@ -513,19 +509,21 @@ void YouTube::WatchPath(uint64_t window_id,
 
   if (!media_key.empty() || !media_id.empty()) {
     engine_->database()->GetMediaPublisherInfo(
-        media_key, std::bind(&YouTube::OnMediaPublisherActivity, this, _1, _2,
-                             window_id, visit_data, media_key, media_id));
+        media_key,
+        ToLegacyCallback(base::BindOnce(&YouTube::OnMediaPublisherActivity,
+                                        weak_factory_.GetWeakPtr(), window_id,
+                                        visit_data, media_key, media_id)));
   } else {
     OnMediaActivityError(visit_data, window_id);
   }
 }
 
-void YouTube::OnMediaPublisherActivity(mojom::Result result,
-                                       mojom::PublisherInfoPtr info,
-                                       uint64_t window_id,
+void YouTube::OnMediaPublisherActivity(uint64_t window_id,
                                        const mojom::VisitData& visit_data,
                                        const std::string& media_key,
-                                       const std::string& media_id) {
+                                       const std::string& media_id,
+                                       mojom::Result result,
+                                       mojom::PublisherInfoPtr info) {
   if (result != mojom::Result::OK && result != mojom::Result::NOT_FOUND) {
     OnMediaActivityError(visit_data, window_id);
     return;
@@ -548,8 +546,9 @@ void YouTube::GetPublisherPanleInfo(uint64_t window_id,
       engine_->state()->GetReconcileStamp(), true, false);
   engine_->database()->GetPanelPublisherInfo(
       std::move(filter),
-      std::bind(&YouTube::OnPublisherPanleInfo, this, window_id, visit_data,
-                publisher_key, is_custom_path, _1, _2));
+      ToLegacyCallback(base::BindOnce(
+          &YouTube::OnPublisherPanleInfo, weak_factory_.GetWeakPtr(), window_id,
+          visit_data, publisher_key, is_custom_path)));
 }
 
 void YouTube::OnPublisherPanleInfo(uint64_t window_id,
@@ -560,8 +559,9 @@ void YouTube::OnPublisherPanleInfo(uint64_t window_id,
                                    mojom::PublisherInfoPtr info) {
   if (!info || result == mojom::Result::NOT_FOUND) {
     FetchDataFromUrl(visit_data.url,
-                     std::bind(&YouTube::GetChannelHeadlineVideo, this,
-                               window_id, visit_data, is_custom_path, _1));
+                     base::BindOnce(&YouTube::GetChannelHeadlineVideo,
+                                    weak_factory_.GetWeakPtr(), window_id,
+                                    visit_data, is_custom_path));
   } else {
     engine_->client()->OnPanelPublisherInfo(result, std::move(info), window_id);
   }
@@ -620,8 +620,9 @@ void YouTube::UserPath(uint64_t window_id, const mojom::VisitData& visit_data) {
 
   std::string media_key = (std::string)YOUTUBE_MEDIA_TYPE + "_user_" + user;
   engine_->database()->GetMediaPublisherInfo(
-      media_key, std::bind(&YouTube::OnUserActivity, this, window_id,
-                           visit_data, media_key, _1, _2));
+      media_key, ToLegacyCallback(base::BindOnce(
+                     &YouTube::OnUserActivity, weak_factory_.GetWeakPtr(),
+                     window_id, visit_data, media_key)));
 }
 
 void YouTube::OnUserActivity(uint64_t window_id,
@@ -635,9 +636,10 @@ void YouTube::OnUserActivity(uint64_t window_id,
   }
 
   if (!info || result == mojom::Result::NOT_FOUND) {
-    FetchDataFromUrl(visit_data.url,
-                     std::bind(&YouTube::OnChannelIdForUser, this, window_id,
-                               visit_data, media_key, _1));
+    FetchDataFromUrl(
+        visit_data.url,
+        base::BindOnce(&YouTube::OnChannelIdForUser, weak_factory_.GetWeakPtr(),
+                       window_id, visit_data, media_key));
 
   } else {
     GetPublisherPanleInfo(window_id, visit_data, info->id, false);
@@ -655,8 +657,9 @@ void YouTube::OnChannelIdForUser(uint64_t window_id,
     std::string url = GetChannelUrl(channelId);
     std::string publisher_key = GetPublisherKey(channelId);
 
-    engine_->database()->SaveMediaPublisherInfo(media_key, publisher_key,
-                                                [](const mojom::Result) {});
+    engine_->database()->SaveMediaPublisherInfo(
+        media_key, publisher_key,
+        ToLegacyCallback(base::BindOnce([](mojom::Result) {})));
 
     mojom::VisitData new_visit_data;
     new_visit_data.path = path;

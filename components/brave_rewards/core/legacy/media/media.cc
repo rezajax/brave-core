@@ -6,6 +6,7 @@
 #include <utility>
 
 #include "base/containers/flat_map.h"
+#include "brave/components/brave_rewards/core/common/callback_helpers.h"
 #include "brave/components/brave_rewards/core/legacy/media/media.h"
 #include "brave/components/brave_rewards/core/legacy/static_values.h"
 #include "brave/components/brave_rewards/core/publisher/publisher.h"
@@ -92,7 +93,7 @@ void Media::SaveMediaInfo(const std::string& type,
                           const base::flat_map<std::string, std::string>& data,
                           PublisherInfoCallback callback) {
   if (type == GITHUB_MEDIA_TYPE) {
-    media_github_.SaveMediaInfo(data, callback);
+    media_github_.SaveMediaInfo(data, WrapLegacyCallback(std::move(callback)));
     return;
   }
 }

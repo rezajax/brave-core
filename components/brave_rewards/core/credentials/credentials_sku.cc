@@ -13,14 +13,13 @@
 #include "base/json/json_writer.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/strings/stringprintf.h"
+#include "brave/components/brave_rewards/core/common/callback_helpers.h"
 #include "brave/components/brave_rewards/core/common/environment_config.h"
 #include "brave/components/brave_rewards/core/constants.h"
 #include "brave/components/brave_rewards/core/credentials/credentials_sku.h"
 #include "brave/components/brave_rewards/core/credentials/credentials_util.h"
 #include "brave/components/brave_rewards/core/database/database.h"
 #include "brave/components/brave_rewards/core/rewards_engine_impl.h"
-
-using std::placeholders::_1;
 
 namespace brave_rewards::internal {
 
@@ -58,7 +57,7 @@ void CredentialsSKU::Start(const CredentialsTrigger& trigger,
   }
 
   auto get_callback =
-      base::BindOnce(&CredentialsSKU::OnStart, base::Unretained(this),
+      base::BindOnce(&CredentialsSKU::OnStart, weak_factory_.GetWeakPtr(),
                      std::move(callback), trigger);
 
   engine_->database()->GetCredsBatchByTrigger(
@@ -84,7 +83,7 @@ void CredentialsSKU::OnStart(ResultCallback callback,
     }
     case mojom::CredsBatchStatus::BLINDED: {
       auto get_callback =
-          base::BindOnce(&CredentialsSKU::Claim, base::Unretained(this),
+          base::BindOnce(&CredentialsSKU::Claim, weak_factory_.GetWeakPtr(),
                          std::move(callback), trigger);
 
       engine_->database()->GetCredsBatchByTrigger(
@@ -101,7 +100,7 @@ void CredentialsSKU::OnStart(ResultCallback callback,
     }
     case mojom::CredsBatchStatus::SIGNED: {
       auto get_callback =
-          base::BindOnce(&CredentialsSKU::Unblind, base::Unretained(this),
+          base::BindOnce(&CredentialsSKU::Unblind, weak_factory_.GetWeakPtr(),
                          std::move(callback), trigger);
 
       engine_->database()->GetCredsBatchByTrigger(
@@ -126,7 +125,7 @@ void CredentialsSKU::OnStart(ResultCallback callback,
 void CredentialsSKU::Blind(ResultCallback callback,
                            const CredentialsTrigger& trigger) {
   auto blinded_callback =
-      base::BindOnce(&CredentialsSKU::OnBlind, base::Unretained(this),
+      base::BindOnce(&CredentialsSKU::OnBlind, weak_factory_.GetWeakPtr(),
                      std::move(callback), trigger);
   common_.GetBlindedCreds(trigger, std::move(blinded_callback));
 }
@@ -141,7 +140,7 @@ void CredentialsSKU::OnBlind(ResultCallback callback,
   }
 
   auto get_callback =
-      base::BindOnce(&CredentialsSKU::Claim, base::Unretained(this),
+      base::BindOnce(&CredentialsSKU::Claim, weak_factory_.GetWeakPtr(),
                      std::move(callback), trigger);
 
   engine_->database()->GetCredsBatchByTrigger(
@@ -179,7 +178,7 @@ void CredentialsSKU::Claim(ResultCallback callback,
         << "Blinded creds are corrupted, we will try to blind again";
     auto save_callback =
         base::BindOnce(&CredentialsSKU::RetryPreviousStepSaved,
-                       base::Unretained(this), std::move(callback));
+                       weak_factory_.GetWeakPtr(), std::move(callback));
 
     engine_->database()->UpdateCredsBatchStatus(
         trigger.id, trigger.type, mojom::CredsBatchStatus::NONE,
@@ -191,7 +190,7 @@ void CredentialsSKU::Claim(ResultCallback callback,
   }
 
   auto url_callback =
-      base::BindOnce(&CredentialsSKU::OnClaim, base::Unretained(this),
+      base::BindOnce(&CredentialsSKU::OnClaim, weak_factory_.GetWeakPtr(),
                      std::move(callback), trigger);
 
   DCHECK_EQ(trigger.data.size(), 2ul);
@@ -211,8 +210,8 @@ void CredentialsSKU::OnClaim(ResultCallback callback,
   }
 
   auto save_callback =
-      base::BindOnce(&CredentialsSKU::ClaimStatusSaved, base::Unretained(this),
-                     std::move(callback), trigger);
+      base::BindOnce(&CredentialsSKU::ClaimStatusSaved,
+                     weak_factory_.GetWeakPtr(), std::move(callback), trigger);
 
   engine_->database()->UpdateCredsBatchStatus(
       trigger.id, trigger.type, mojom::CredsBatchStatus::CLAIMED,
@@ -237,7 +236,7 @@ void CredentialsSKU::FetchSignedCreds(ResultCallback callback,
                                       const CredentialsTrigger& trigger) {
   auto url_callback =
       base::BindOnce(&CredentialsSKU::OnFetchSignedCreds,
-                     base::Unretained(this), std::move(callback), trigger);
+                     weak_factory_.GetWeakPtr(), std::move(callback), trigger);
 
   payment_server_.get_credentials().Request(trigger.id, trigger.data[0],
                                             std::move(url_callback));
@@ -257,8 +256,8 @@ void CredentialsSKU::OnFetchSignedCreds(ResultCallback callback,
   batch->trigger_type = trigger.type;
 
   auto get_callback =
-      base::BindOnce(&CredentialsSKU::SignedCredsSaved, base::Unretained(this),
-                     std::move(callback), trigger);
+      base::BindOnce(&CredentialsSKU::SignedCredsSaved,
+                     weak_factory_.GetWeakPtr(), std::move(callback), trigger);
 
   engine_->database()->SaveSignedCreds(
       std::move(batch), [callback = std::make_shared<decltype(get_callback)>(
@@ -277,7 +276,7 @@ void CredentialsSKU::SignedCredsSaved(ResultCallback callback,
   }
 
   auto get_callback =
-      base::BindOnce(&CredentialsSKU::Unblind, base::Unretained(this),
+      base::BindOnce(&CredentialsSKU::Unblind, weak_factory_.GetWeakPtr(),
                      std::move(callback), trigger);
 
   engine_->database()->GetCredsBatchByTrigger(
@@ -322,7 +321,7 @@ void CredentialsSKU::Unblind(ResultCallback callback,
   }
 
   auto save_callback =
-      base::BindOnce(&CredentialsSKU::Completed, base::Unretained(this),
+      base::BindOnce(&CredentialsSKU::Completed, weak_factory_.GetWeakPtr(),
                      std::move(callback), trigger);
 
   const uint64_t expires_at = 0ul;
@@ -346,10 +345,10 @@ void CredentialsSKU::Completed(ResultCallback callback,
 }
 
 void CredentialsSKU::RedeemTokens(const CredentialsRedeem& redeem,
-                                  LegacyResultCallback callback) {
+                                  ResultCallback callback) {
   if (redeem.publisher_key.empty() || redeem.token_list.empty()) {
     engine_->LogError(FROM_HERE) << "Pub key / token list empty";
-    callback(mojom::Result::FAILED);
+    std::move(callback).Run(mojom::Result::FAILED);
     return;
   }
 
@@ -358,20 +357,20 @@ void CredentialsSKU::RedeemTokens(const CredentialsRedeem& redeem,
     token_id_list.push_back(base::NumberToString(item.id));
   }
 
-  auto url_callback = std::bind(&CredentialsSKU::OnRedeemTokens, this, _1,
-                                token_id_list, redeem, callback);
-
-  payment_server_.post_votes().Request(redeem, url_callback);
+  payment_server_.post_votes().Request(
+      redeem,
+      ToLegacyCallback(base::BindOnce(
+          &CredentialsSKU::OnRedeemTokens, weak_factory_.GetWeakPtr(),
+          std::move(token_id_list), std::move(redeem), std::move(callback))));
 }
 
-void CredentialsSKU::OnRedeemTokens(
-    mojom::Result result,
-    const std::vector<std::string>& token_id_list,
-    const CredentialsRedeem& redeem,
-    LegacyResultCallback callback) {
+void CredentialsSKU::OnRedeemTokens(std::vector<std::string> token_id_list,
+                                    CredentialsRedeem redeem,
+                                    ResultCallback callback,
+                                    mojom::Result result) {
   if (result != mojom::Result::OK) {
     engine_->LogError(FROM_HERE) << "Failed to submit tokens";
-    callback(mojom::Result::FAILED);
+    std::move(callback).Run(mojom::Result::FAILED);
     return;
   }
 
@@ -382,8 +381,8 @@ void CredentialsSKU::OnRedeemTokens(
     id = redeem.order_id;
   }
 
-  engine_->database()->MarkUnblindedTokensAsSpent(token_id_list, redeem.type,
-                                                  id, callback);
+  engine_->database()->MarkUnblindedTokensAsSpent(
+      token_id_list, redeem.type, id, ToLegacyCallback(std::move(callback)));
 }
 
 }  // namespace credential

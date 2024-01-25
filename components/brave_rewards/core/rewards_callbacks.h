@@ -62,9 +62,6 @@ using ContributionInfoListCallback =
 using GetActivityInfoListCallback =
     std::function<void(std::vector<mojom::PublisherInfoPtr>)>;
 
-using GetAllMonthlyReportIdsCallback =
-    std::function<void(const std::vector<std::string>&)>;
-
 using GetAllPromotionsCallback =
     std::function<void(base::flat_map<std::string, mojom::PromotionPtr>)>;
 
@@ -79,9 +76,6 @@ using GetEventLogsCallback =
 
 using GetExcludedListCallback =
     std::function<void(std::vector<mojom::PublisherInfoPtr>)>;
-
-using GetMonthlyReportCallback =
-    std::function<void(mojom::Result, mojom::MonthlyReportInfoPtr)>;
 
 using GetOneTimeTipsCallback =
     std::function<void(std::vector<mojom::PublisherInfoPtr>)>;
@@ -110,7 +104,8 @@ using PublisherInfoCallback =
 
 using RefreshPublisherCallback = std::function<void(mojom::PublisherStatus)>;
 
-using SKUOrderCallback = std::function<void(mojom::Result, const std::string&)>;
+using SKUOrderCallback =
+    base::OnceCallback<void(mojom::Result, const std::string&)>;
 
 using UnverifiedPublishersCallback =
     std::function<void(std::vector<std::string>&&)>;

@@ -16,6 +16,25 @@
 
 namespace brave_rewards::internal {
 
+// Convers an `std::function` callback into a `base::OnceCallback`. This adapter
+// should only be used in legacy code that holds `std::function` objects and
+// needs to provide those to a newer API that uses `base::OnceCallback` objects.
+// Use `base::OnceCallback` for all new code.
+template <typename... Args>
+base::OnceCallback<void(Args...)> WrapLegacyCallback(
+    std::function<void(Args...)> callback) {
+  return base::BindOnce(
+      [](decltype(callback) wrapped, Args... args) {
+        wrapped(std::forward<Args>(args)...);
+      },
+      std::move(callback));
+}
+
+template <typename T>
+auto WrapLegacyCallback(T callback) {
+  return WrapLegacyCallback(std::function(std::move(callback)));
+}
+
 // Converts a `OnceCallback` into an equivalent `std::function`. This adapter
 // should only be used to interface with legacy code that uses `std::function`
 // for callbacks. Use `OnceCallback` for all new code.

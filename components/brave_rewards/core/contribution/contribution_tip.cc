@@ -37,7 +37,7 @@ void ContributionTip::Process(const std::string& publisher_id,
   engine_->publisher()->GetServerPublisherInfo(
       publisher_id,
       ToLegacyCallback(base::BindOnce(&ContributionTip::OnPublisherDataRead,
-                                      base::Unretained(this), publisher_id,
+                                      weak_factory_.GetWeakPtr(), publisher_id,
                                       amount, std::move(callback))));
 }
 
@@ -68,9 +68,9 @@ void ContributionTip::OnPublisherDataRead(
 
   engine_->database()->SaveContributionQueue(
       std::move(queue),
-      ToLegacyCallback(
-          base::BindOnce(&ContributionTip::OnQueueSaved, base::Unretained(this),
-                         std::move(queue_id), std::move(callback))));
+      ToLegacyCallback(base::BindOnce(
+          &ContributionTip::OnQueueSaved, weak_factory_.GetWeakPtr(),
+          std::move(queue_id), std::move(callback))));
 }
 
 void ContributionTip::OnQueueSaved(const std::string& queue_id,

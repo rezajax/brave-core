@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "base/strings/string_number_conversions.h"
+#include "brave/components/brave_rewards/core/common/callback_helpers.h"
 #include "brave/components/brave_rewards/core/constants.h"
 #include "brave/components/brave_rewards/core/credentials/credentials_promotion.h"
 #include "brave/components/brave_rewards/core/database/database.h"
@@ -25,15 +26,9 @@ PromotionTransfer::PromotionTransfer(RewardsEngineImpl& engine)
 PromotionTransfer::~PromotionTransfer() = default;
 
 void PromotionTransfer::Start(PostSuggestionsClaimCallback callback) {
-  auto tokens_callback =
+  engine_->database()->GetSpendableUnblindedTokens(ToLegacyCallback(
       base::BindOnce(&PromotionTransfer::OnGetSpendableUnblindedTokens,
-                     base::Unretained(this), std::move(callback));
-
-  engine_->database()->GetSpendableUnblindedTokens(
-      [callback = std::make_shared<decltype(tokens_callback)>(std::move(
-           tokens_callback))](std::vector<mojom::UnblindedTokenPtr> tokens) {
-        std::move(*callback).Run(std::move(tokens));
-      });
+                     weak_factory_.GetWeakPtr(), std::move(callback))));
 }
 
 void PromotionTransfer::OnGetSpendableUnblindedTokens(
@@ -55,7 +50,7 @@ void PromotionTransfer::OnGetSpendableUnblindedTokens(
 
   credentials_.DrainTokens(
       redeem, base::BindOnce(&PromotionTransfer::OnDrainTokens,
-                             base::Unretained(this), std::move(callback),
+                             weak_factory_.GetWeakPtr(), std::move(callback),
                              redeem.token_list.size() * constant::kVotePrice));
 }
 

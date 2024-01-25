@@ -55,7 +55,7 @@ void CredentialsCommon::GetBlindedCreds(const CredentialsTrigger& trigger,
 
   auto save_callback =
       base::BindOnce(&CredentialsCommon::BlindedCredsSaved,
-                     base::Unretained(this), std::move(callback));
+                     weak_factory_.GetWeakPtr(), std::move(callback));
 
   engine_->database()->SaveCredsBatch(
       std::move(creds_batch),
@@ -96,7 +96,7 @@ void CredentialsCommon::SaveUnblindedCreds(
 
   auto save_callback =
       base::BindOnce(&CredentialsCommon::OnSaveUnblindedCreds,
-                     base::Unretained(this), std::move(callback), trigger);
+                     weak_factory_.GetWeakPtr(), std::move(callback), trigger);
 
   engine_->database()->SaveUnblindedTokenList(
       std::move(list), [callback = std::make_shared<decltype(save_callback)>(

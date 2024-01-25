@@ -6,6 +6,7 @@
 #include <utility>
 
 #include "base/uuid.h"
+#include "brave/components/brave_rewards/core/common/callback_helpers.h"
 #include "brave/components/brave_rewards/core/contribution/contribution.h"
 #include "brave/components/brave_rewards/core/contribution/contribution_ac.h"
 #include "brave/components/brave_rewards/core/database/database.h"
@@ -14,11 +15,7 @@
 #include "brave/components/brave_rewards/core/rewards_engine_impl.h"
 #include "brave/components/brave_rewards/core/state/state.h"
 
-using std::placeholders::_1;
-using std::placeholders::_2;
-
-namespace brave_rewards::internal {
-namespace contribution {
+namespace brave_rewards::internal::contribution {
 
 ContributionAC::ContributionAC(RewardsEngineImpl& engine) : engine_(engine) {}
 
@@ -36,11 +33,10 @@ void ContributionAC::Process(const uint64_t reconcile_stamp) {
       "", mojom::ExcludeFilter::FILTER_ALL_EXCEPT_EXCLUDED, true,
       reconcile_stamp, false, engine_->state()->GetPublisherMinVisits());
 
-  auto get_callback =
-      std::bind(&ContributionAC::PreparePublisherList, this, _1);
-
-  engine_->database()->GetActivityInfoList(0, 0, std::move(filter),
-                                           get_callback);
+  engine_->database()->GetActivityInfoList(
+      0, 0, std::move(filter),
+      ToLegacyCallback(base::BindOnce(&ContributionAC::PreparePublisherList,
+                                      weak_factory_.GetWeakPtr())));
 }
 
 void ContributionAC::PreparePublisherList(
@@ -82,9 +78,10 @@ void ContributionAC::PreparePublisherList(
   engine_->database()->SaveEventLog(log::kACAddedToQueue,
                                     std::to_string(queue->amount));
 
-  auto save_callback = std::bind(&ContributionAC::QueueSaved, this, _1);
-
-  engine_->database()->SaveContributionQueue(std::move(queue), save_callback);
+  engine_->database()->SaveContributionQueue(
+      std::move(queue),
+      ToLegacyCallback(base::BindOnce(&ContributionAC::QueueSaved,
+                                      weak_factory_.GetWeakPtr())));
 }
 
 void ContributionAC::QueueSaved(const mojom::Result result) {
@@ -96,5 +93,4 @@ void ContributionAC::QueueSaved(const mojom::Result result) {
   engine_->contribution()->CheckContributionQueue();
 }
 
-}  // namespace contribution
-}  // namespace brave_rewards::internal
+}  // namespace brave_rewards::internal::contribution

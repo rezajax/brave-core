@@ -382,10 +382,10 @@ void RewardsEngineImpl::GetPublisherBanner(
 void RewardsEngineImpl::OneTimeTip(const std::string& publisher_key,
                                    double amount,
                                    OneTimeTipCallback callback) {
-  WhenReady([this, publisher_key, amount,
-             callback = ToLegacyCallback(std::move(callback))]() {
-    contribution()->OneTimeTip(publisher_key, amount, std::move(callback));
-  });
+  WhenReady(
+      [this, publisher_key, amount, callback = std::move(callback)]() mutable {
+        contribution()->OneTimeTip(publisher_key, amount, std::move(callback));
+      });
 }
 
 void RewardsEngineImpl::RemoveRecurringTip(
@@ -457,7 +457,7 @@ void RewardsEngineImpl::SendContribution(const std::string& publisher_id,
 }
 
 void RewardsEngineImpl::GetRecurringTips(GetRecurringTipsCallback callback) {
-  WhenReady([this, callback = ToLegacyCallback(std::move(callback))]() mutable {
+  WhenReady([this, callback = std::move(callback)]() mutable {
     contribution()->GetRecurringTips(std::move(callback));
   });
 }
@@ -648,15 +648,14 @@ void RewardsEngineImpl::GetAllContributions(
 void RewardsEngineImpl::GetMonthlyReport(mojom::ActivityMonth month,
                                          int year,
                                          GetMonthlyReportCallback callback) {
-  WhenReady([this, month, year,
-             callback = ToLegacyCallback(std::move(callback))]() mutable {
+  WhenReady([this, month, year, callback = std::move(callback)]() mutable {
     report()->GetMonthly(month, year, std::move(callback));
   });
 }
 
 void RewardsEngineImpl::GetAllMonthlyReportIds(
     GetAllMonthlyReportIdsCallback callback) {
-  WhenReady([this, callback = ToLegacyCallback(std::move(callback))]() mutable {
+  WhenReady([this, callback = std::move(callback)]() mutable {
     report()->GetAllMonthlyIds(std::move(callback));
   });
 }
