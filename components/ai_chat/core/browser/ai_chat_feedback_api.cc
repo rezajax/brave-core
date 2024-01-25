@@ -134,7 +134,7 @@ void AIChatFeedbackAPI::SendFeedback(
                          brave_l10n::GetDefaultISOCountryCodeString()}));
 
   if (page_url.has_value() && page_url->SchemeIsHTTPOrHTTPS()) {
-    dict.Set("domain", page_url->spec());
+    dict.Set("domain", page_url->host());
   }
 
   GURL api_url = GetEndpointBaseUrl().Resolve(kFeedbackFormPath);
