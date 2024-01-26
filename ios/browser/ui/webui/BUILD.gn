@@ -34,5 +34,6 @@ source_set("webui") {
     "//ui/base",
 
     "//brave/ios/browser/api/ui/webui/components",
+    "//brave/ios/browser/api/ui/webui/skus",
   ]
 }
