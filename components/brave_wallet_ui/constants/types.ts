@@ -1273,3 +1273,8 @@ export interface BraveRewardsInfo {
   rewardsNetwork: BraveWallet.NetworkInfo | undefined
   accountLink: string | undefined
 }
+
+export type AutoLockOption = {
+  value: number
+  label: string
+} 
