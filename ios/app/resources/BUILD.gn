@@ -33,7 +33,7 @@ brave_grit("brave_ios_components_resources") {
   ]
 
   deps = [
-    "//brave/components/brave_rewards/resources",
+    "//brave/ios/browser/api/ui/webui/components/resources",
   ]
 
   output_dir = "$root_gen_dir/components"

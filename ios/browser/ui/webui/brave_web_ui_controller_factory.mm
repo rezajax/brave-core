@@ -26,7 +26,7 @@ using web::WebUIIOS;
 using web::WebUIIOSController;
 
 namespace chrome {
-extern const char kChromeUIComponentsHost[];
+static const char kChromeUIComponentsHost[] = "components";
 }    // namespace chrome
 
 namespace brave {

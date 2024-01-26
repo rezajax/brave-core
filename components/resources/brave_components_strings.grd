@@ -845,6 +845,7 @@
         <part file="brave_vpn_strings.grdp" />
       </if>
       <part file="omnibox_strings.grdp" />
+      <part file="../../ios/app/resources/brave_ios_components_strings.grdp" />
     </messages>
   </release>
 </grit>

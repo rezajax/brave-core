@@ -38,6 +38,7 @@
 
 //#include "chrome/common/chrome_paths.h"
 //#include "chrome/common/url_constants.h"
+#include "ui/base/webui/resource_path.h"
 #include "components/grit/brave_components_resources.h"
 #include "components/grit/brave_components_strings.h"
 
@@ -70,6 +71,14 @@ void CreateAndAddComponentsUIHTMLSource(ChromeBrowserState* browser_state) {
       "isGuest",
           browser_state->IsOffTheRecord()
   );
+  
+  const webui::ResourcePath kComponentsResources[] = {
+    {"components.html", IDR_COMPONENTS_COMPONENTS_HTML},
+    {"components.css", IDR_COMPONENTS_COMPONENTS_CSS},
+    {"components.js", IDR_COMPONENTS_COMPONENTS_JS},
+  };
+
+  const size_t kComponentsResourcesSize = std::size(kComponentsResources);
   
   source->UseStringsJs();
   source->AddResourcePaths(

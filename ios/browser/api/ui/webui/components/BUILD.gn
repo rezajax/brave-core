@@ -16,7 +16,8 @@ source_set("components") {
   ]
 
   deps = [
-    #":resources",
+    #"resources",
+    "//components/resources",
     "//ios/web/webui",
     "//ios/web:resources",
     "//mojo/public/js:resources",
