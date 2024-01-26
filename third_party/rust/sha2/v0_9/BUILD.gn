@@ -8,26 +8,26 @@ cargo_crate("lib") {
   crate_name = "sha2"
   epoch = "0.9"
   crate_type = "rlib"
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/sha2/v0_9/crate/benches/sha256.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/benches/sha512.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/examples/sha256sum.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/examples/sha512sum.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/src/consts.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/src/lib.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/src/sha256.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/src/sha256/aarch64.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/src/sha256/soft.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/src/sha256/x86.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/src/sha512.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/src/sha512/soft.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/src/sha512/x86.rs",
-    "//brave/third_party/rust/sha2/v0_9/crate/tests/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/benches/sha256.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/benches/sha512.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/examples/sha256sum.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/examples/sha512sum.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/src/consts.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/src/sha256.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/src/sha256/aarch64.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/src/sha256/soft.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/src/sha256/x86.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/src/sha512.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/src/sha512/soft.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/src/sha512/x86.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/tests/lib.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/sha2/v0_9/crate/CHANGELOG.md",
-    "//brave/third_party/rust/sha2/v0_9/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/sha2-0.9.9/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

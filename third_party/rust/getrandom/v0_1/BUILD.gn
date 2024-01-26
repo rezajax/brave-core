@@ -12,37 +12,37 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/getrandom/v0_1/crate/benches/mod.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/build.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/bsd_arandom.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/cloudabi.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/dummy.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/error.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/error_impls.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/fuchsia.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/ios.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/lib.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/linux_android.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/macos.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/openbsd.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/rdrand.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/solaris_illumos.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/use_file.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/util.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/util_libc.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/vxworks.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/wasi.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/wasm32_bindgen.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/wasm32_stdweb.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/windows.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/src/windows_uwp.rs",
-    "//brave/third_party/rust/getrandom/v0_1/crate/tests/common.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/benches/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/bsd_arandom.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/cloudabi.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/dummy.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/error.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/error_impls.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/fuchsia.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/ios.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/linux_android.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/macos.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/openbsd.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/rdrand.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/solaris_illumos.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/use_file.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/util.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/util_libc.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/vxworks.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/wasi.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/wasm32_bindgen.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/wasm32_stdweb.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/windows.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/src/windows_uwp.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/tests/common.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/getrandom/v0_1/crate/CHANGELOG.md",
-    "//brave/third_party/rust/getrandom/v0_1/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
@@ -61,6 +61,6 @@ cargo_crate("lib") {
     deps += [ "//third_party/rust/libc/v0_2:lib" ]
   }
   features = [ "std" ]
-  build_root = "crate/build.rs"
-  build_sources = [ "crate/build.rs" ]
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/build.rs"
+  build_sources = [ "//brave/third_party/rust/chromium_crates_io/vendor/getrandom-0.1.16/build.rs" ]
 }

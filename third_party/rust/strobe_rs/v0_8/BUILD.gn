@@ -12,19 +12,19 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/strobe-rs-0.8.1/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/strobe_rs/v0_8/crate/benches/benches.rs",
-    "//brave/third_party/rust/strobe_rs/v0_8/crate/examples/basic.rs",
-    "//brave/third_party/rust/strobe_rs/v0_8/crate/src/basic_tests.rs",
-    "//brave/third_party/rust/strobe_rs/v0_8/crate/src/kat_tests.rs",
-    "//brave/third_party/rust/strobe_rs/v0_8/crate/src/keccak.rs",
-    "//brave/third_party/rust/strobe_rs/v0_8/crate/src/lib.rs",
-    "//brave/third_party/rust/strobe_rs/v0_8/crate/src/strobe.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/strobe-rs-0.8.1/benches/benches.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/strobe-rs-0.8.1/examples/basic.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/strobe-rs-0.8.1/src/basic_tests.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/strobe-rs-0.8.1/src/kat_tests.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/strobe-rs-0.8.1/src/keccak.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/strobe-rs-0.8.1/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/strobe-rs-0.8.1/src/strobe.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/strobe_rs/v0_8/crate/CHANGELOG.md",
-    "//brave/third_party/rust/strobe_rs/v0_8/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/strobe-rs-0.8.1/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/strobe-rs-0.8.1/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

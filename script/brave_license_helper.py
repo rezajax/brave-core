@@ -29,6 +29,11 @@ def AddBraveCredits(root, prune_paths, special_cases, prune_dirs,
         os.path.join('brave', 'vendor', 'brave-ios'),
         os.path.join('brave', 'vendor', 'brave_base'),
 
+        # These have auto-generated license files and
+        # GetThirdPartyDepsFromGNDepsOutput causes strange license errors
+        # unless the this entire directory is excluded.
+        os.path.join('brave', 'third_party', 'rust'),
+
         # No third-party code directly under android_deps. It's all under
         # android_deps/libs instead and it's special-cased further down.
         os.path.join('brave', 'third_party', 'android_deps'),
@@ -153,7 +158,7 @@ def AddBraveCredits(root, prune_paths, special_cases, prune_dirs,
     prune_list += [
         'chromium_src',  # Brave's overrides, covered by main notice.
         'node_modules',  # See brave/third_party/npm-* instead.
-        '.vscode',       # Automatically added by Visual Studio.
+        '.vscode',  # Automatically added by Visual Studio.
     ]
     prune_dirs = tuple(prune_list)
 

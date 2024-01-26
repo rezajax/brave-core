@@ -8,30 +8,30 @@ cargo_crate("lib") {
   crate_name = "html5ever"
   epoch = "0.25"
   crate_type = "rlib"
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/html5ever/v0_25/crate/benches/html5ever.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/build.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/examples/arena.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/examples/noop-tokenize.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/examples/noop-tree-builder.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/examples/print-tree-actions.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/examples/tokenize.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/macros/match_token.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/driver.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/lib.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/macros.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/serialize/mod.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/tokenizer/char_ref/mod.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/tokenizer/interface.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/tokenizer/mod.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/tokenizer/states.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/tree_builder/data.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/tree_builder/mod.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/tree_builder/rules.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/tree_builder/tag_sets.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/tree_builder/types.rs",
-    "//brave/third_party/rust/html5ever/v0_25/crate/src/util/str.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/benches/html5ever.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/examples/arena.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/examples/noop-tokenize.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/examples/noop-tree-builder.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/examples/print-tree-actions.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/examples/tokenize.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/macros/match_token.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/driver.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/macros.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/serialize/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/tokenizer/char_ref/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/tokenizer/interface.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/tokenizer/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/tokenizer/states.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/tree_builder/data.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/tree_builder/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/tree_builder/rules.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/tree_builder/tag_sets.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/tree_builder/types.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/src/util/str.rs",
   ]
   inputs = []
 
@@ -56,13 +56,13 @@ cargo_crate("lib") {
     "//third_party/rust/quote/v1:lib",
     "//third_party/rust/syn/v1:lib",
   ]
-  build_root = "crate/build.rs"
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/build.rs"
   build_sources = [
-    "crate/build.rs",
-    "crate/macros/match_token.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1/macros/match_token.rs",
   ]
   build_script_outputs = [ "rules.rs" ]
   cargo_manifest_dir =
-      rebase_path("//brave/third_party/rust/html5ever/v0_25/crate")
+      rebase_path("//brave/third_party/rust/chromium_crates_io/vendor/html5ever-0.25.1")
   rustenv = [ "CARGO_MANIFEST_DIR=$cargo_manifest_dir" ]
 }

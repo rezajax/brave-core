@@ -12,22 +12,22 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/generic_array/v0_14/crate/build.rs",
-    "//brave/third_party/rust/generic_array/v0_14/crate/src/arr.rs",
-    "//brave/third_party/rust/generic_array/v0_14/crate/src/functional.rs",
-    "//brave/third_party/rust/generic_array/v0_14/crate/src/hex.rs",
-    "//brave/third_party/rust/generic_array/v0_14/crate/src/impl_serde.rs",
-    "//brave/third_party/rust/generic_array/v0_14/crate/src/impl_zeroize.rs",
-    "//brave/third_party/rust/generic_array/v0_14/crate/src/impls.rs",
-    "//brave/third_party/rust/generic_array/v0_14/crate/src/iter.rs",
-    "//brave/third_party/rust/generic_array/v0_14/crate/src/lib.rs",
-    "//brave/third_party/rust/generic_array/v0_14/crate/src/sequence.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/src/arr.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/src/functional.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/src/hex.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/src/impl_serde.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/src/impl_zeroize.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/src/impls.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/src/iter.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/src/sequence.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/generic_array/v0_14/crate/CHANGELOG.md",
-    "//brave/third_party/rust/generic_array/v0_14/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
@@ -44,6 +44,6 @@ cargo_crate("lib") {
   deps = [ "//brave/third_party/rust/typenum/v1:lib" ]
   build_deps = [ "//brave/third_party/rust/version_check/v0_9:buildrs_support" ]
   features = [ "more_lengths" ]
-  build_root = "crate/build.rs"
-  build_sources = [ "crate/build.rs" ]
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/build.rs"
+  build_sources = [ "//brave/third_party/rust/chromium_crates_io/vendor/generic-array-0.14.6/build.rs" ]
 }

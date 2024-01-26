@@ -12,16 +12,16 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/thiserror-impl-1.31/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/thiserror_impl/v1/crate/src/ast.rs",
-    "//brave/third_party/rust/thiserror_impl/v1/crate/src/attr.rs",
-    "//brave/third_party/rust/thiserror_impl/v1/crate/src/expand.rs",
-    "//brave/third_party/rust/thiserror_impl/v1/crate/src/fmt.rs",
-    "//brave/third_party/rust/thiserror_impl/v1/crate/src/generics.rs",
-    "//brave/third_party/rust/thiserror_impl/v1/crate/src/lib.rs",
-    "//brave/third_party/rust/thiserror_impl/v1/crate/src/prop.rs",
-    "//brave/third_party/rust/thiserror_impl/v1/crate/src/valid.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/thiserror-impl-1.31/src/ast.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/thiserror-impl-1.31/src/attr.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/thiserror-impl-1.31/src/expand.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/thiserror-impl-1.31/src/fmt.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/thiserror-impl-1.31/src/generics.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/thiserror-impl-1.31/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/thiserror-impl-1.31/src/prop.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/thiserror-impl-1.31/src/valid.rs",
   ]
   inputs = []
 

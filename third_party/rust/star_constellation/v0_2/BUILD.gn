@@ -8,17 +8,17 @@ cargo_crate("lib") {
   crate_name = "star_constellation"
   epoch = "0.2"
   crate_type = "rlib"
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/star-constellation-0.2.3/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/star_constellation/v0_2/crate/src/api.rs",
-    "//brave/third_party/rust/star_constellation/v0_2/crate/src/format.rs",
-    "//brave/third_party/rust/star_constellation/v0_2/crate/src/internal.rs",
-    "//brave/third_party/rust/star_constellation/v0_2/crate/src/lib.rs",
-    "//brave/third_party/rust/star_constellation/v0_2/crate/src/randomness.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-constellation-0.2.3/src/api.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-constellation-0.2.3/src/format.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-constellation-0.2.3/src/internal.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-constellation-0.2.3/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-constellation-0.2.3/src/randomness.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/star_constellation/v0_2/crate/README.md",
-    "//brave/third_party/rust/star_constellation/v0_2/crate/SECURITY.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-constellation-0.2.3/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-constellation-0.2.3/SECURITY.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

@@ -12,10 +12,10 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/constant_time_eq-1.59/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/constant_time_eq/v0_2/crate/benches/bench.rs",
-    "//brave/third_party/rust/constant_time_eq/v0_2/crate/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/constant_time_eq-1.59/benches/bench.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/constant_time_eq-1.59/src/lib.rs",
   ]
   inputs = []
 

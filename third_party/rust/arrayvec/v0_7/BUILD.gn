@@ -12,23 +12,23 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/arrayvec/v0_7/crate/benches/arraystring.rs",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/benches/extend.rs",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/src/array_string.rs",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/src/arrayvec.rs",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/src/arrayvec_impl.rs",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/src/char.rs",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/src/errors.rs",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/src/lib.rs",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/src/utils.rs",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/tests/serde.rs",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/tests/tests.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/benches/arraystring.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/benches/extend.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/src/array_string.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/src/arrayvec.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/src/arrayvec_impl.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/src/char.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/src/errors.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/src/utils.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/tests/serde.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/tests/tests.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/arrayvec/v0_7/crate/CHANGELOG.md",
-    "//brave/third_party/rust/arrayvec/v0_7/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/arrayvec-0.7.2/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

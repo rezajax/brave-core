@@ -12,28 +12,28 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/tinyvec/v1/crate/benches/macros.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/benches/smallvec.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/src-backup/arrayset.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/src/array.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/src/array/const_generic_impl.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/src/array/generated_impl.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/src/arrayvec.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/src/arrayvec_drain.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/src/lib.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/src/slicevec.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/src/tinyvec.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/tests/arrayvec.rs",
-    "//brave/third_party/rust/tinyvec/v1/crate/tests/tinyvec.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/benches/macros.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/benches/smallvec.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/src-backup/arrayset.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/src/array.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/src/array/const_generic_impl.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/src/array/generated_impl.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/src/arrayvec.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/src/arrayvec_drain.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/src/slicevec.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/src/tinyvec.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/tests/arrayvec.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/tests/tinyvec.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/tinyvec/v1/crate/CHANGELOG.md",
-    "//brave/third_party/rust/tinyvec/v1/crate/LICENSE-APACHE.md",
-    "//brave/third_party/rust/tinyvec/v1/crate/LICENSE-MIT.md",
-    "//brave/third_party/rust/tinyvec/v1/crate/LICENSE-ZLIB.md",
-    "//brave/third_party/rust/tinyvec/v1/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/LICENSE-APACHE.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/LICENSE-MIT.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/LICENSE-ZLIB.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tinyvec-1.6.0/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

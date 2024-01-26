@@ -12,16 +12,16 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/zeroize-1.5.5/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/zeroize/v1/crate/src/aarch64.rs",
-    "//brave/third_party/rust/zeroize/v1/crate/src/lib.rs",
-    "//brave/third_party/rust/zeroize/v1/crate/src/x86.rs",
-    "//brave/third_party/rust/zeroize/v1/crate/tests/zeroize_derive.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/zeroize-1.5.5/src/aarch64.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/zeroize-1.5.5/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/zeroize-1.5.5/src/x86.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/zeroize-1.5.5/tests/zeroize_derive.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/zeroize/v1/crate/CHANGELOG.md",
-    "//brave/third_party/rust/zeroize/v1/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/zeroize-1.5.5/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/zeroize-1.5.5/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

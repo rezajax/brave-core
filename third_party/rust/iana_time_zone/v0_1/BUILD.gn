@@ -12,26 +12,26 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/examples/get_timezone.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/examples/stress-test.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/ffi_utils.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/lib.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/platform.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/tz_android.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/tz_freebsd.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/tz_haiku.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/tz_illumos.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/tz_linux.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/tz_macos.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/tz_netbsd.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/tz_wasm32.rs",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/src/tz_windows.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/examples/get_timezone.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/examples/stress-test.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/ffi_utils.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/platform.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/tz_android.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/tz_freebsd.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/tz_haiku.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/tz_illumos.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/tz_linux.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/tz_macos.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/tz_netbsd.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/tz_wasm32.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/src/tz_windows.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/CHANGELOG.md",
-    "//brave/third_party/rust/iana_time_zone/v0_1/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/iana-time-zone-0.1.54/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

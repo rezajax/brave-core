@@ -12,32 +12,32 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/num_traits/v0_2/crate/build.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/bounds.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/cast.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/float.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/identities.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/int.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/lib.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/macros.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/ops/checked.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/ops/euclid.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/ops/inv.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/ops/mod.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/ops/mul_add.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/ops/overflowing.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/ops/saturating.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/ops/wrapping.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/pow.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/real.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/src/sign.rs",
-    "//brave/third_party/rust/num_traits/v0_2/crate/tests/cast.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/bounds.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/cast.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/float.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/identities.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/int.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/macros.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/ops/checked.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/ops/euclid.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/ops/inv.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/ops/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/ops/mul_add.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/ops/overflowing.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/ops/saturating.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/ops/wrapping.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/pow.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/real.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/src/sign.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/tests/cast.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/num_traits/v0_2/crate/README.md",
-    "//brave/third_party/rust/num_traits/v0_2/crate/RELEASES.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/RELEASES.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
@@ -56,8 +56,8 @@ cargo_crate("lib") {
     "i128",
     "std",
   ]
-  build_root = "crate/build.rs"
-  build_sources = [ "crate/build.rs" ]
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/build.rs"
+  build_sources = [ "//brave/third_party/rust/chromium_crates_io/vendor/num-traits-0.2.15/build.rs" ]
   rustflags = [
     "--cfg",
     "has_i128",

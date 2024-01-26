@@ -12,24 +12,24 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/futures_channel/v0_3/crate/benches/sync_mpsc.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/build.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/no_atomic_cas.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/src/lib.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/src/lock.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/src/mpsc/mod.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/src/mpsc/queue.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/src/mpsc/sink_impl.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/src/oneshot.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/tests/channel.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/tests/mpsc-close.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/tests/mpsc-size_hint.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/tests/mpsc.rs",
-    "//brave/third_party/rust/futures_channel/v0_3/crate/tests/oneshot.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/benches/sync_mpsc.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/no_atomic_cas.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/src/lock.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/src/mpsc/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/src/mpsc/queue.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/src/mpsc/sink_impl.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/src/oneshot.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/tests/channel.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/tests/mpsc-close.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/tests/mpsc-size_hint.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/tests/mpsc.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/tests/oneshot.rs",
   ]
-  inputs = [ "//brave/third_party/rust/futures_channel/v0_3/crate/README.md" ]
+  inputs = [ "//brave/third_party/rust/chromium_crates_io/vendor/futures-channel-1.45/README.md" ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
   build_native_rust_unit_tests = false

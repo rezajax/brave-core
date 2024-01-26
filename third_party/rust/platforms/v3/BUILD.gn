@@ -12,24 +12,24 @@ cargo_crate("buildrs_support") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/platforms/v3/crate/src/error.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/lib.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/platform.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/platform/platforms.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/platform/req.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/platform/tier.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/target.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/target/arch.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/target/endian.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/target/env.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/target/os.rs",
-    "//brave/third_party/rust/platforms/v3/crate/src/target/pointerwidth.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/error.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/platform.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/platform/platforms.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/platform/req.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/platform/tier.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/target.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/target/arch.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/target/endian.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/target/env.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/target/os.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/src/target/pointerwidth.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/platforms/v3/crate/CHANGELOG.md",
-    "//brave/third_party/rust/platforms/v3/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/platforms-3.2.0/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

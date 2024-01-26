@@ -12,18 +12,18 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/hkdf.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/hkdf-0.11.0/src/hkdf.rs"
   sources = [
-    "//brave/third_party/rust/hkdf/v0_11/crate/benches/hkdf.rs",
-    "//brave/third_party/rust/hkdf/v0_11/crate/examples/extract.rs",
-    "//brave/third_party/rust/hkdf/v0_11/crate/examples/from_prk.rs",
-    "//brave/third_party/rust/hkdf/v0_11/crate/examples/main.rs",
-    "//brave/third_party/rust/hkdf/v0_11/crate/src/hkdf.rs",
-    "//brave/third_party/rust/hkdf/v0_11/crate/tests/tests.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/hkdf-0.11.0/benches/hkdf.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/hkdf-0.11.0/examples/extract.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/hkdf-0.11.0/examples/from_prk.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/hkdf-0.11.0/examples/main.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/hkdf-0.11.0/src/hkdf.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/hkdf-0.11.0/tests/tests.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/hkdf/v0_11/crate/CHANGELOG.md",
-    "//brave/third_party/rust/hkdf/v0_11/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/hkdf-0.11.0/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/hkdf-0.11.0/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

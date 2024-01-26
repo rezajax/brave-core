@@ -12,20 +12,20 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/signature/v1/crate/src/error.rs",
-    "//brave/third_party/rust/signature/v1/crate/src/hazmat.rs",
-    "//brave/third_party/rust/signature/v1/crate/src/keypair.rs",
-    "//brave/third_party/rust/signature/v1/crate/src/lib.rs",
-    "//brave/third_party/rust/signature/v1/crate/src/signature.rs",
-    "//brave/third_party/rust/signature/v1/crate/src/signer.rs",
-    "//brave/third_party/rust/signature/v1/crate/src/verifier.rs",
-    "//brave/third_party/rust/signature/v1/crate/tests/derive.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/src/error.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/src/hazmat.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/src/keypair.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/src/signature.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/src/signer.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/src/verifier.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/tests/derive.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/signature/v1/crate/CHANGELOG.md",
-    "//brave/third_party/rust/signature/v1/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/signature-1.56/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

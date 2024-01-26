@@ -12,26 +12,26 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/ahash/v0_7/crate/build.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/src/aes_hash.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/src/convert.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/src/fallback_hash.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/src/hash_map.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/src/hash_quality_test.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/src/hash_set.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/src/lib.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/src/operations.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/src/random_state.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/src/specialize.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/tests/bench.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/tests/map_tests.rs",
-    "//brave/third_party/rust/ahash/v0_7/crate/tests/nopanic.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/aes_hash.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/convert.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/fallback_hash.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/hash_map.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/hash_quality_test.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/hash_set.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/operations.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/random_state.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/src/specialize.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/tests/bench.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/tests/map_tests.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/tests/nopanic.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/ahash/v0_7/crate/FAQ.md",
-    "//brave/third_party/rust/ahash/v0_7/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/FAQ.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
@@ -51,6 +51,6 @@ cargo_crate("lib") {
     deps += [ "//third_party/rust/getrandom/v0_2:lib" ]
   }
   build_deps = [ "//brave/third_party/rust/version_check/v0_9:buildrs_support" ]
-  build_root = "crate/./build.rs"
-  build_sources = [ "crate/./build.rs" ]
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/build.rs"
+  build_sources = [ "//brave/third_party/rust/chromium_crates_io/vendor/ahash-0.7.6/build.rs" ]
 }

@@ -12,31 +12,31 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/callsite.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/dispatcher.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/event.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/field.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/lazy.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/lib.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/metadata.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/parent.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/span.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/spin/mod.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/spin/mutex.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/spin/once.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/stdlib.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/src/subscriber.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/tests/common/mod.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/tests/dispatch.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/tests/global_dispatch.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/tests/local_dispatch_before_init.rs",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/tests/macros.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/callsite.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/dispatcher.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/event.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/field.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/lazy.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/metadata.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/parent.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/span.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/spin/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/spin/mutex.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/spin/once.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/stdlib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/src/subscriber.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/tests/common/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/tests/dispatch.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/tests/global_dispatch.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/tests/local_dispatch_before_init.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/tests/macros.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/tracing_core/v0_1/crate/CHANGELOG.md",
-    "//brave/third_party/rust/tracing_core/v0_1/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/tracing-core-1.56.0/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

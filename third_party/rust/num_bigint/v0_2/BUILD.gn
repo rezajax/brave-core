@@ -12,38 +12,38 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/num_bigint/v0_2/crate/benches/bigint.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/benches/factorial.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/benches/gcd.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/benches/roots.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/benches/shootout-pidigits.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/build.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/src/algorithms.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/src/bigint.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/src/bigrand.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/src/biguint.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/src/lib.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/src/macros.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/src/monty.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/bigint.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/bigint_bitwise.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/bigint_scalar.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/biguint.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/biguint_scalar.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/consts/mod.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/macros/mod.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/modpow.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/quickcheck.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/rand.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/roots.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/serde.rs",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/tests/torture.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/benches/bigint.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/benches/factorial.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/benches/gcd.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/benches/roots.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/benches/shootout-pidigits.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/src/algorithms.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/src/bigint.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/src/bigrand.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/src/biguint.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/src/macros.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/src/monty.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/bigint.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/bigint_bitwise.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/bigint_scalar.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/biguint.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/biguint_scalar.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/consts/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/macros/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/modpow.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/quickcheck.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/rand.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/roots.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/serde.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/tests/torture.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/num_bigint/v0_2/crate/README.md",
-    "//brave/third_party/rust/num_bigint/v0_2/crate/RELEASES.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/RELEASES.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
@@ -63,8 +63,8 @@ cargo_crate("lib") {
   ]
   build_deps = [ "//third_party/rust/autocfg/v1:buildrs_support" ]
   features = [ "std" ]
-  build_root = "crate/build.rs"
-  build_sources = [ "crate/build.rs" ]
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/build.rs"
+  build_sources = [ "//brave/third_party/rust/chromium_crates_io/vendor/num-bigint-0.2.6/build.rs" ]
   rustflags = [
     "--cfg",
     "has_i128",

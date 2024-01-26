@@ -15,35 +15,35 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/indexmap/v1/crate/benches/bench.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/benches/faststring.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/build.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/arbitrary.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/equivalent.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/lib.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/macros.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/map.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/map/core.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/map/core/raw.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/mutable_keys.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/rayon/map.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/rayon/mod.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/rayon/set.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/rustc.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/serde.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/serde_seq.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/set.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/src/util.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/tests/equivalent_trait.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/tests/macros_full_path.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/tests/quick.rs",
-    "//brave/third_party/rust/indexmap/v1/crate/tests/tests.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/benches/bench.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/benches/faststring.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/arbitrary.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/equivalent.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/macros.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/map.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/map/core.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/map/core/raw.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/mutable_keys.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/rayon/map.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/rayon/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/rayon/set.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/rustc.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/serde.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/serde_seq.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/set.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/src/util.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/tests/equivalent_trait.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/tests/macros_full_path.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/tests/quick.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/tests/tests.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/indexmap/v1/crate/README.md",
-    "//brave/third_party/rust/indexmap/v1/crate/RELEASES.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/RELEASES.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
@@ -59,6 +59,6 @@ cargo_crate("lib") {
   executable_configs += [ "//build/config/compiler:no_chromium_code" ]
   deps = [ "//brave/third_party/rust/hashbrown/v0_12:lib" ]
   build_deps = [ "//third_party/rust/autocfg/v1:buildrs_support" ]
-  build_root = "crate/build.rs"
-  build_sources = [ "crate/build.rs" ]
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/build.rs"
+  build_sources = [ "//brave/third_party/rust/chromium_crates_io/vendor/indexmap-1.56/build.rs" ]
 }

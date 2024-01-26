@@ -12,38 +12,38 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/proc_macro_error/v1/crate/build.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/src/diagnostic.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/src/dummy.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/src/imp/delegate.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/src/imp/fallback.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/src/lib.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/src/macros.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/src/sealed.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/macro-errors.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ok.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/runtime-errors.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/abort.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/append_dummy.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/children_messages.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/dummy.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/emit.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/explicit_span_range.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/misuse.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/multiple_tokens.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/not_proc_macro.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/option_ext.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/proc_macro_hack.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/result_ext.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/to_tokens_span.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/unknown_setting.rs",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/tests/ui/unrelated_panic.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/src/diagnostic.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/src/dummy.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/src/imp/delegate.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/src/imp/fallback.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/src/macros.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/src/sealed.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/macro-errors.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ok.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/runtime-errors.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/abort.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/append_dummy.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/children_messages.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/dummy.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/emit.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/explicit_span_range.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/misuse.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/multiple_tokens.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/not_proc_macro.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/option_ext.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/proc_macro_hack.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/result_ext.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/to_tokens_span.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/unknown_setting.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/tests/ui/unrelated_panic.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/proc_macro_error/v1/crate/CHANGELOG.md",
-    "//brave/third_party/rust/proc_macro_error/v1/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
@@ -68,6 +68,6 @@ cargo_crate("lib") {
     "syn",
     "syn-error",
   ]
-  build_root = "crate/build.rs"
-  build_sources = [ "crate/build.rs" ]
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/build.rs"
+  build_sources = [ "//brave/third_party/rust/chromium_crates_io/vendor/proc-macro-error-1.0.4/build.rs" ]
 }

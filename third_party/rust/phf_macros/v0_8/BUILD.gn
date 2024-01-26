@@ -12,14 +12,14 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/phf_macros-0.8.0/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/phf_macros/v0_8/crate/benches/bench.rs",
-    "//brave/third_party/rust/phf_macros/v0_8/crate/src/lib.rs",
-    "//brave/third_party/rust/phf_macros/v0_8/crate/tests/compile-fail-unicase/equivalent-keys.rs",
-    "//brave/third_party/rust/phf_macros/v0_8/crate/tests/compile-fail/bad-syntax.rs",
-    "//brave/third_party/rust/phf_macros/v0_8/crate/tests/compiletest.rs",
-    "//brave/third_party/rust/phf_macros/v0_8/crate/tests/test.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/phf_macros-0.8.0/benches/bench.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/phf_macros-0.8.0/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/phf_macros-0.8.0/tests/compile-fail-unicase/equivalent-keys.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/phf_macros-0.8.0/tests/compile-fail/bad-syntax.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/phf_macros-0.8.0/tests/compiletest.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/phf_macros-0.8.0/tests/test.rs",
   ]
   inputs = []
 

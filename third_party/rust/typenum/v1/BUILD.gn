@@ -12,26 +12,26 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/typenum/v1/crate/build/generic_const_mappings.rs",
-    "//brave/third_party/rust/typenum/v1/crate/build/main.rs",
-    "//brave/third_party/rust/typenum/v1/crate/build/op.rs",
-    "//brave/third_party/rust/typenum/v1/crate/build/tests.rs",
-    "//brave/third_party/rust/typenum/v1/crate/src/array.rs",
-    "//brave/third_party/rust/typenum/v1/crate/src/bit.rs",
-    "//brave/third_party/rust/typenum/v1/crate/src/int.rs",
-    "//brave/third_party/rust/typenum/v1/crate/src/lib.rs",
-    "//brave/third_party/rust/typenum/v1/crate/src/marker_traits.rs",
-    "//brave/third_party/rust/typenum/v1/crate/src/operator_aliases.rs",
-    "//brave/third_party/rust/typenum/v1/crate/src/private.rs",
-    "//brave/third_party/rust/typenum/v1/crate/src/type_operators.rs",
-    "//brave/third_party/rust/typenum/v1/crate/src/uint.rs",
-    "//brave/third_party/rust/typenum/v1/crate/tests/test.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/build/generic_const_mappings.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/build/main.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/build/op.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/build/tests.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/src/array.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/src/bit.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/src/int.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/src/marker_traits.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/src/operator_aliases.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/src/private.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/src/type_operators.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/src/uint.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/tests/test.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/typenum/v1/crate/CHANGELOG.md",
-    "//brave/third_party/rust/typenum/v1/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
@@ -46,11 +46,11 @@ cargo_crate("lib") {
   library_configs += [ "//build/config/compiler:no_chromium_code" ]
   executable_configs -= [ "//build/config/compiler:chromium_code" ]
   executable_configs += [ "//build/config/compiler:no_chromium_code" ]
-  build_root = "crate/build/main.rs"
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/build/main.rs"
   build_sources = [
-    "crate/build/main.rs",
-    "crate/build/op.rs",
-    "crate/build/tests.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/build/main.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/build/op.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/typenum-1.37.0/build/tests.rs",
   ]
   build_script_outputs = [
     "consts.rs",

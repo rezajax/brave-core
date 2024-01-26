@@ -12,10 +12,10 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/windows_x86_64_msvc-0.42.2/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/windows_x86_64_msvc/v0_42/crate/build.rs",
-    "//brave/third_party/rust/windows_x86_64_msvc/v0_42/crate/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/windows_x86_64_msvc-0.42.2/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/windows_x86_64_msvc-0.42.2/src/lib.rs",
   ]
   inputs = []
 
@@ -30,6 +30,6 @@ cargo_crate("lib") {
   library_configs += [ "//build/config/compiler:no_chromium_code" ]
   executable_configs -= [ "//build/config/compiler:chromium_code" ]
   executable_configs += [ "//build/config/compiler:no_chromium_code" ]
-  build_root = "crate/build.rs"
-  build_sources = [ "crate/build.rs" ]
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/windows_x86_64_msvc-0.42.2/build.rs"
+  build_sources = [ "//brave/third_party/rust/chromium_crates_io/vendor/windows_x86_64_msvc-0.42.2/build.rs" ]
 }

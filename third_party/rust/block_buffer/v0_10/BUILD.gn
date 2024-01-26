@@ -12,15 +12,15 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/block-buffer-0.10.4/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/block_buffer/v0_10/crate/src/lib.rs",
-    "//brave/third_party/rust/block_buffer/v0_10/crate/src/sealed.rs",
-    "//brave/third_party/rust/block_buffer/v0_10/crate/tests/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/block-buffer-0.10.4/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/block-buffer-0.10.4/src/sealed.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/block-buffer-0.10.4/tests/mod.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/block_buffer/v0_10/crate/CHANGELOG.md",
-    "//brave/third_party/rust/block_buffer/v0_10/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/block-buffer-0.10.4/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/block-buffer-0.10.4/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

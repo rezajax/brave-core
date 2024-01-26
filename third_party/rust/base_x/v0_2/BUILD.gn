@@ -12,18 +12,18 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/base-x-0.2.11/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/base_x/v0_2/crate/benches/base.rs",
-    "//brave/third_party/rust/base_x/v0_2/crate/src/alphabet.rs",
-    "//brave/third_party/rust/base_x/v0_2/crate/src/bigint.rs",
-    "//brave/third_party/rust/base_x/v0_2/crate/src/decoder.rs",
-    "//brave/third_party/rust/base_x/v0_2/crate/src/encoder.rs",
-    "//brave/third_party/rust/base_x/v0_2/crate/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/base-x-0.2.11/benches/base.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/base-x-0.2.11/src/alphabet.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/base-x-0.2.11/src/bigint.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/base-x-0.2.11/src/decoder.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/base-x-0.2.11/src/encoder.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/base-x-0.2.11/src/lib.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/base_x/v0_2/crate/LICENSE.md",
-    "//brave/third_party/rust/base_x/v0_2/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/base-x-0.2.11/LICENSE.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/base-x-0.2.11/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

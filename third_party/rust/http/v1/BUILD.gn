@@ -8,36 +8,36 @@ cargo_crate("lib") {
   crate_name = "http"
   epoch = "1"
   crate_type = "rlib"
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/http/v1/crate/src/byte_str.rs",
-    "//brave/third_party/rust/http/v1/crate/src/convert.rs",
-    "//brave/third_party/rust/http/v1/crate/src/error.rs",
-    "//brave/third_party/rust/http/v1/crate/src/extensions.rs",
-    "//brave/third_party/rust/http/v1/crate/src/header/map.rs",
-    "//brave/third_party/rust/http/v1/crate/src/header/mod.rs",
-    "//brave/third_party/rust/http/v1/crate/src/header/name.rs",
-    "//brave/third_party/rust/http/v1/crate/src/header/value.rs",
-    "//brave/third_party/rust/http/v1/crate/src/lib.rs",
-    "//brave/third_party/rust/http/v1/crate/src/method.rs",
-    "//brave/third_party/rust/http/v1/crate/src/request.rs",
-    "//brave/third_party/rust/http/v1/crate/src/response.rs",
-    "//brave/third_party/rust/http/v1/crate/src/status.rs",
-    "//brave/third_party/rust/http/v1/crate/src/uri/authority.rs",
-    "//brave/third_party/rust/http/v1/crate/src/uri/builder.rs",
-    "//brave/third_party/rust/http/v1/crate/src/uri/mod.rs",
-    "//brave/third_party/rust/http/v1/crate/src/uri/path.rs",
-    "//brave/third_party/rust/http/v1/crate/src/uri/port.rs",
-    "//brave/third_party/rust/http/v1/crate/src/uri/scheme.rs",
-    "//brave/third_party/rust/http/v1/crate/src/uri/tests.rs",
-    "//brave/third_party/rust/http/v1/crate/src/version.rs",
-    "//brave/third_party/rust/http/v1/crate/tests/header_map.rs",
-    "//brave/third_party/rust/http/v1/crate/tests/header_map_fuzz.rs",
-    "//brave/third_party/rust/http/v1/crate/tests/status_code.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/byte_str.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/convert.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/error.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/extensions.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/header/map.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/header/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/header/name.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/header/value.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/method.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/request.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/response.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/status.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/uri/authority.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/uri/builder.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/uri/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/uri/path.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/uri/port.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/uri/scheme.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/uri/tests.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/src/version.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/tests/header_map.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/tests/header_map_fuzz.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/tests/status_code.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/http/v1/crate/CHANGELOG.md",
-    "//brave/third_party/rust/http/v1/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/http-1.49.0/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

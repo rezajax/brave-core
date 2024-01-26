@@ -12,21 +12,21 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/num_integer/v0_1/crate/benches/average.rs",
-    "//brave/third_party/rust/num_integer/v0_1/crate/benches/gcd.rs",
-    "//brave/third_party/rust/num_integer/v0_1/crate/benches/roots.rs",
-    "//brave/third_party/rust/num_integer/v0_1/crate/build.rs",
-    "//brave/third_party/rust/num_integer/v0_1/crate/src/average.rs",
-    "//brave/third_party/rust/num_integer/v0_1/crate/src/lib.rs",
-    "//brave/third_party/rust/num_integer/v0_1/crate/src/roots.rs",
-    "//brave/third_party/rust/num_integer/v0_1/crate/tests/average.rs",
-    "//brave/third_party/rust/num_integer/v0_1/crate/tests/roots.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/benches/average.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/benches/gcd.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/benches/roots.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/src/average.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/src/roots.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/tests/average.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/tests/roots.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/num_integer/v0_1/crate/README.md",
-    "//brave/third_party/rust/num_integer/v0_1/crate/RELEASES.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/RELEASES.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
@@ -46,6 +46,6 @@ cargo_crate("lib") {
     "i128",
     "std",
   ]
-  build_root = "crate/build.rs"
-  build_sources = [ "crate/build.rs" ]
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/build.rs"
+  build_sources = [ "//brave/third_party/rust/chromium_crates_io/vendor/num-integer-0.1.45/build.rs" ]
 }

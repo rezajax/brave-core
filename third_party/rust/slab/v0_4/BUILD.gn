@@ -12,18 +12,18 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/slab/v0_4/crate/build.rs",
-    "//brave/third_party/rust/slab/v0_4/crate/src/builder.rs",
-    "//brave/third_party/rust/slab/v0_4/crate/src/lib.rs",
-    "//brave/third_party/rust/slab/v0_4/crate/src/serde.rs",
-    "//brave/third_party/rust/slab/v0_4/crate/tests/serde.rs",
-    "//brave/third_party/rust/slab/v0_4/crate/tests/slab.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/src/builder.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/src/serde.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/tests/serde.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/tests/slab.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/slab/v0_4/crate/CHANGELOG.md",
-    "//brave/third_party/rust/slab/v0_4/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
@@ -39,6 +39,6 @@ cargo_crate("lib") {
   executable_configs += [ "//build/config/compiler:no_chromium_code" ]
   build_deps = [ "//third_party/rust/autocfg/v1:buildrs_support" ]
   features = [ "std" ]
-  build_root = "crate/build.rs"
-  build_sources = [ "crate/build.rs" ]
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/build.rs"
+  build_sources = [ "//brave/third_party/rust/chromium_crates_io/vendor/slab-1.31/build.rs" ]
 }

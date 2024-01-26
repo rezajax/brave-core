@@ -8,17 +8,17 @@ cargo_crate("lib") {
   crate_name = "markup5ever"
   epoch = "0.10"
   crate_type = "rlib"
-  crate_root = "crate/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/lib.rs"
   sources = [
-    "//brave/third_party/rust/markup5ever/v0_10/crate/build.rs",
-    "//brave/third_party/rust/markup5ever/v0_10/crate/data/mod.rs",
-    "//brave/third_party/rust/markup5ever/v0_10/crate/entities.rs",
-    "//brave/third_party/rust/markup5ever/v0_10/crate/interface/mod.rs",
-    "//brave/third_party/rust/markup5ever/v0_10/crate/interface/tree_builder.rs",
-    "//brave/third_party/rust/markup5ever/v0_10/crate/lib.rs",
-    "//brave/third_party/rust/markup5ever/v0_10/crate/serialize.rs",
-    "//brave/third_party/rust/markup5ever/v0_10/crate/util/buffer_queue.rs",
-    "//brave/third_party/rust/markup5ever/v0_10/crate/util/smallcharset.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/data/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/entities.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/interface/mod.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/interface/tree_builder.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/serialize.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/util/buffer_queue.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/util/smallcharset.rs",
   ]
   inputs = []
 
@@ -43,16 +43,16 @@ cargo_crate("lib") {
     "//brave/third_party/rust/phf_codegen/v0_8:buildrs_support",
     "//brave/third_party/rust/string_cache_codegen/v0_5:buildrs_support",
   ]
-  build_root = "crate/build.rs"
+  build_root = "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/build.rs"
   build_sources = [
-    "crate/build.rs",
-    "crate/entities.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/build.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1/entities.rs",
   ]
   build_script_outputs = [
     "generated.rs",
     "named_entities.rs",
   ]
   cargo_manifest_dir =
-      rebase_path("//brave/third_party/rust/markup5ever/v0_10/crate")
+      rebase_path("//brave/third_party/rust/chromium_crates_io/vendor/markup5ever-0.10.1")
   rustenv = [ "CARGO_MANIFEST_DIR=$cargo_manifest_dir" ]
 }

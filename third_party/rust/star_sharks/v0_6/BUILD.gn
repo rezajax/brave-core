@@ -12,15 +12,15 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/star-sharks-0.6.1/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/star_sharks/v0_6/crate/benches/benchmarks.rs",
-    "//brave/third_party/rust/star_sharks/v0_6/crate/src/lib.rs",
-    "//brave/third_party/rust/star_sharks/v0_6/crate/src/share_ff.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-sharks-0.6.1/benches/benchmarks.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-sharks-0.6.1/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-sharks-0.6.1/src/share_ff.rs",
   ]
   inputs = [
-    "//brave/third_party/rust/star_sharks/v0_6/crate/CHANGELOG.md",
-    "//brave/third_party/rust/star_sharks/v0_6/crate/README.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-sharks-0.6.1/CHANGELOG.md",
+    "//brave/third_party/rust/chromium_crates_io/vendor/star-sharks-0.6.1/README.md",
   ]
 
   # Unit tests skipped. Generate with --with-tests to include them.

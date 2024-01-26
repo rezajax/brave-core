@@ -12,22 +12,22 @@ cargo_crate("lib") {
   # Only for usage from third-party crates. Add the crate to
   # third_party.toml to use it from first-party code.
   visibility = [ "//brave/third_party/rust/*" ]
-  crate_root = "crate/src/lib.rs"
+  crate_root = "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/lib.rs"
   sources = [
-    "//brave/third_party/rust/futures_timer/v3/crate/src/lib.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/src/native.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/src/native/arc_list.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/src/native/atomic_waker.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/src/native/delay.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/src/native/global.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/src/native/heap.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/src/native/heap_timer.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/src/native/timer.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/src/wasm.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/tests/smoke.rs",
-    "//brave/third_party/rust/futures_timer/v3/crate/tests/timeout.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/lib.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/native.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/native/arc_list.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/native/atomic_waker.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/native/delay.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/native/global.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/native/heap.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/native/heap_timer.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/native/timer.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/src/wasm.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/tests/smoke.rs",
+    "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/tests/timeout.rs",
   ]
-  inputs = [ "//brave/third_party/rust/futures_timer/v3/crate/README.md" ]
+  inputs = [ "//brave/third_party/rust/chromium_crates_io/vendor/futures-timer-3.0.2/README.md" ]
 
   # Unit tests skipped. Generate with --with-tests to include them.
   build_native_rust_unit_tests = false
