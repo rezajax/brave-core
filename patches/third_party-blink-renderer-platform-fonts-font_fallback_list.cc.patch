@@ -1,8 +1,8 @@
 diff --git a/third_party/blink/renderer/platform/fonts/font_fallback_list.cc b/third_party/blink/renderer/platform/fonts/font_fallback_list.cc
-index b0707aa8faf9869917c8abdb6038db29849f161d..7b5cc228f6a8812376dcb982529905a4ffbbdbb6 100644
+index ec27b6b3c2f486f6ddf1938d0a0b00e8065855af..c030d3f2b9de94e92616e7b111bfb15b676d9d70 100644
 --- a/third_party/blink/renderer/platform/fonts/font_fallback_list.cc
 +++ b/third_party/blink/renderer/platform/fonts/font_fallback_list.cc
-@@ -177,6 +177,7 @@ scoped_refptr<FontData> FontFallbackList::GetFontData(
+@@ -173,6 +173,7 @@ scoped_refptr<FontData> FontFallbackList::GetFontData(
        font_selector_->ReportFontLookupByUniqueOrFamilyName(
            curr_family->FamilyName(), font_description,
            DynamicTo<SimpleFontData>(result.get()));

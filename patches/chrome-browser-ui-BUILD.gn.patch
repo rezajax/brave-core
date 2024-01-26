@@ -1,5 +1,5 @@
 diff --git a/chrome/browser/ui/BUILD.gn b/chrome/browser/ui/BUILD.gn
-index f58876049a2dd7ed41a16d02572042594b686da2..a1465ac853c26a00cb2fa85806983f9397066990 100644
+index e3556ce88214c6617a247496aa913ac2b7f66f20..df4a45a81faf0e2f835ea911fe356b0cd151ed0d 100644
 --- a/chrome/browser/ui/BUILD.gn
 +++ b/chrome/browser/ui/BUILD.gn
 @@ -726,6 +726,7 @@ static_library("ui") {
@@ -10,7 +10,7 @@ index f58876049a2dd7ed41a16d02572042594b686da2..a1465ac853c26a00cb2fa85806983f93
  
    if (enable_vr && is_win) {
      deps += [ "//chrome/browser/vr:vr_base" ]
-@@ -4519,6 +4520,7 @@ static_library("ui") {
+@@ -4521,6 +4522,7 @@ static_library("ui") {
        "//third_party/google_toolbox_for_mac",
        "//ui/accelerated_widget_mac:accelerated_widget_mac",
      ]
@@ -18,7 +18,7 @@ index f58876049a2dd7ed41a16d02572042594b686da2..a1465ac853c26a00cb2fa85806983f93
      include_dirs = [ "$target_gen_dir" ]
      frameworks = [
        "Carbon.framework",
-@@ -4626,10 +4628,13 @@ static_library("ui") {
+@@ -4628,10 +4630,13 @@ static_library("ui") {
        ]
        deps += [ "//chrome/updater/app/server/win:updater_legacy_idl" ]
      } else {
