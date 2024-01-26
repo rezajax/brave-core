@@ -90,6 +90,12 @@ impl TryFrom<OrderItemResponse> for OrderItem {
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+struct SubmitReceiptNewOrderResponse {
+    id: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 struct OrderResponse {
     id: String,
     created_at: DateTime<Utc>,
@@ -236,6 +242,35 @@ where
         let order: Order = order.try_into()?;
 
         Ok(order)
+    }
+
+    #[instrument(err(level = Level::WARN), ret)]
+    // submit_receipt_new_order allows for order creation with a vendor receipt, returning the
+    // order id of the created order
+    pub async fn submit_receipt_new_order(&self, receipt: &str) -> Result<String, InternalError> {
+        event!(Level::DEBUG, order_id = order_id, "submit_receipt_new_order called");
+        let request_with_retries = FutureRetry::new(
+            || async {
+                let builder = http::Request::builder()
+                    .method("POST")
+                    .uri(format!("{}/v1/orders/receipt", self.base_url, order_id));
+
+                let receipt_bytes = receipt.as_bytes().to_vec();
+                let req = builder.body(receipt_bytes)?;
+
+                let resp: SubmitReceiptNewOrderResponse = self.fetch(req).await?;
+                match resp.status() {
+                    http::StatusCode::OK => Ok(resp.order_id),
+                    http::StatusCode::NOT_FOUND => Err(InternalError::NotFound),
+                    _ => Err(resp.into()),
+                }
+            },
+            HttpHandler::new(3, "Submit receipt new order", &self.client),
+        );
+
+        request_with_retries.await?;
+
+        Ok(())
     }
 
     #[instrument(err(level = Level::WARN), ret)]

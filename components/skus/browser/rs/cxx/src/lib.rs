@@ -164,6 +164,12 @@ mod ffi {
             order_id: String,
             receipt: String,
         );
+        fn submit_receipt_new_order(
+            self: &CppSDK,
+            callback: SubmitReceiptNewOrderCallback,
+            callback_state: UniquePtr<SubmitReceiptNewOrderCallbackState>,
+            receipt: String,
+        );
 
         fn result_to_string(result: &SkusResult) -> String;
     }
@@ -365,6 +371,27 @@ impl CppSDK {
 
         self.sdk.client.try_run_until_stalled();
     }
+    fn submit_receipt_new_order(
+        self: &CppSDK,
+        callback: SubmitReceiptNewOrderCallback,
+        callback_state: UniquePtr<ffi::SubmitReceiptNewOrderCallbackState>,
+        receipt: String,
+    ) {
+        let spawner = self.sdk.client.spawner.clone();
+        if spawner
+            .spawn_local(submit_receipt_new_order_task(
+                self.sdk.clone(),
+                callback,
+                callback_state,
+                receipt,
+            ))
+            .is_err()
+        {
+            debug!("pool is shutdown");
+        }
+
+        self.sdk.client.try_run_until_stalled();
+    }
 }
 
 #[allow(improper_ctypes_definitions)]
@@ -509,6 +536,28 @@ async fn submit_receipt_task(
 ) {
     match sdk.submit_receipt(&order_id, &receipt).await.map_err(|e| e.into()) {
         Ok(_) => callback.0(callback_state.into_raw(), ffi::SkusResult::Ok),
+        Err(e) => callback.0(callback_state.into_raw(), e),
+    }
+}
+
+#[repr(transparent)]
+pub struct SubmitReceiptNewOrderCallback(
+    pub extern "C" fn(callback_state: *mut ffi::SubmitReceiptNewOrderCallbackState, result: String),
+);
+
+unsafe impl ExternType for SubmitReceiptNewOrderCallback {
+    type Id = type_id!("skus::SubmitReceiptNewOrderCallback");
+    type Kind = cxx::kind::Trivial;
+}
+
+async fn submit_receipt_new_order_task(
+    sdk: Rc<skus::sdk::SDK<NativeClient>>,
+    callback: SubmitReceiptNewOrderCallback,
+    callback_state: UniquePtr<ffi::SubmitReceiptNewOrderCallbackState>,
+    receipt: String,
+) {
+    match sdk.submit_receipt_new_order(&order_id, &receipt).await.map_err(|e| e.into()) {
+        Ok(_) => callback.0(callback_state.into_raw(), String),
         Err(e) => callback.0(callback_state.into_raw(), e),
     }
 }
