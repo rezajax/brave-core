@@ -126,6 +126,9 @@ class ConversationDriver {
   // history, the page content should not be linked.
   bool ShouldUnlinkPageContent();
 
+  bool IsArticleTextEmptyForTesting() const { return article_text_.empty(); }
+  bool IsSuggestionsEmptyForTesting() const { return suggestions_.empty(); }
+
  protected:
   virtual GURL GetPageURL() const = 0;
   virtual std::u16string GetPageTitle() const = 0;
