@@ -564,6 +564,11 @@
 -SafeBrowsingServiceTest.DoesNotChangeEsbTimestampIfPresent
 -SafeBrowsingServiceTest.EsbEnabledTimestampOnlyWhenEsbEnabled
 
+# These tests fail because we add global thirdparty cookie exceptions for Google
+# and Firebase when features::kBraveGoogleSignInPermission is disabled, so the
+# exception counts don't match with upstream
+-All/SiteSettingsHandlerTest.TemporaryCookieExceptions/*
+
 # Tests below this point have not been diagnosed or had issues created yet.
 -AboutFlagsHistogramTest.*
 -AboutFlagsTest.*
